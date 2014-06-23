@@ -1,11 +1,11 @@
 set nocompatible
 
 " Setup Vundle
-" git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+" git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-Plugin 'gmarik/vundle'
+Plugin 'gmarik/Vundle.vim'
 
 " Plugins
 " vim-related
@@ -17,19 +17,20 @@ Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'bling/vim-airline'
 Plugin 'Lokaltog/vim-easymotion'
+Plugin 'relops'
 
 " general editing
 Plugin 'tpope/vim-surround'
 Plugin 'garbas/vim-snipmate'
 Plugin 'honza/vim-snippets'
-Plugin 'godlygeek/tabular'
+Plugin 'tommcdo/vim-lion'
 Plugin 'scrooloose/nerdcommenter'
 
 " project management
-Plugin 'editorconfig/editorconfig-vim'
-Plugin 'tpope/vim-fugitive'
-Plugin 'kien/ctrlp.vim'
-Plugin 'tpope/vin'
+Plugin 'editorconfig/editorconfig-vim' " editor config reader
+Plugin 'tpope/vim-fugitive'            " git support
+Plugin 'kien/ctrlp.vim'                " find files quickly
+Plugin 'tpope/vim-vinegar'             " use netrw more easily
 
 " web dev
 Plugin 'jimmyhchan/dustjs.vim'
@@ -143,9 +144,10 @@ endfunction
 
 let python_highlight_all=1
 set nowrap
-" move swap files and ~ backups to a specific dir
-set directory=~/vimfiles/backup/
-set backupdir=~/vimfiles/backup/
+" move swap files, ~ backups, and undo to a specific dir
+set directory=~/.vim/swap//
+set backupdir=~/.vim/backup//
+set undodir=~/.vim/undo//
 set ssop-=options
 set ssop-=folds
 
@@ -175,3 +177,5 @@ endfunction
 set lazyredraw
 
 set guioptions= " disable all guioptions
+
+
