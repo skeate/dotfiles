@@ -3,48 +3,50 @@ set nocompatible
 " Setup Vundle
 " git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 filetype off
-set rtp+=~/vimfiles/bundle/vundle/
-let path='~/vimfiles/bundle'
-call vundle#rc(path)
-Bundle 'gmarik/vundle'
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'gmarik/vundle'
 
-" Bundles
+" Plugins
 " vim-related
-Bundle 'jlanzarotta/bufexplorer'
-Bundle 'sjl/gundo.vim'
-Bundle 'scrooloose/syntastic'
-Bundle 'tomtom/tlib_vim'
-Bundle 'MarcWeber/vim-addon-mw-utils'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'bling/vim-airline'
-Bundle 'Lokaltog/vim-easymotion'
+Plugin 'jlanzarotta/bufexplorer'
+Plugin 'sjl/gundo.vim'
+Plugin 'scrooloose/syntastic'
+Plugin 'tomtom/tlib_vim'
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'bling/vim-airline'
+Plugin 'Lokaltog/vim-easymotion'
 
 " general editing
-Bundle 'tpope/vim-surround'
-Bundle 'garbas/vim-snipmate'
-Bundle 'honza/vim-snippets'
-Bundle 'godlygeek/tabular'
-Bundle 'scrooloose/nerdcommenter'
+Plugin 'tpope/vim-surround'
+Plugin 'garbas/vim-snipmate'
+Plugin 'honza/vim-snippets'
+Plugin 'godlygeek/tabular'
+Plugin 'scrooloose/nerdcommenter'
 
 " project management
-Bundle 'editorconfig/editorconfig-vim'
-Bundle 'tpope/vim-fugitive'
-Bundle 'kien/ctrlp.vim'
-Bundle 'scrooloose/nerdtree'
+Plugin 'editorconfig/editorconfig-vim'
+Plugin 'tpope/vim-fugitive'
+Plugin 'kien/ctrlp.vim'
+Plugin 'tpope/vin'
 
 " web dev
-Bundle 'jimmyhchan/dustjs.vim'
-Bundle 'mattn/emmet-vim'
-Bundle 'othree/html5.vim'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'hail2u/vim-css3-syntax'
-Bundle 'mintplant/vim-literate-coffeescript'
-Bundle 'clvv/a.vim'
-Bundle 'heartsentwined/vim-ember-script'
-Bundle 'heartsentwined/vim-emblem'
+Plugin 'jimmyhchan/dustjs.vim'
+Plugin 'mattn/emmet-vim'
+Plugin 'othree/html5.vim'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'hail2u/vim-css3-syntax'
+Plugin 'mintplant/vim-literate-coffeescript'
+Plugin 'clvv/a.vim'
+Plugin 'heartsentwined/vim-ember-script'
+Plugin 'heartsentwined/vim-emblem'
 
 " misc
-Bundle 'tpope/vim-markdown'
+Plugin 'tpope/vim-markdown'
+
+call vundle#end()
+filetype plugin indent on
 
 
 " --- plugin config --- "
