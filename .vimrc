@@ -9,29 +9,35 @@ Plugin 'gmarik/Vundle.vim'
 
 " Plugins
 " vim-related
-Plugin 'tpope/vim-sensible' " sensible defaults
-Plugin 'jlanzarotta/bufexplorer' " show buffers nicely
-Plugin 'sjl/gundo.vim' " show undo tree
-Plugin 'scrooloose/syntastic' " syntax checking
-Plugin 'tomtom/tlib_vim' " utils, required for Snipmate
-Plugin 'MarcWeber/vim-addon-mw-utils' " utils, req Snipmate
+Plugin 'tpope/vim-sensible'               " sensible defaults
+Plugin 'jlanzarotta/bufexplorer'          " show buffers nicely
+Plugin 'sjl/gundo.vim'                    " show undo tree
+Plugin 'scrooloose/syntastic'             " syntax checking
+Plugin 'tomtom/tlib_vim'                  " utils, required for Snipmate
+Plugin 'MarcWeber/vim-addon-mw-utils'     " utils, req Snipmate
 Plugin 'altercation/vim-colors-solarized' " nice colorscheme
-Plugin 'bling/vim-airline' " nice statusbar
-Plugin 'Lokaltog/vim-easymotion' " move around easier
-Plugin 'relops' " show relative line numbers only when pending operation
+Plugin 'bling/vim-airline'                " nice statusbar
+Plugin 'Lokaltog/vim-easymotion'          " move around easier
+Plugin 'camelcasemotion'                  " allow motion through camelcase words with (eg) ,w
+Plugin 'gcmt/taboo.vim'                   " allow renaming of tabs
 
 " general editing
-Plugin 'tpope/vim-surround' " surround object with text/tags
-Plugin 'garbas/vim-snipmate' " allow snippets
-Plugin 'honza/vim-snippets' " library of snippets
-Plugin 'tommcdo/vim-lion' " align to character
-Plugin 'scrooloose/nerdcommenter' " comment code
+Plugin 'tpope/vim-surround'               " surround object with text/tags
+Plugin 'garbas/vim-snipmate'              " allow snippets
+Plugin 'honza/vim-snippets'               " library of snippets
+Plugin 'tommcdo/vim-lion'                 " align to character
+Plugin 'scrooloose/nerdcommenter'         " comment code
+Plugin 'tpope/vim-repeat'                 " fix . repeating for plugins
+Plugin 'tpope/vim-unimpaired'             " add pairwise operators with [x ]x
+Plugin 'b4winckler/vim-angry.git'         " add function arg text object
 
 " project management
-Plugin 'kien/ctrlp.vim'                " find files quickly
-Plugin 'editorconfig/editorconfig-vim' " editor config reader
-Plugin 'tpope/vim-fugitive'            " git support
-Plugin 'tpope/vim-vinegar'             " use netrw more easily
+Plugin 'kien/ctrlp.vim'                   " find files quickly
+Plugin 'editorconfig/editorconfig-vim'    " editor config reader
+Plugin 'tpope/vim-fugitive'               " git support
+Plugin 'tpope/vim-vinegar'                " use netrw more easily
+Plugin 'dsawardekar/portkey'              " switch between related files quickly
+Plugin 'mileszs/ack.vim'                  " search pwd for string
 
 " web dev
 Plugin 'jimmyhchan/dustjs.vim'
@@ -41,8 +47,7 @@ Plugin 'kchmck/vim-coffee-script'
 Plugin 'hail2u/vim-css3-syntax'
 Plugin 'mintplant/vim-literate-coffeescript'
 Plugin 'clvv/a.vim'
-Plugin 'heartsentwined/vim-ember-script'
-Plugin 'heartsentwined/vim-emblem'
+Plugin 'dsawardekar/ember.vim'
 Plugin 'mustache/vim-mustache-handlebars'
 
 " misc
@@ -50,6 +55,9 @@ Plugin 'tpope/vim-markdown'
 
 call vundle#end()
 filetype plugin indent on
+
+" Compiled plugins; separate these out so no issues if not installed yet
+set rtp+=~/.vim/YouCompleteMe
 
 
 " --- plugin config --- "
@@ -64,8 +72,25 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 " -- literate coffeescript -- "
 autocmd FileType litcoffee runtime ftplugin/coffee.vim
+" -- syntastic -- "
+" only check HTML if :SyntasticCheck called explicitly
+" otherwise syntastic reports errors on HTML templates (eg handlebars)
+let syntastic_mode_map = {'passive_filetypes': ['html']}
+" -- bufexplorer -- "
+let g:bufExplorerShowRelativePath=1  " Show relative paths.
+" -- vim-vinegar -- "
+" not really vinegar's fault, but netrw takes over last buffer, which
+" is awkward behaviour; this fixes
+let g:netrw_altfile = 1
 
 " --- vim config --- "
+
+" splits open wrong side by default
+set splitbelow
+set splitright
+
+" why
+noremap Y y$
 
 " -- temp file storage -- "
 set directory=~/.vim/swap//
@@ -82,7 +107,7 @@ map <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 nnoremap <leader>p pkdd
 
 " -- color -- "
-set background=light
+set background=dark
 colorscheme solarized
 
 " http://items.sjbach.com/319/configuring-vim-right
