@@ -20,6 +20,7 @@ Plugin 'bling/vim-airline'                " nice statusbar
 Plugin 'Lokaltog/vim-easymotion'          " move around easier
 Plugin 'camelcasemotion'                  " allow motion through camelcase words with (eg) ,w
 Plugin 'gcmt/taboo.vim'                   " allow renaming of tabs
+Plugin 'nathanaelkane/vim-indent-guides'  " show indent guides
 
 " general editing
 Plugin 'tpope/vim-surround'               " surround object with text/tags
