@@ -82,6 +82,9 @@ let g:bufExplorerShowRelativePath=1  " Show relative paths.
 " not really vinegar's fault, but netrw takes over last buffer, which
 " is awkward behaviour; this fixes
 let g:netrw_altfile = 1
+" -- taboo -- "
+nnoremap <leader>tr <Esc>:TabooRename
+nnoremap <leader>to <Esc>:TabooOpen
 
 " --- vim config --- "
 
