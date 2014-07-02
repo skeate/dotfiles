@@ -21,6 +21,7 @@ Plugin 'Lokaltog/vim-easymotion'          " move around easier
 Plugin 'camelcasemotion'                  " allow motion through camelcase words with (eg) ,w
 Plugin 'gcmt/taboo.vim'                   " allow renaming of tabs
 Plugin 'nathanaelkane/vim-indent-guides'  " show indent guides
+Plugin 'SyntaxComplete'                   " add syntax keywords to omnicomplete
 
 " general editing
 Plugin 'tpope/vim-surround'               " surround object with text/tags
@@ -48,8 +49,11 @@ Plugin 'kchmck/vim-coffee-script'
 Plugin 'hail2u/vim-css3-syntax'
 Plugin 'mintplant/vim-literate-coffeescript'
 Plugin 'clvv/a.vim'
-Plugin 'dsawardekar/ember.vim'
 Plugin 'mustache/vim-mustache-handlebars'
+Plugin 'jelera/vim-javascript-syntax'           " better syntax highlighting
+Plugin 'pangloss/vim-javascript'                " some more syntax highlighting
+Plugin 'dsawardekar/ember.vim'
+Plugin 'othree/javascript-libraries-syntax.vim' " library syntax support
 
 " misc
 Plugin 'tpope/vim-markdown'
@@ -84,8 +88,8 @@ let g:bufExplorerShowRelativePath=1  " Show relative paths.
 " is awkward behaviour; this fixes
 let g:netrw_altfile = 1
 " -- taboo -- "
-nnoremap <leader>tr <Esc>:TabooRename
-nnoremap <leader>to <Esc>:TabooOpen
+nnoremap <leader>tr <Esc>:TabooRename<space>
+nnoremap <leader>to <Esc>:TabooOpen<space>
 
 " --- vim config --- "
 
