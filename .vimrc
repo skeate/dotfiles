@@ -32,6 +32,9 @@ Plugin 'tpope/vim-fugitive'            " git support
 Plugin 'kien/ctrlp.vim'                " find files quickly
 Plugin 'tpope/vim-vinegar'             " use netrw more easily
 
+" python
+Plugin 'jmcantrell/vim-virtualenv'
+
 " web dev
 Plugin 'jimmyhchan/dustjs.vim'
 Plugin 'mattn/emmet-vim'
@@ -178,4 +181,15 @@ set lazyredraw
 
 set guioptions= " disable all guioptions
 
-
+" --- OS-specific settings --- "
+if has("win32")
+  "Windows options here
+  set rtp+=~/.vim/YouCompleteMe
+else
+  if has("unix")
+    let s:uname = system("uname")
+    if s:uname == "Darwin\n"
+      "Mac options here
+    endif
+  endif
+endif
