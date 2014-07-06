@@ -9,28 +9,38 @@ Plugin 'gmarik/Vundle.vim'
 
 " Plugins
 " vim-related
-Plugin 'jlanzarotta/bufexplorer'
-Plugin 'sjl/gundo.vim'
-Plugin 'scrooloose/syntastic'
-Plugin 'tomtom/tlib_vim'
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'bling/vim-airline'
-Plugin 'Lokaltog/vim-easymotion'
-Plugin 'relops'
+Plugin 'tpope/vim-sensible'               " sensible defaults
+Plugin 'jlanzarotta/bufexplorer'          " show buffers nicely
+Plugin 'sjl/gundo.vim'                    " show undo tree
+Plugin 'scrooloose/syntastic'             " syntax checking
+Plugin 'tomtom/tlib_vim'                  " utils, required for Snipmate
+Plugin 'MarcWeber/vim-addon-mw-utils'     " utils, req Snipmate
+Plugin 'altercation/vim-colors-solarized' " nice colorscheme
+Plugin 'bling/vim-airline'                " nice statusbar
+Plugin 'Lokaltog/vim-easymotion'          " move around easier
+Plugin 'camelcasemotion'                  " allow motion through camelcase words with (eg) ,w
+Plugin 'gcmt/taboo.vim'                   " allow renaming of tabs
+Plugin 'nathanaelkane/vim-indent-guides'  " show indent guides
+Plugin 'SyntaxComplete'                   " add syntax keywords to omnicomplete
+Plugin 'roman/golden-ratio'               " resize windows automatically
 
 " general editing
-Plugin 'tpope/vim-surround'
-Plugin 'garbas/vim-snipmate'
-Plugin 'honza/vim-snippets'
-Plugin 'tommcdo/vim-lion'
-Plugin 'scrooloose/nerdcommenter'
+Plugin 'tpope/vim-surround'               " surround object with text/tags
+Plugin 'garbas/vim-snipmate'              " allow snippets
+Plugin 'honza/vim-snippets'               " library of snippets
+Plugin 'tommcdo/vim-lion'                 " align to character
+Plugin 'scrooloose/nerdcommenter'         " comment code
+Plugin 'tpope/vim-repeat'                 " fix . repeating for plugins
+Plugin 'tpope/vim-unimpaired'             " add pairwise operators with [x ]x
+Plugin 'b4winckler/vim-angry.git'         " add function arg text object
 
 " project management
-Plugin 'editorconfig/editorconfig-vim' " editor config reader
-Plugin 'tpope/vim-fugitive'            " git support
-Plugin 'kien/ctrlp.vim'                " find files quickly
-Plugin 'tpope/vim-vinegar'             " use netrw more easily
+Plugin 'kien/ctrlp.vim'                   " find files quickly
+Plugin 'editorconfig/editorconfig-vim'    " editor config reader
+Plugin 'tpope/vim-fugitive'               " git support
+Plugin 'tpope/vim-vinegar'                " use netrw more easily
+Plugin 'dsawardekar/portkey'              " switch between related files quickly
+Plugin 'mileszs/ack.vim'                  " search pwd for string
 
 " python
 Plugin 'jmcantrell/vim-virtualenv'
@@ -43,14 +53,20 @@ Plugin 'kchmck/vim-coffee-script'
 Plugin 'hail2u/vim-css3-syntax'
 Plugin 'mintplant/vim-literate-coffeescript'
 Plugin 'clvv/a.vim'
-Plugin 'heartsentwined/vim-ember-script'
-Plugin 'heartsentwined/vim-emblem'
+Plugin 'mustache/vim-mustache-handlebars'
+Plugin 'jelera/vim-javascript-syntax'           " better syntax highlighting
+Plugin 'pangloss/vim-javascript'                " some more syntax highlighting
+Plugin 'dsawardekar/ember.vim'
+Plugin 'othree/javascript-libraries-syntax.vim' " library syntax support
 
 " misc
 Plugin 'tpope/vim-markdown'
 
 call vundle#end()
 filetype plugin indent on
+
+" Compiled plugins; separate these out so no issues if not installed yet
+set rtp+=~/.vim/YouCompleteMe
 
 
 " --- plugin config --- "
@@ -63,23 +79,52 @@ let g:ctrlp_custom_ignore = {
 set guifont=Inconsolata\ for\ Powerline:h11 " not strictly airline, but related
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
-" -- tabular -- "
-vnoremap <Leader>a= :Tabularize /=<CR>
-vnoremap <Leader>a: :Tabularize /:<CR>
-vnoremap <Leader>a, :Tabularize /,<CR>
+" -- literate coffeescript -- "
+autocmd FileType litcoffee runtime ftplugin/coffee.vim
+" -- syntastic -- "
+" only check HTML if :SyntasticCheck called explicitly
+" otherwise syntastic reports errors on HTML templates (eg handlebars)
+let syntastic_mode_map = {'passive_filetypes': ['html']}
+" -- bufexplorer -- "
+let g:bufExplorerShowRelativePath=1  " Show relative paths.
+" -- vim-vinegar -- "
+" not really vinegar's fault, but netrw takes over last buffer, which
+" is awkward behaviour; this fixes
+let g:netrw_altfile = 1
+" -- taboo -- "
+nnoremap <leader>tr <Esc>:TabooRename<space>
+nnoremap <leader>to <Esc>:TabooOpen<space>
+" -- golden-ratio -- "
+let g:golden_ratio_exclude_nonmodifiable = 1
 
+" --- vim config --- "
 
-" --- leader shortcuts --- "
-nnoremap <leader>c :call BackgroundSwap()<cr>
-nnoremap <leader><Tab> :call ToggleIndent()<CR>
+" splits open wrong side by default
+set splitbelow
+set splitright
+
+" why
+noremap Y y$
+
+inoremap jj <esc>
+
+" -- temp file storage -- "
+set directory=~/.vim/swap//
+set backupdir=~/.vim/backup//
+set undodir=~/.vim/undo//
+
+" -- leader shortcuts -- "
 map <leader>g :GundoToggle<CR>
-nmap <silent> <leader>s :set nolist!<CR>
-nnoremap <leader>n :NERDTreeToggle<CR>
-nnoremap <leader>q! :mksession! .\session.vis<CR>:conf qa<CR>
-nnoremap <leader>r :so .\session.vis<CR>
+" toggle whitespace
+map <leader>s set list!<CR>
+" Edit new file in directory of active window's file
+map <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
+" Paste line-wise and delete current line
+nnoremap <leader>p pkdd
 
-
-set encoding=utf-8
+" -- color -- "
+set background=dark
+colorscheme solarized
 
 " http://items.sjbach.com/319/configuring-vim-right
 " allows you to hide buffers without writing
@@ -87,44 +132,25 @@ set hidden
 " ` is better, but ' is easier to type
 nnoremap ' `
 nnoremap ` '
-" default history is 50
-set history=1000
-" enable extended % matching - match if/elsif/else/end etc.
-runtime macros/matchit.vim
-" better autocomplete
-set wildmenu
-set wildmode=longest:full,full
+set wildmode=longest:full,full " better autocomplete
 " case-smart searching
 set ignorecase
 set smartcase
 " better title for terminal vim
 set title
-" more cursor context
-set scrolloff=3
-" Intuitive backspacing in insert mode
-set backspace=indent,eol,start
-" File-type highlighting and configuration.
-" Run :filetype (without args) to see what you may have
-" to turn on yourself, or just set them all to be sure.
-syntax on
-filetype on
-filetype plugin indent on
-" Highlight search terms...
-set hlsearch
-set incsearch " ...dynamically as they are typed.
-set listchars=tab:>-,trail:·,eol:$
 " shorten up some messages
 set shortmess=atI
 " don't beep, flash instead
 set visualbell
-colorscheme solarized
 " prevent Insert key from triggering Replace mode
 inoremap <Insert> <Nop>
 set cul " highlight entire line where cursor is
 set number " show line numbers
 
 
-" make tabs 2 characters
+" -- tab config -- "
+"  default: 2
+"  <leader><tab> to switch to 4
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
@@ -144,17 +170,9 @@ function! ToggleIndent()
     echo "indent set to 2"
   endif
 endfunction
+nnoremap <leader><Tab> :call ToggleIndent()<CR>
 
-let python_highlight_all=1
 set nowrap
-" move swap files, ~ backups, and undo to a specific dir
-set directory=~/.vim/swap//
-set backupdir=~/.vim/backup//
-set undodir=~/.vim/undo//
-set ssop-=options
-set ssop-=folds
-
-autocmd FileType litcoffee runtime ftplugin/coffee.vim
 
 " code folding
 set foldmethod=indent
@@ -166,17 +184,6 @@ map <c-k> <c-w>k
 map <c-l> <c-w>l
 map <c-h> <c-w>h
 
-
-set background=light
-" solarized color swap
-function! BackgroundSwap()
-    if &background=="dark"
-        set background=light
-    else
-        set background=dark
-    endif
-endfunction
-
 set lazyredraw
 
 set guioptions= " disable all guioptions
@@ -184,12 +191,13 @@ set guioptions= " disable all guioptions
 " --- OS-specific settings --- "
 if has("win32")
   "Windows options here
-  set rtp+=~/.vim/YouCompleteMe
 else
   if has("unix")
     let s:uname = system("uname")
     if s:uname == "Darwin\n"
       "Mac options here
+      " Inconsolata is a bit small on osx
+      set guifont=Inconsolata\ for\ Powerline:h13
     endif
   endif
 endif
