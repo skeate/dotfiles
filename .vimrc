@@ -22,6 +22,7 @@ Plugin 'camelcasemotion'                  " allow motion through camelcase words
 Plugin 'gcmt/taboo.vim'                   " allow renaming of tabs
 Plugin 'nathanaelkane/vim-indent-guides'  " show indent guides
 Plugin 'SyntaxComplete'                   " add syntax keywords to omnicomplete
+Plugin 'roman/golden-ratio'               " resize windows automatically
 
 " general editing
 Plugin 'tpope/vim-surround'               " surround object with text/tags
@@ -90,6 +91,8 @@ let g:netrw_altfile = 1
 " -- taboo -- "
 nnoremap <leader>tr <Esc>:TabooRename<space>
 nnoremap <leader>to <Esc>:TabooOpen<space>
+" -- golden-ratio -- "
+let g:golden_ratio_exclude_nonmodifiable = 1
 
 " --- vim config --- "
 
@@ -99,6 +102,8 @@ set splitright
 
 " why
 noremap Y y$
+
+inoremap jj <esc>
 
 " -- temp file storage -- "
 set directory=~/.vim/swap//
