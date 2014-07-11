@@ -121,6 +121,7 @@ inoremap <C-A-S-Tab> <Esc>:tabmove -1<CR>a
 set directory=~/.vim/swap//
 set backupdir=~/.vim/backup//
 set undodir=~/.vim/undo//
+set backupcopy=yes
 
 " -- leader shortcuts -- "
 map <leader>g :GundoToggle<CR>
