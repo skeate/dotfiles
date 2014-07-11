@@ -194,6 +194,8 @@ map <c-k> <c-w>k
 map <c-l> <c-w>l
 map <c-h> <c-w>h
 
+autocmd WinEnter * :normal ze
+
 set lazyredraw
 
 set guioptions= " disable all guioptions
