@@ -105,6 +105,18 @@ noremap Y y$
 
 inoremap jj <esc>
 
+" ctrl+(shift+)tab to switch tabs
+nnoremap <C-Tab> gt
+nnoremap <C-S-Tab> gT
+inoremap <C-Tab> gt
+inoremap <C-S-Tab> gT
+" ctrl+alt+(shift+)tab to move tabs
+nnoremap <C-A-Tab> :tabmove +1<CR>
+nnoremap <C-A-S-Tab> :tabmove -1<CR>
+inoremap <C-A-Tab> <Esc>:tabmove +1<CR>a
+inoremap <C-A-S-Tab> <Esc>:tabmove -1<CR>a
+
+
 " -- temp file storage -- "
 set directory=~/.vim/swap//
 set backupdir=~/.vim/backup//
