@@ -108,8 +108,8 @@ inoremap jj <esc>
 " ctrl+(shift+)tab to switch tabs
 nnoremap <C-Tab> gt
 nnoremap <C-S-Tab> gT
-inoremap <C-Tab> gt
-inoremap <C-S-Tab> gT
+inoremap <C-Tab> <Esc>gta
+inoremap <C-S-Tab> <Esc>gTa
 " ctrl+alt+(shift+)tab to move tabs
 nnoremap <C-A-Tab> :tabmove +1<CR>
 nnoremap <C-A-S-Tab> :tabmove -1<CR>
