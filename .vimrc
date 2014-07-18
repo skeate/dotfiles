@@ -92,6 +92,8 @@ let g:netrw_altfile = 1
 nnoremap <leader>tr <Esc>:TabooRename<space>
 nnoremap <leader>to <Esc>:TabooOpen<space>
 " -- golden-ratio -- "
+" adjust view after switching
+autocmd WinEnter * :normal ze
 let g:golden_ratio_exclude_nonmodifiable = 1
 
 " --- vim config --- "
@@ -194,7 +196,6 @@ map <c-k> <c-w>k
 map <c-l> <c-w>l
 map <c-h> <c-w>h
 
-autocmd WinEnter * :normal ze
 
 set lazyredraw
 
