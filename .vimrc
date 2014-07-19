@@ -23,6 +23,8 @@ Plugin 'gcmt/taboo.vim'                   " allow renaming of tabs
 Plugin 'nathanaelkane/vim-indent-guides'  " show indent guides
 Plugin 'SyntaxComplete'                   " add syntax keywords to omnicomplete
 Plugin 'roman/golden-ratio'               " resize windows automatically
+Plugin 'xolox/vim-misc'
+Plugin 'xolox/vim-shell'
 
 " general editing
 Plugin 'tpope/vim-surround'               " surround object with text/tags
@@ -33,6 +35,7 @@ Plugin 'scrooloose/nerdcommenter'         " comment code
 Plugin 'tpope/vim-repeat'                 " fix . repeating for plugins
 Plugin 'tpope/vim-unimpaired'             " add pairwise operators with [x ]x
 Plugin 'b4winckler/vim-angry.git'         " add function arg text object
+Plugin 'majutsushi/tagbar'                " tag browser
 
 " project management
 Plugin 'kien/ctrlp.vim'                   " find files quickly
@@ -56,7 +59,7 @@ Plugin 'clvv/a.vim'
 Plugin 'mustache/vim-mustache-handlebars'
 Plugin 'jelera/vim-javascript-syntax'           " better syntax highlighting
 Plugin 'pangloss/vim-javascript'                " some more syntax highlighting
-Plugin 'dsawardekar/ember.vim'
+"Plugin 'dsawardekar/ember.vim'
 Plugin 'othree/javascript-libraries-syntax.vim' " library syntax support
 
 " misc
@@ -75,10 +78,6 @@ let g:ctrlp_custom_ignore = {
       \ 'dir': '\.git$\|\.?tmp$',
       \ 'file': '\.so$\|\.dat$\|\.DS_Store$'
       \}
-" -- airline -- "
-set guifont=Inconsolata\ for\ Powerline:h11 " not strictly airline, but related
-let g:airline#extensions#tabline#enabled = 1
-let g:airline_powerline_fonts = 1
 " -- literate coffeescript -- "
 autocmd FileType litcoffee runtime ftplugin/coffee.vim
 " -- syntastic -- "
@@ -96,6 +95,8 @@ nnoremap <leader>tr <Esc>:TabooRename<space>
 nnoremap <leader>to <Esc>:TabooOpen<space>
 " -- golden-ratio -- "
 let g:golden_ratio_exclude_nonmodifiable = 1
+" -- YouCompleteMe -- "
+let g:ycm_autoclose_preview_window_after_insertion = 1
 
 " --- vim config --- "
 
@@ -123,7 +124,6 @@ map <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 nnoremap <leader>p pkdd
 
 " -- color -- "
-set background=dark
 colorscheme solarized
 
 " http://items.sjbach.com/319/configuring-vim-right
@@ -200,4 +200,13 @@ else
       set guifont=Inconsolata\ for\ Powerline:h13
     endif
   endif
+endif
+
+" --- GUI/Terminal settings --- "
+if(has('gui_running'))
+  set background=dark
+  set guifont=Inconsolata\ for\ Powerline:h11 " not strictly airline, but related
+  let g:airline_powerline_fonts = 1
+else
+  set background=light
 endif
