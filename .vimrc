@@ -94,6 +94,8 @@ let g:netrw_altfile = 1
 nnoremap <leader>tr <Esc>:TabooRename<space>
 nnoremap <leader>to <Esc>:TabooOpen<space>
 " -- golden-ratio -- "
+" adjust view after switching
+autocmd WinEnter * :normal ze
 let g:golden_ratio_exclude_nonmodifiable = 1
 " -- YouCompleteMe -- "
 let g:ycm_autoclose_preview_window_after_insertion = 1
@@ -109,10 +111,23 @@ noremap Y y$
 
 inoremap jj <esc>
 
+" ctrl+(shift+)tab to switch tabs
+nnoremap <C-Tab> gt
+nnoremap <C-S-Tab> gT
+inoremap <C-Tab> <Esc>gta
+inoremap <C-S-Tab> <Esc>gTa
+" ctrl+alt+(shift+)tab to move tabs
+nnoremap <C-A-Tab> :tabmove +1<CR>
+nnoremap <C-A-S-Tab> :tabmove -1<CR>
+inoremap <C-A-Tab> <Esc>:tabmove +1<CR>a
+inoremap <C-A-S-Tab> <Esc>:tabmove -1<CR>a
+
+
 " -- temp file storage -- "
 set directory=~/.vim/swap//
 set backupdir=~/.vim/backup//
 set undodir=~/.vim/undo//
+set backupcopy=yes
 
 " -- leader shortcuts -- "
 map <leader>g :GundoToggle<CR>
@@ -183,6 +198,7 @@ map <C-j> <c-w>j
 map <c-k> <c-w>k
 map <c-l> <c-w>l
 map <c-h> <c-w>h
+
 
 set lazyredraw
 
