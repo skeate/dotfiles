@@ -1,5 +1,7 @@
 set nocompatible
 
+let g:netrw_list_hide = '\.DS_Store'
+
 " Setup Vundle
 " git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 filetype off
@@ -15,10 +17,10 @@ Plugin 'sjl/gundo.vim'                    " show undo tree
 Plugin 'scrooloose/syntastic'             " syntax checking
 Plugin 'tomtom/tlib_vim'                  " utils, required for Snipmate
 Plugin 'MarcWeber/vim-addon-mw-utils'     " utils, req Snipmate
-Plugin 'altercation/vim-colors-solarized' " nice colorscheme
+Plugin 'flazz/vim-colorschemes'           " Color pack (includes solarized)
 Plugin 'bling/vim-airline'                " nice statusbar
 Plugin 'Lokaltog/vim-easymotion'          " move around easier
-Plugin 'camelcasemotion'                  " allow motion through camelcase words with (eg) ,w
+Plugin 'camelcasemotion'                  " motion through words with (eg) ,w
 Plugin 'gcmt/taboo.vim'                   " allow renaming of tabs
 Plugin 'nathanaelkane/vim-indent-guides'  " show indent guides
 Plugin 'SyntaxComplete'                   " add syntax keywords to omnicomplete
@@ -49,6 +51,7 @@ Plugin 'mileszs/ack.vim'                  " search pwd for string
 Plugin 'jmcantrell/vim-virtualenv'
 
 " web dev
+Plugin 'marijnh/tern_for_vim'
 Plugin 'jimmyhchan/dustjs.vim'
 Plugin 'mattn/emmet-vim'
 Plugin 'othree/html5.vim'
@@ -59,7 +62,7 @@ Plugin 'clvv/a.vim'
 Plugin 'mustache/vim-mustache-handlebars'
 Plugin 'jelera/vim-javascript-syntax'           " better syntax highlighting
 Plugin 'pangloss/vim-javascript'                " some more syntax highlighting
-"Plugin 'dsawardekar/ember.vim'
+Plugin 'dsawardekar/ember.vim'
 Plugin 'othree/javascript-libraries-syntax.vim' " library syntax support
 
 " misc
@@ -84,6 +87,7 @@ autocmd FileType litcoffee runtime ftplugin/coffee.vim
 " only check HTML if :SyntasticCheck called explicitly
 " otherwise syntastic reports errors on HTML templates (eg handlebars)
 let syntastic_mode_map = {'passive_filetypes': ['html']}
+let g:syntastic_javascript_checkers = ['jshint']
 " -- bufexplorer -- "
 let g:bufExplorerShowRelativePath=1  " Show relative paths.
 " -- vim-vinegar -- "
@@ -95,12 +99,19 @@ nnoremap <leader>tr <Esc>:TabooRename<space>
 nnoremap <leader>to <Esc>:TabooOpen<space>
 " -- golden-ratio -- "
 " adjust view after switching
-autocmd WinEnter * :normal ze
+autocmd WinEnter * normal ze
 let g:golden_ratio_exclude_nonmodifiable = 1
 " -- YouCompleteMe -- "
 let g:ycm_autoclose_preview_window_after_insertion = 1
+" -- indent guides -- "
+let g:indent_guides_start_level = 2
+let g:indent_guides_guide_size = 1
+normal <leader>ig
 
 " --- vim config --- "
+
+" show 81st column for line wrapping guide
+set colorcolumn=81
 
 " splits open wrong side by default
 set splitbelow
@@ -199,10 +210,26 @@ map <c-k> <c-w>k
 map <c-l> <c-w>l
 map <c-h> <c-w>h
 
+map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+
+" split lines
+"nnoremap KK i<CR><Esc>
+
 
 set lazyredraw
 
 set guioptions= " disable all guioptions
+
+
+" --- GUI/Terminal settings --- "
+if(has('gui_running'))
+  set background=dark
+  " not strictly airline, but related
+  set guifont=Inconsolata\ for\ Powerline:h11
+  let g:airline_powerline_fonts = 1
+else
+  set background=light
+endif
 
 " --- OS-specific settings --- "
 if has("win32")
@@ -216,13 +243,4 @@ else
       set guifont=Inconsolata\ for\ Powerline:h13
     endif
   endif
-endif
-
-" --- GUI/Terminal settings --- "
-if(has('gui_running'))
-  set background=dark
-  set guifont=Inconsolata\ for\ Powerline:h11 " not strictly airline, but related
-  let g:airline_powerline_fonts = 1
-else
-  set background=light
 endif
