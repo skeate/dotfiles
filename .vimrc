@@ -73,7 +73,6 @@ filetype plugin indent on
 set rtp+=~/.vim/YouCompleteMe
 " }}}
 
-
 " {{{ Plugin Config
 " bufexplorer
 let g:bufExplorerShowRelativePath=1  " Show relative paths.
@@ -82,6 +81,9 @@ let g:ctrlp_custom_ignore = {
       \ 'dir': '\.git$\|\.?tmp$',
       \ 'file': '\.so$\|\.dat$\|\.DS_Store$'
       \}
+" delimitMate
+let g:delimitMate_expand_space = 1
+let g:delimitMate_expand_cr = 1
 " golden-ratio
 let g:golden_ratio_exclude_nonmodifiable = 1
 """ adjust view after switching
@@ -101,7 +103,7 @@ nnoremap <leader>to <Esc>:TabooOpen<space>
 """ is awkward behaviour; this fixes
 let g:netrw_altfile = 1
 " YouCompleteMe
-let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_autoclose_preview_window_after_completion = 1
 " }}}
 
 " {{{ vim config
@@ -148,18 +150,15 @@ nnoremap <leader>p pkdd
 set splitbelow
 set splitright
 
-
-
 " -- temp file storage -- "
 set directory=~/.vim/swap//
 set backupdir=~/.vim/backup//
 set undodir=~/.vim/undo//
 set backupcopy=yes
 
-
 " -- color -- "
 set t_Co=256
-colorscheme jellybeans
+colorscheme hybrid
 
 " http://items.sjbach.com/319/configuring-vim-right
 " allows you to hide buffers without writing
@@ -227,6 +226,12 @@ set guioptions= " disable all guioptions
 " --- OS-specific settings --- "
 if has("win32")
   "Windows options here
+  " Set scp/sftp/ssh to use putty (must be in PATH)
+  let g:netrw_silent = 1
+  let g:netrw_mousemaps = 0
+  let g:netrw_list_cmd = "plink HOSTNAME ls -Fa"
+  let g:netrw_scp_cmd = "pscp -q -batch"
+  let g:netrw_sftp_cmd = "psftp"
 else
   if has("unix")
     let s:uname = system("uname")
