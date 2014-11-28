@@ -223,6 +223,15 @@ set lazyredraw
 
 set guioptions= " disable all guioptions
 
+" --- GUI/Terminal settings --- "
+if(has('gui_running'))
+  set background=dark
+  set guifont=Inconsolata\ for\ Powerline:h11 " not strictly airline, but related
+  let g:airline_powerline_fonts = 1
+else
+  set background=light
+endif
+
 " --- OS-specific settings --- "
 if has("win32")
   "Windows options here
@@ -243,13 +252,5 @@ else
   endif
 endif
 
-" --- GUI/Terminal settings --- "
-if(has('gui_running'))
-  set background=dark
-  set guifont=Inconsolata\ for\ Powerline:h11 " not strictly airline, but related
-  let g:airline_powerline_fonts = 1
-else
-  set background=light
-endif
 
 " vim: fdm=marker
