@@ -50,6 +50,7 @@ Plugin 'mileszs/ack.vim'                  " search pwd for string
 Plugin 'jmcantrell/vim-virtualenv'
 
 " web dev
+Plugin 'mattn/emmet-vim'                        " <C-Y>, to expand html
 Plugin 'jelera/vim-javascript-syntax'           " better syntax highlighting
 Plugin 'pangloss/vim-javascript'                " some more syntax highlighting
 Plugin 'othree/javascript-libraries-syntax.vim' " library syntax support
@@ -65,6 +66,7 @@ Plugin 'elzr/vim-json'
 
 " misc
 Plugin 'tpope/vim-markdown'
+Plugin 'wizicer/vim-jison'
 
 call vundle#end()
 filetype plugin indent on
@@ -94,7 +96,6 @@ autocmd FileType litcoffee runtime ftplugin/coffee.vim
 """ only check HTML if :SyntasticCheck called explicitly
 """ otherwise syntastic reports errors on HTML templates (eg handlebars)
 let syntastic_mode_map = {'passive_filetypes': ['html']}
-let g:syntastic_check_on_open=1
 " taboo
 nnoremap <leader>tr <Esc>:TabooRename<space>
 nnoremap <leader>to <Esc>:TabooOpen<space>
@@ -235,12 +236,6 @@ endif
 " --- OS-specific settings --- "
 if has("win32")
   "Windows options here
-  " Set scp/sftp/ssh to use putty (must be in PATH)
-  let g:netrw_silent = 1
-  let g:netrw_mousemaps = 0
-  let g:netrw_list_cmd = "plink HOSTNAME ls -Fa"
-  let g:netrw_scp_cmd = "pscp -q -batch"
-  let g:netrw_sftp_cmd = "psftp"
 else
   if has("unix")
     let s:uname = system("uname")
