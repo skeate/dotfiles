@@ -15,7 +15,9 @@ endif
 if !filereadable($HOME.'/.vim/bundle/neobundle.vim/README.md')
   echo "Installing NeoBundle..."
   echo ""
-  call mkdir($HOME.'/.vim/bundle', 'p')
+  if !isdirectory($HOME.'/.vim/bundle')
+    call mkdir($HOME.'/.vim/bundle', 'p')
+  endif
   silent !git clone https://github.com/Shougo/neobundle.vim
         \ ~/.vim/bundle/neobundle.vim
 endif
