@@ -1,78 +1,103 @@
 set nocompatible
 
+" initialize some directories
+if !isdirectory($HOME.'/.vim/swap')
+  call mkdir($HOME.'/.vim/swap', 'p')
+endif
+if !isdirectory($HOME.'/.vim/undo')
+  call mkdir($HOME.'/.vim/undo', 'p')
+endif
+if !isdirectory($HOME.'/.vim/backup')
+  call mkdir($HOME.'/.vim/backup', 'p')
+endif
+
+" install neobundle if necessary
+if !filereadable($HOME.'/.vim/bundle/neobundle.vim/README.md')
+  echo "Installing NeoBundle..."
+  echo ""
+  call mkdir($HOME.'/.vim/bundle', 'p')
+  silent !git clone https://github.com/Shougo/neobundle.vim
+        \ ~/.vim/bundle/neobundle.vim
+endif
+
 " {{{ Plugins
-" git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'gmarik/Vundle.vim'
+set rtp+=~/.vim/bundle/neobundle.vim/
+call neobundle#begin(expand('~/.vim/bundle/'))
+NeoBundleFetch 'Shougo/neobundle.vim'
 
 " Plugins
 " vim-related
-Plugin 'tpope/vim-sensible'               " sensible defaults
-Plugin 'jlanzarotta/bufexplorer'          " show buffers nicely
-Plugin 'sjl/gundo.vim'                    " show undo tree
-Plugin 'scrooloose/syntastic'             " syntax checking
-Plugin 'tomtom/tlib_vim'                  " utils, required for Snipmate
-Plugin 'MarcWeber/vim-addon-mw-utils'     " utils, req Snipmate
-Plugin 'flazz/vim-colorschemes'           " Color pack (includes solarized)
-Plugin 'bling/vim-airline'                " nice statusbar
-Plugin 'Lokaltog/vim-easymotion'          " move around easier
-Plugin 'camelcasemotion'                  " allow motion through camelcase words with (eg) ,w
-Plugin 'gcmt/taboo.vim'                   " allow renaming of tabs
-Plugin 'nathanaelkane/vim-indent-guides'  " show indent guides
-Plugin 'SyntaxComplete'                   " add syntax keywords to omnicomplete
-Plugin 'roman/golden-ratio'               " resize windows automatically
-Plugin 'xolox/vim-misc'
-Plugin 'xolox/vim-shell'
+NeoBundle 'Shougo/vimproc.vim', {
+      \ 'build' : {
+      \     'windows' : 'tools\\update-dll-mingw',
+      \     'cygwin' : 'make -f make_cygwin.mak',
+      \     'mac' : 'make -f make_mac.mak',
+      \     'linux' : 'make',
+      \     'unix' : 'gmake',
+      \    },
+      \ }
+NeoBundle 'tpope/vim-sensible'               " sensible defaults
+NeoBundle 'jlanzarotta/bufexplorer'          " show buffers nicely
+NeoBundle 'sjl/gundo.vim'                    " show undo tree
+NeoBundle 'flazz/vim-colorschemes'           " Color pack
+NeoBundle 'bling/vim-airline'                " nice statusbar
+NeoBundle 'Lokaltog/vim-easymotion'          " move around easier
+NeoBundle 'camelcasemotion'                  " camelcase motion with (eg) ,w
+NeoBundle 'gcmt/taboo.vim'                   " tab renaming
+NeoBundle 'nathanaelkane/vim-indent-guides'  " show indent guides
+NeoBundle 'roman/golden-ratio'               " resize windows automatically
+NeoBundle 'xolox/vim-misc'                   " required for vim-shell
+NeoBundle 'xolox/vim-shell'                  " better integration with OS
 
 " general editing
-Plugin 'tpope/vim-surround'               " surround object with text/tags
-Plugin 'garbas/vim-snipmate'              " allow snippets
-Plugin 'honza/vim-snippets'               " library of snippets
-Plugin 'tommcdo/vim-lion'                 " align to character
-Plugin 'scrooloose/nerdcommenter'         " comment code
-Plugin 'tpope/vim-repeat'                 " fix . repeating for plugins
-Plugin 'tpope/vim-unimpaired'             " add pairwise operators with [x ]x
-Plugin 'b4winckler/vim-angry.git'         " add function arg text object
-Plugin 'majutsushi/tagbar'                " tag browser
-Plugin 'Raimondi/delimitMate'             " pair quotes/brackets/etc
+NeoBundle 'Shougo/unite.vim'                 " unified interface for lists
+NeoBundle 'scrooloose/syntastic'             " syntax checking
+NeoBundle 'SyntaxComplete'                   " syntax keywords in omnicomplete
+NeoBundle 'tpope/vim-surround'               " surround object with text/tags
+NeoBundle 'tommcdo/vim-lion'                 " align to character
+NeoBundle 'scrooloose/nerdcommenter'         " comment code
+NeoBundle 'tpope/vim-repeat'                 " fix . repeating for plugins
+NeoBundle 'tpope/vim-unimpaired'             " add pairwise operators with [x ]x
+NeoBundle 'b4winckler/vim-angry.git'         " add function arg text object
+NeoBundle 'majutsushi/tagbar'                " tag browser
+NeoBundle 'Raimondi/delimitMate'             " pair quotes/brackets/etc
+NeoBundle 'Shougo/neocomplete.vim'           " autocompletion
+NeoBundle 'Shougo/neosnippet.vim'            " snippets
+NeoBundle 'Shougo/neosnippet-snippets'       " collection of snippets
 
 " project management
-Plugin 'kien/ctrlp.vim'                   " find files quickly
-Plugin 'editorconfig/editorconfig-vim'    " editor config reader
-Plugin 'tpope/vim-fugitive'               " git support
-Plugin 'tpope/vim-vinegar'                " use netrw more easily
-Plugin 'dsawardekar/portkey'              " switch between related files quickly
-Plugin 'mileszs/ack.vim'                  " search pwd for string
+NeoBundle 'tpope/vim-fugitive'               " git support
+NeoBundle 'tpope/vim-vinegar'                " make netrw nicer
+NeoBundle 'editorconfig/editorconfig-vim'    " editor config reader
+NeoBundle 'dsawardekar/portkey'              " switch between related files
 
 " python
-Plugin 'jmcantrell/vim-virtualenv'
+NeoBundle 'jmcantrell/vim-virtualenv'
 
 " web dev
-Plugin 'mattn/emmet-vim'                        " <C-Y>, to expand html
-Plugin 'jelera/vim-javascript-syntax'           " better syntax highlighting
-Plugin 'pangloss/vim-javascript'                " some more syntax highlighting
-Plugin 'othree/javascript-libraries-syntax.vim' " library syntax support
-Plugin 'marijnh/tern_for_vim'                   " JS autocomplete
-Plugin 'tpope/vim-haml'                         " Haml, Sass, SCSS
-Plugin 'othree/html5.vim'
-Plugin 'kchmck/vim-coffee-script'
-Plugin 'hail2u/vim-css3-syntax'
-Plugin 'mintplant/vim-literate-coffeescript'
-Plugin 'mustache/vim-mustache-handlebars'
-Plugin 'dsawardekar/ember.vim'
-Plugin 'elzr/vim-json'
+NeoBundle 'mattn/emmet-vim'                        " <C-Y>, to expand html
+NeoBundle 'jelera/vim-javascript-syntax'           " better syntax highlighting
+NeoBundle 'pangloss/vim-javascript'                " more syntax highlighting
+NeoBundle 'othree/javascript-libraries-syntax.vim' " library syntax support
+NeoBundle 'marijnh/tern_for_vim'                   " JS autocomplete
+NeoBundle 'tpope/vim-haml'                         " Haml, Sass, SCSS
+NeoBundle 'othree/html5.vim'                       " HTML5 syntax/autocomplete
+NeoBundle 'kchmck/vim-coffee-script'               " Coffeescript syntax &c.
+NeoBundle 'hail2u/vim-css3-syntax'                 " CSS3 syntax &c.
+NeoBundle 'mintplant/vim-literate-coffeescript'    " .litcoffee support
+NeoBundle 'mustache/vim-mustache-handlebars'       " Handlebars syntax
+NeoBundle 'dsawardekar/ember.vim'                  " Ember syntax/portkey
+NeoBundle 'elzr/vim-json'                          " JSON syntax
 
 " misc
-Plugin 'tpope/vim-markdown'
-Plugin 'wizicer/vim-jison'
+NeoBundle 'tpope/vim-markdown'
+NeoBundle 'wizicer/vim-jison'
 
-call vundle#end()
+call neobundle#end()
 filetype plugin indent on
-
-" Compiled plugins; separate these out so no issues if not installed yet
-set rtp+=~/.vim/YouCompleteMe
+" Check for uninstalled bundles
+NeoBundleCheck
 " }}}
 
 " {{{ Plugin Config
@@ -92,6 +117,50 @@ let g:golden_ratio_exclude_nonmodifiable = 1
 autocmd VimEnter * :autocmd WinEnter * :normal ze
 " literate coffeescript
 autocmd FileType litcoffee runtime ftplugin/coffee.vim
+" neocomplete
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_smart_case = 1
+let g:neocomplete#enable_fuzzy_completion = 1
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+if !exists('g:neocomplete#force_omni_input_patterns')
+  let g:neocomplete#force_omni_input_patterns = {}
+endif
+" Plugin key-mappings.
+inoremap <expr><C-g>     neocomplete#undo_completion()
+inoremap <expr><C-l>     neocomplete#complete_common_string()
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+endfunction
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y>  neocomplete#close_popup()
+inoremap <expr><C-e>  neocomplete#cancel_popup()
+let g:neocomplete#force_omni_input_patterns.javascript = '[^. \t]\.\w*'
+autocmd FileType javascript setlocal omnifunc=tern#Complete
+" neosnippet
+" Plugin key-mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" SuperTab like snippets behavior.
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+      \ "\<Plug>(neosnippet_expand_or_jump)"
+      \ : pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+      \ "\<Plug>(neosnippet_expand_or_jump)"
+      \: "\<TAB>"
+
+" For snippet_complete marker.
+if has('conceal')
+  set conceallevel=2 concealcursor=i
+endif
 " syntastic
 """ only check HTML if :SyntasticCheck called explicitly
 """ otherwise syntastic reports errors on HTML templates (eg handlebars)
@@ -104,7 +173,7 @@ nnoremap <leader>to <Esc>:TabooOpen<space>
 """ is awkward behaviour; this fixes
 let g:netrw_altfile = 1
 " YouCompleteMe
-let g:ycm_autoclose_preview_window_after_completion = 1
+"let g:ycm_autoclose_preview_window_after_completion = 1
 " }}}
 
 " {{{ vim config
