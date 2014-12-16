@@ -166,7 +166,9 @@ endif
 " syntastic
 """ only check HTML if :SyntasticCheck called explicitly
 """ otherwise syntastic reports errors on HTML templates (eg handlebars)
-let syntastic_mode_map = {'passive_filetypes': ['html']}
+let g:syntastic_mode_map = {'passive_filetypes': ['html']}
+let g:syntastic_aggregate_errors 1
+let g:syntastic_javascript_checkers=['jshint','jscs']
 " taboo
 nnoremap <leader>tr <Esc>:TabooRename<space>
 nnoremap <leader>to <Esc>:TabooOpen<space>
