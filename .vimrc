@@ -119,7 +119,8 @@ endif
 " }}}
 " Plugins ------------------------------------------------------------------ {{{
 
-" install neobundle if necessary
+" setup neobundle (including install if necessary) {{{
+
 if !filereadable($HOME.'/.vim/bundle/neobundle.vim/README.md')
   echo "Installing NeoBundle..."
   echo ""
@@ -135,7 +136,9 @@ set rtp+=~/.vim/bundle/neobundle.vim/
 call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-" vim-specific
+" }}}
+" vim-specific {{{
+
 NeoBundle 'tpope/vim-sensible'               " sensible defaults
 NeoBundle 'flazz/vim-colorschemes'           " Color pack
 NeoBundle 'bling/vim-airline'                " nice statusbar
@@ -154,13 +157,17 @@ NeoBundle 'Shougo/vimproc.vim', {
       \ }
 NeoBundle 'Shougo/unite.vim'                 " unified interface for lists
 
-" Movements
+" }}}
+" Movement {{{
+
 NeoBundle 'b4winckler/vim-angry.git'         " add function arg text object
 NeoBundle 'camelcasemotion'                  " camelcase motion with (eg) ,w
 NeoBundle 'Lokaltog/vim-easymotion'          " move around easier
 NeoBundle 'nathanaelkane/vim-indent-guides'  " show indent guides
 
-" Management
+" }}}
+" Management {{{
+
 NeoBundle 'dsawardekar/portkey'              " switch between related files
 NeoBundle 'roman/golden-ratio'               " resize windows automatically
 NeoBundle 'sjl/gundo.vim'                    " show undo tree
@@ -171,7 +178,9 @@ NeoBundle 'tpope/vim-surround'               " surround object with text/tags
 NeoBundle 'tpope/vim-unimpaired'             " add pairwise operators with [x ]x
 NeoBundle 'tpope/vim-vinegar'                " make netrw nicer
 
-" Syntax & Autocomplete
+" }}}
+" Syntax & Autocomplete {{{
+
 NeoBundle 'dsawardekar/ember.vim'                  " Ember syntax/portkey
 NeoBundle 'editorconfig/editorconfig-vim'          " editor config reader
 NeoBundle 'elzr/vim-json'                          " JSON syntax
@@ -193,16 +202,21 @@ NeoBundle 'tpope/vim-haml'                         " Haml, Sass, SCSS
 NeoBundle 'tpope/vim-markdown'                     " Markdown syntax
 NeoBundle 'wizicer/vim-jison'                      " Jison (Bison/Flex) syntax
 
-" Code Assist
+" }}}
+" Code Assist {{{
+
 NeoBundle 'mattn/emmet-vim'                  " <C-Y>, to expand html
 NeoBundle 'scrooloose/nerdcommenter'         " comment code
 NeoBundle 'Raimondi/delimitMate'             " pair quotes/brackets/etc
 
+" }}}
+" End neobundle, check for updates {{{
+
 call neobundle#end()
 filetype plugin indent on
-
-" Check for uninstalled bundles
 NeoBundleCheck
+
+" }}}
 
 " }}}
 " Plugin Configuration ----------------------------------------------------- {{{
