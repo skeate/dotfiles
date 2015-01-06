@@ -208,6 +208,7 @@ NeoBundle 'wizicer/vim-jison'                      " Jison (Bison/Flex) syntax
 NeoBundle 'mattn/emmet-vim'                  " <C-Y>, to expand html
 NeoBundle 'scrooloose/nerdcommenter'         " comment code
 NeoBundle 'Raimondi/delimitMate'             " pair quotes/brackets/etc
+NeoBundle 'Chiel92/vim-autoformat'           " auto format/beautify code
 
 " }}}
 " End neobundle, check for updates {{{
@@ -363,6 +364,11 @@ function! s:unite_settings()
   imap <silent><buffer><expr> <C-t> unite#do_action('tabopen')
   imap <buffer> <Esc> <Plug>(unite_exit)
 endfunction
+
+" }}}
+" vim-autoformat {{{
+
+noremap <leader>} :Autoformat<cr><cr>
 
 " }}}
 " vim-vinegar {{{
