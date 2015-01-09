@@ -328,6 +328,7 @@ call unite#custom#source('file_rec,file_rec/async,file_mru,file,buffer,grep',
       \ '\.tmp/',
       \ '\.mimosa',
       \ '\.DS_Store',
+      \ 'node_modules/',
       \ '\.so',
       \ '\.dat',
       \ ], '\|'))
