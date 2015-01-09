@@ -803,7 +803,13 @@ augroup END
 " Javascript {{{
 
 let g:neocomplete#force_omni_input_patterns.javascript = '[^. \t]\.\w*'
-autocmd FileType javascript setlocal omnifunc=tern#Complete
+augroup ft_javascript
+  au!
+
+  au FileType javascript setlocal omnifunc=tern#Complete
+  au BufNewFile,BufReadPost *.js setl foldmethod=indent
+  au BufNewFile,BufReadPost *.js setl foldlevel=1
+augroup END
 
 " }}}
 " Markdown {{{
