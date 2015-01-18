@@ -224,7 +224,9 @@ NeoBundleCheck
 
 " Airline {{{
 
-let g:airline_powerline_fonts = 1
+if(has('gui_running'))
+  let g:airline_powerline_fonts = 1
+endif
 
 " }}}
 " delimitMate {{{
@@ -383,6 +385,7 @@ let g:netrw_altfile = 1
 " }}}
 " Color scheme ------------------------------------------------------------- {{{
 
+set t_Co=256
 set background=dark
 colorscheme hybrid
 
@@ -1089,6 +1092,8 @@ else
       "Mac options here
       " Inconsolata is a bit small on osx
       set guifont=Inconsolata\ for\ Powerline:h13
+    else
+      set guifont=Inconsolata-g\ for\ Powerline
     endif
   endif
 endif
