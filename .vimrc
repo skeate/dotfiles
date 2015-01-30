@@ -155,7 +155,7 @@ NeoBundle 'Shougo/vimproc.vim', {
       \     'unix' : 'gmake',
       \    },
       \ }
-NeoBundle 'Shougo/unite.vim'                 " unified interface for lists
+NeoBundle 'YankRing.vim'                     " yank/delete/change memory
 
 " }}}
 " Movement {{{
@@ -164,6 +164,8 @@ NeoBundle 'b4winckler/vim-angry.git'         " add function arg text object
 NeoBundle 'camelcasemotion'                  " camelcase motion with (eg) ,w
 NeoBundle 'Lokaltog/vim-easymotion'          " move around easier
 NeoBundle 'nathanaelkane/vim-indent-guides'  " show indent guides
+NeoBundle 'mileszs/ack.vim'                  " find in files
+NeoBundle 'rking/ag.vim'                     " same-ish as above but with ag!
 
 " }}}
 " Management {{{
@@ -177,6 +179,8 @@ NeoBundle 'tpope/vim-repeat'                 " fix . repeating for plugins
 NeoBundle 'tpope/vim-surround'               " surround object with text/tags
 NeoBundle 'tpope/vim-unimpaired'             " add pairwise operators with [x ]x
 NeoBundle 'tpope/vim-vinegar'                " make netrw nicer
+NeoBundle 'kien/ctrlp.vim'                   " fuzzy file finder
+NeoBundle 'jlanzarotta/bufexplorer'          " buffer list
 
 " }}}
 " Syntax & Autocomplete {{{
@@ -229,6 +233,19 @@ if(has('gui_running'))
 endif
 
 " }}}
+" bufexplorer {{{
+
+let g:bufExplorerShowRelativePath=1
+
+" }}}
+" ctrlp {{{
+
+let g:ctrlp_custom_ignore = {
+      \ 'dir': '\.git$\|\.?tmp$',
+      \ 'file': '\.so$\|\.dat$\|\.DS_Store$'
+      \ }
+
+" }}}
 " delimitMate {{{
 let g:delimitMate_expand_space = 1
 let g:delimitMate_expand_cr = 1
@@ -258,7 +275,7 @@ inoremap <expr><C-g>     neocomplete#undo_completion()
 inoremap <expr><C-l>     neocomplete#complete_common_string()
 " Recommended key-mappings.
 " <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+" inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
 function! s:my_cr_function()
   return pumvisible() ? neocomplete#close_popup() : "\<CR>"
 endfunction
@@ -301,72 +318,6 @@ let g:syntastic_javascript_checkers=['jshint','jscs']
 
 nnoremap <leader>tr <Esc>:TabooRename<space>
 nnoremap <leader>to <Esc>:TabooOpen<space>
-
-" }}}
-" Unite {{{
-
-let g:unite_force_overwrite_statusline = 1
-call unite#custom#profile('default', 'context', {
-\   'start_insert' : 1,
-\   'direction'    : 'botright',
-\   'winheight'    : 10
-\ })
-
-if executable('ag')
-  let g:unite_source_grep_command = 'ag'
-  let g:unite_source_grep_default_opts =
-        \ '-i --line-numbers --nocolor --nogroup --hideen --ignore ' .
-        \ '".hg" --ignure ".svn" --ignore ".git" --ignore ".bzr"'
-  let g:unite_source_grep_recursive_opt = ''
-elseif executable('ack-grep')
-  let g:unite_source_grep_command = 'ack-grep'
-  let g:unite_source_grep_default_opts =
-        \ '-i --no-heading --no-color -k -H'
-  let g:unite_source_grep_recursive_opt = ''
-endif
-call unite#custom#source('file_rec,file_rec/async,file_mru,file,buffer,grep',
-      \ 'ignore_pattern', join([
-      \ '\.git/',
-      \ '\.tmp/',
-      \ '\.mimosa',
-      \ '\.DS_Store',
-      \ 'node_modules/',
-      \ '\.so',
-      \ '\.dat',
-      \ ], '\|'))
-
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
-call unite#filters#sorter_default#use(['sorter_rank'])
-
-" Emulate CtrlP
-nnoremap <C-P> :<C-u>Unite -buffer-name=files -start-insert buffer
-      \ file_rec/async:!<cr>
-
-" Like CtrlP but for Git files
-nnoremap <C-G> :<C-u>Unite -buffer-name=files -start-insert buffer
-      \ file_rec/git:!<cr>
-
-" CtrlP-ish Ack
-nnoremap <C-F> :<C-u>Unite grep:.<cr>
-
-" Buffer Explorer
-nnoremap <C-B> :<C-u>Unite buffer<cr>
-
-" Yankring
-let g:unite_source_history_yank_enable = 1
-nnoremap <leader>y :<C-u>Unite history/yank<cr>
-
-" Set up CtrlP-like commands in Unite buffer
-autocmd FileType unite call s:unite_settings()
-function! s:unite_settings()
-  imap <buffer> <C-j> <Plug>(unite_select_next_line)
-  imap <buffer> <C-k> <Plug>(unite_select_previous_line)
-  imap <buffer> <C-z> <Plug>(unite_toggle_mark_current_candidate)
-  imap <silent><buffer><expr> <C-x> unite#do_action('split')
-  imap <silent><buffer><expr> <C-v> unite#do_action('vsplit')
-  imap <silent><buffer><expr> <C-t> unite#do_action('tabopen')
-  imap <buffer> <Esc> <Plug>(unite_exit)
-endfunction
 
 " }}}
 " vim-autoformat {{{
@@ -607,8 +558,6 @@ vnoremap / /\v
 
 set ignorecase
 set smartcase
-set showmatch
-set matchtime=3
 set hlsearch
 set gdefault
 
@@ -706,7 +655,6 @@ vnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR><c-o>
 " Folding ------------------------------------------------------------------ {{{
 
 set foldmethod=marker
-set foldlevelstart=0
 
 " Space to toggle folds.
 nnoremap <Space> za
@@ -714,18 +662,6 @@ vnoremap <Space> za
 
 " Make zO recursively open whatever fold we're in, even if it's partially open.
 nnoremap zO zczO
-
-" "Focus" the current line.  Basically:
-"
-" 1. Close all folds.
-" 2. Open just the folds containing the current line.
-" 3. Move the line to a little bit (15 lines) above the center of the screen.
-" 4. Pulse the cursor line.  My eyes are bad.
-"
-" This mapping wipes out the z mark, which I never use.
-"
-" I use :sus for the rare times I want to actually background Vim.
-nnoremap <c-z> mzzMzvzz15<c-e>`z:Pulse<cr>
 
 function! MyFoldText() " {{{
     let line = getline(v:foldstart)
