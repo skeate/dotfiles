@@ -2,6 +2,8 @@
 ! https://github.com/chriskempson/tomorrow-theme/blob/master/vim/colors/Tomorrow-Night.vim
 ! vim: ft=xdefaults
 
+! colors {{{
+
 *background: #1D1F21
 *foreground: #C5C8C6
 ! black
@@ -29,12 +31,28 @@
 *color7: #707880
 *color15: #C5C8C6
 
-Xft*dpi: 96
+! }}}
+! Xft fonts {{{
+
+Xft*dpi: 92
 Xft*antialias: true
 Xft*hinting: full
 
-URxvt*font: xft:Inconsolata\\-g for Powerline:pixelsize=12
-URxvt*boldfont: xft:Inconsolata:style=bold:pixelsize=14
+! }}}
+! URxvt {{{
+
+URxvt*font: xft:Monofur for Powerline:size=13
+URxvt*boldfont: xft:Monofur for Powerline:style=bold:size=13
 URxvt.transparent: true
 URxvt.tintColor: white
 URxvt.shading: 20
+URxvt.depth: 32
+
+URxvt.scrollBar: false
+URxvt.borderless: true
+URxvt.perl-ext-common: clipboard
+URxvt.keysym.M-c:   perl:clipboard:copy
+URxvt.keysym.M-v:   perl:clipboard:paste
+URxvt.keysym.M-C-v: perl:clipboard:paste_escaped
+
+! }}}
