@@ -213,6 +213,7 @@ NeoBundle 'mattn/emmet-vim'                  " <C-Y>, to expand html
 NeoBundle 'scrooloose/nerdcommenter'         " comment code
 NeoBundle 'Raimondi/delimitMate'             " pair quotes/brackets/etc
 NeoBundle 'Chiel92/vim-autoformat'           " auto format/beautify code
+NeoBundle 'colorizer'                        " highlight hex colors
 
 " }}}
 " End neobundle, check for updates {{{
