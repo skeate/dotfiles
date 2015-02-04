@@ -656,6 +656,7 @@ vnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR><c-o>
 " Folding ------------------------------------------------------------------ {{{
 
 set foldmethod=marker
+set foldlevelstart=99
 
 " Space to toggle folds.
 nnoremap <Space> za
@@ -699,7 +700,7 @@ autocmd FileType litcoffee runtime ftplugin/coffee.vim
 " Use indent folding
 autocmd BufNewFile,BufReadPost *.coffee setl foldmethod=indent
 autocmd BufNewFile,BufReadPost *.litcoffee setl foldmethod=indent
-autocmd BufNewFile,BufReadPost *.litcoffee setl foldmethod=indent
+
 " }}}
 " CSS and Sass {{{
 
@@ -748,7 +749,6 @@ augroup ft_javascript
 
   au FileType javascript setlocal omnifunc=tern#Complete
   au BufNewFile,BufReadPost *.js setl foldmethod=indent
-  au BufNewFile,BufReadPost *.js setl foldlevel=1
 augroup END
 
 " }}}
