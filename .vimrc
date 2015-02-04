@@ -767,6 +767,16 @@ augroup ft_markdown
 augroup END
 
 " }}}
+" Vim {{{
+
+augroup vim
+  au!
+
+  au BufRead *.vimrc setlocal foldlevel=0
+
+augroup END
+
+" }}}
 
 " }}}
 " Text objects ------------------------------------------------------------- {{{
