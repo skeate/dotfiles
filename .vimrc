@@ -1018,6 +1018,16 @@ hi def InterestingWord6 guifg=#000000 ctermfg=16 guibg=#ff2c4b ctermbg=195
 " }}}
 
 " }}}
+" netrw tree drawer {{{
+
+function! OpenNetrwInDrawer()
+  silent! exec 'topleft vertical 30 new'
+  silent! exec 'edit .'
+  silent! exec 'normal iii'
+endfunction
+nnoremap <leader>d :<C-u>call OpenNetrwInDrawer()<CR>
+
+" }}}
 
 " }}}
 " GUI/Terminal settings ---------------------------------------------------- {{{
