@@ -203,6 +203,7 @@ NeoBundle 'Shougo/neosnippet-snippets'             " collection of snippets
 NeoBundle 'Shougo/neosnippet.vim'                  " snippets
 NeoBundle 'SyntaxComplete'                         " syntax keywords in omnicmpl
 NeoBundle 'tpope/vim-haml'                         " Haml, Sass, SCSS
+NeoBundle 'groenewege/vim-less'                    " LESS
 NeoBundle 'tpope/vim-markdown'                     " Markdown syntax
 NeoBundle 'wizicer/vim-jison'                      " Jison (Bison/Flex) syntax
 
