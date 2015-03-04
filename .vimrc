@@ -215,6 +215,7 @@ NeoBundle 'scrooloose/nerdcommenter'         " comment code
 NeoBundle 'Raimondi/delimitMate'             " pair quotes/brackets/etc
 NeoBundle 'Chiel92/vim-autoformat'           " auto format/beautify code
 NeoBundle 'colorizer'                        " highlight hex colors
+NeoBundle 'osyo-manga/vim-over'              " Highlight replacement text
 
 " }}}
 " End neobundle, check for updates {{{
@@ -331,6 +332,21 @@ nnoremap <leader>to <Esc>:TabooOpen<space>
 " vim-autoformat {{{
 
 noremap <leader>} :Autoformat<cr><cr>
+
+" }}}
+" vim-over {{{
+
+function! VisualFindAndReplace()
+    :OverCommandLine%s/
+    :w
+endfunction
+function! VisualFindAndReplaceWithSelection() range
+    :'<,'>OverCommandLine s/
+    :w
+endfunction
+
+nnoremap <Leader>fr :call VisualFindAndReplace()<CR>
+xnoremap <Leader>fr :call VisualFindAndReplaceWithSelection()<CR>
 
 " }}}
 " vim-vinegar {{{
