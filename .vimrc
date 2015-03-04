@@ -1029,6 +1029,11 @@ endfunction
 nnoremap <leader>d :<C-u>call OpenNetrwInDrawer()<CR>
 
 " }}}
+" project manager {{{
+
+nnoremap <leader>p :so .vimrc-
+
+" }}}
 
 " }}}
 " GUI/Terminal settings ---------------------------------------------------- {{{
