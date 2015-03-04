@@ -263,6 +263,11 @@ autocmd VimEnter * :autocmd WinEnter * :normal ze
 map <leader>g :GundoToggle<CR>
 
 " }}}
+" indent guides {{{
+
+IndentGuidesEnable
+
+" }}}
 " neocomplete {{{
 
 let g:neocomplete#enable_at_startup = 1
