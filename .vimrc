@@ -11,7 +11,7 @@ set showmode
 set hidden
 set visualbell
 set undofile
-set list
+set nolist
 set lazyredraw
 set splitbelow
 set splitright
