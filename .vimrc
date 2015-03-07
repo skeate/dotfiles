@@ -197,7 +197,15 @@ NeoBundle 'othree/html5.vim'                       " HTML5 syntax/autocomplete
 NeoBundle 'othree/javascript-libraries-syntax.vim' " library syntax support
 NeoBundle 'pangloss/vim-javascript'                " more syntax highlighting
 NeoBundle 'scrooloose/syntastic'                   " syntax checking
-NeoBundle 'Shougo/neocomplete.vim'                 " autocompletion
+NeoBundle 'Valloric/YouCompleteMe', {
+      \ 'build' : {
+      \   'mac' : './install.sh --clang-completer --system-libclang --omnisharp-completer',
+      \   'unix' : './install.sh --clang-completer --system-libclang --omnisharp-completer',
+      \   'windows' : './install.sh --clang-completer --system-libclang --omnisharp-completer',
+      \   'cygwin' : './install.sh --clang-completer --system-libclang --omnisharp-completer'
+      \   }
+      \ }
+"NeoBundle 'Shougo/neocomplete.vim'                 " autocompletion
 NeoBundle 'Shougo/neosnippet-snippets'             " collection of snippets
 NeoBundle 'Shougo/neosnippet.vim'                  " snippets
 NeoBundle 'SyntaxComplete'                         " syntax keywords in omnicmpl
@@ -285,30 +293,29 @@ autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=gray10 ctermbg=3
 " }}}
 " neocomplete {{{
 
-set completeopt-=preview
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#enable_smart_case = 1
-let g:neocomplete#enable_fuzzy_completion = 1
-let g:neocomplete#sources#syntax#min_keyword_length = 3
-if !exists('g:neocomplete#force_omni_input_patterns')
-  let g:neocomplete#force_omni_input_patterns = {}
-endif
-" Plugin key-mappings.
-inoremap <expr><C-g>     neocomplete#undo_completion()
-inoremap <expr><C-l>     neocomplete#complete_common_string()
-" Recommended key-mappings.
-" <CR>: close popup and save indent.
-" inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  return pumvisible() ? neocomplete#close_popup() : "\<CR>"
-endfunction
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y>  neocomplete#close_popup()
-inoremap <expr><C-e>  neocomplete#cancel_popup()
+"let g:neocomplete#enable_at_startup = 1
+"let g:neocomplete#enable_smart_case = 1
+"let g:neocomplete#enable_fuzzy_completion = 1
+"let g:neocomplete#sources#syntax#min_keyword_length = 3
+"if !exists('g:neocomplete#force_omni_input_patterns')
+  "let g:neocomplete#force_omni_input_patterns = {}
+"endif
+"" Plugin key-mappings.
+"inoremap <expr><C-g>     neocomplete#undo_completion()
+"inoremap <expr><C-l>     neocomplete#complete_common_string()
+"" Recommended key-mappings.
+"" <CR>: close popup and save indent.
+"" inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+"function! s:my_cr_function()
+  "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+"endfunction
+"" <TAB>: completion.
+"inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+"" <C-h>, <BS>: close popup and delete backword char.
+"inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+"inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+"inoremap <expr><C-y>  neocomplete#close_popup()
+"inoremap <expr><C-e>  neocomplete#cancel_popup()
 
 " }}}
 " neosnippet {{{
@@ -779,7 +786,7 @@ augroup END
 " }}}
 " Javascript {{{
 
-let g:neocomplete#force_omni_input_patterns.javascript = '[^. \t]\.\w*'
+" let g:neocomplete#force_omni_input_patterns.javascript = '[^. \t]\.\w*'
 augroup ft_javascript
   au!
 
