@@ -266,7 +266,11 @@ map <leader>g :GundoToggle<CR>
 " }}}
 " indent guides {{{
 
-IndentGuidesEnable
+let g:indent_guides_guide_size = 1
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_auto_colors = 0
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=gray15 ctermbg=12
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=gray10 ctermbg=3
 
 " }}}
 " neocomplete {{{
