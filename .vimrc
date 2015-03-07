@@ -185,7 +185,7 @@ NeoBundle 'jlanzarotta/bufexplorer'          " buffer list
 " }}}
 " Syntax & Autocomplete {{{
 
-NeoBundle 'dsawardekar/ember.vim'                  " Ember syntax/portkey
+NeoBundleLazy 'dsawardekar/ember.vim'                  " Ember syntax/portkey
 NeoBundle 'editorconfig/editorconfig-vim'          " editor config reader
 NeoBundle 'elzr/vim-json'                          " JSON syntax
 NeoBundle 'hail2u/vim-css3-syntax'                 " CSS3 syntax &c.
@@ -365,7 +365,6 @@ let g:netrw_altfile = 1
 " Color scheme ------------------------------------------------------------- {{{
 
 set t_Co=256
-set background=dark
 colorscheme hybrid
 
 " Highlight VCS conflict markers
