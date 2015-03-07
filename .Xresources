@@ -41,8 +41,9 @@ Xft*hinting: full
 ! }}}
 ! URxvt {{{
 
-URxvt*font: xft:Monofur for Powerline:size=13
-URxvt*boldfont: xft:Monofur for Powerline:style=bold:size=13
+URxvt*font: xft:Inconsolata:size=12
+URxvt*boldfont: xft:Inconsolata:style=bold:size=12
+URxvt.letterSpace: -1
 URxvt.transparent: true
 URxvt.tintColor: white
 URxvt.shading: 20
