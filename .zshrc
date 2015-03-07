@@ -47,6 +47,7 @@ compinit
 
 setopt HIST_IGNORE_DUPS
 export EDITOR=vim
+PATH=/usr/local/bin:$PATH:~/bin
 
 # Help {{{
 
