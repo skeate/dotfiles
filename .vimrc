@@ -191,7 +191,6 @@ NeoBundle 'elzr/vim-json'                          " JSON syntax
 NeoBundle 'hail2u/vim-css3-syntax'                 " CSS3 syntax &c.
 NeoBundle 'jelera/vim-javascript-syntax'           " better syntax highlighting
 NeoBundle 'kchmck/vim-coffee-script'               " Coffeescript syntax &c.
-NeoBundle 'marijnh/tern_for_vim'                   " JS autocomplete
 NeoBundle 'mintplant/vim-literate-coffeescript'    " .litcoffee support
 NeoBundle 'mustache/vim-mustache-handlebars'       " Handlebars syntax
 NeoBundle 'othree/html5.vim'                       " HTML5 syntax/autocomplete
@@ -206,6 +205,17 @@ NeoBundle 'tpope/vim-haml'                         " Haml, Sass, SCSS
 NeoBundle 'groenewege/vim-less'                    " LESS
 NeoBundle 'tpope/vim-markdown'                     " Markdown syntax
 NeoBundle 'wizicer/vim-jison'                      " Jison (Bison/Flex) syntax
+NeoBundle 'marijnh/tern_for_vim',                  " JS autocomplete
+      \ {
+      \   'build_commands': 'npm',
+      \   'build' : 'npm install'
+      \ }
+NeoBundle 'Slava/tern-meteor',
+      \ {
+      \   'build' : {
+      \     'unix': 'cp meteor.js ../tern_for_vim/node_modules/tern/plugin/meteor.js'
+      \   }
+      \ }
 
 " }}}
 " Code Assist {{{
