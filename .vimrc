@@ -611,7 +611,7 @@ set sidescrolloff=10
 
 set virtualedit+=block
 
-noremap <silent> <leader><space> :noh<cr>:call clearmatches()<cr>
+noremap <silent> <leader><space> :noh<cr>
 
 runtime macros/matchit.vim
 map <tab> %
@@ -1036,15 +1036,28 @@ function! HiInterestingWord(n) " {{{
     " Move back to our original location.
     normal! `z
 endfunction " }}}
+function! UnHiInterestingWord(n) " {{{
+    " Calculate an arbitrary match ID.  Hopefully nothing else is using it.
+    let mid = 86750 + a:n
+
+    " Clear existing matches, but don't worry if they don't exist.
+    silent! call matchdelete(mid)
+endfunction " }}}
 
 " Mappings {{{
 
 nnoremap <silent> <leader>1 :call HiInterestingWord(1)<cr>
+nnoremap <silent> <leader><leader>1 :call UnHiInterestingWord(1)<cr>
 nnoremap <silent> <leader>2 :call HiInterestingWord(2)<cr>
+nnoremap <silent> <leader><leader>2 :call UnHiInterestingWord(2)<cr>
 nnoremap <silent> <leader>3 :call HiInterestingWord(3)<cr>
+nnoremap <silent> <leader><leader>3 :call UnHiInterestingWord(3)<cr>
 nnoremap <silent> <leader>4 :call HiInterestingWord(4)<cr>
+nnoremap <silent> <leader><leader>4 :call UnHiInterestingWord(4)<cr>
 nnoremap <silent> <leader>5 :call HiInterestingWord(5)<cr>
+nnoremap <silent> <leader><leader>5 :call UnHiInterestingWord(5)<cr>
 nnoremap <silent> <leader>6 :call HiInterestingWord(6)<cr>
+nnoremap <silent> <leader><leader>6 :call UnHiInterestingWord(6)<cr>
 
 " }}}
 " Default Highlights {{{
