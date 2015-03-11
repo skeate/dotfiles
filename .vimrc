@@ -776,11 +776,6 @@ augroup ft_css
     "     }
     au BufNewFile,BufRead *.scss,*.sass,*.css nnoremap <buffer>
           \ <localleader>S ?{<CR>jV/\v^\s*\}?$<CR>k:sort<CR>:noh<CR>
-
-    " Make {<cr> insert a pair of brackets in such a way that the cursor is correctly
-    " positioned inside of them AND the following code doesn't get unfolded.
-    au BufNewFile,BufRead *.scss,*.sass,*.css inoremap <buffer>
-          \ {<cr> {}<left><cr><space><space><space><space>.<cr><esc>kA<bs>
 augroup END
 
 " }}}
@@ -1093,7 +1088,7 @@ nnoremap <leader>p :so .vimrc-
 
 if(has('gui_running'))
   set guioptions= " disable all guioptions
-  set guifont=Inconsolata\ for\ Powerline:h11 " not strictly airline, but related
+  set guifont=Inconsolata\ for\ Powerline:h11
 endif
 
 "}}}
