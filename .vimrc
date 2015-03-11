@@ -185,7 +185,7 @@ NeoBundle 'jlanzarotta/bufexplorer'          " buffer list
 " }}}
 " Syntax & Autocomplete {{{
 
-NeoBundleLazy 'dsawardekar/ember.vim'                  " Ember syntax/portkey
+NeoBundle 'dsawardekar/ember.vim'                  " Ember syntax/portkey
 NeoBundle 'editorconfig/editorconfig-vim'          " editor config reader
 NeoBundle 'elzr/vim-json'                          " JSON syntax
 NeoBundle 'hail2u/vim-css3-syntax'                 " CSS3 syntax &c.
