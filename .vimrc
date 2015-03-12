@@ -779,6 +779,15 @@ augroup ft_css
 augroup END
 
 " }}}
+" HTML {{{
+
+augroup ft_html
+  au!
+
+  au FileType html setlocal foldmethod=indent
+augroup END
+
+" }}}
 " Javascript {{{
 
 " let g:neocomplete#force_omni_input_patterns.javascript = '[^. \t]\.\w*'
