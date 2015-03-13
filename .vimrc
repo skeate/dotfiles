@@ -323,6 +323,11 @@ nnoremap <leader>tr <Esc>:TabooRename<space>
 nnoremap <leader>to <Esc>:TabooOpen<space>
 
 " }}}
+" tern for vim {{{
+
+let g:tern_show_signature_in_pum = 1
+
+" }}}
 " vim-autoformat {{{
 
 noremap <leader>} :Autoformat<cr><cr>
@@ -348,6 +353,11 @@ xnoremap <Leader>fr :call VisualFindAndReplaceWithSelection()<CR>
 " not really vinegar's fault, but netrw takes over last buffer, which is awkward
 " behaviour; this fixes it
 let g:netrw_altfile = 1
+
+" }}}
+" YouCompleteMe {{{
+
+let g:ycm_confirm_extra_conf = 0
 
 " }}}
 
@@ -767,7 +777,6 @@ augroup END
 augroup ft_javascript
   au!
 
-  au FileType javascript setlocal omnifunc=tern#Complete
   au BufNewFile,BufReadPost *.js setl foldmethod=indent
 augroup END
 
