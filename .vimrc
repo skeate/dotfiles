@@ -492,10 +492,6 @@ nnoremap zh mzzt10<c-u>`z
 nnoremap Q gqip
 vnoremap Q gq
 
-" Reformat line.
-" I never use l as a macro register anyway.
-nnoremap ql gqq
-
 " Easier linewise reselection of what you just pasted.
 nnoremap <leader>V V`]
 
