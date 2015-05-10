@@ -53,22 +53,24 @@
 *.color20:      base04
 *.color21:      base06
 ! }}}
+
 ! Xft fonts {{{
 
-Xft*dpi: 92
-Xft*antialias: true
-Xft*hinting: full
+Xft.antialias: 1
+Xft.autohint: 0
+Xft.dpi: 92
+Xft.hinting: 1
+Xft.hintstyle: hintfull
+Xft.rgba: rgb
 
 ! }}}
 ! URxvt {{{
 
-URxvt*font: xft:Inconsolata:size=12
-URxvt*boldfont: xft:Inconsolata:style=bold:size=12
-URxvt.letterSpace: -1
-URxvt.transparent: true
-URxvt.tintColor: white
-URxvt.shading: 20
-URxvt.depth: 32
+URxvt*font: xft:Inconsolata:size=12:antialias=false,\
+            -*-unifont-*-*-*-*-*-*-*-*-*-*-*-*
+URxvt*boldfont: xft:Inconsolata:style=bold:size=12,\
+                -*-unifont-*-*-*-*-*-*-*-*-*-*-*-*
+URxvt*letterSpace: -1
 
 URxvt.scrollBar: false
 URxvt.borderless: true
