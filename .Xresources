@@ -71,12 +71,34 @@ URxvt*font: xft:Inconsolata:size=12:antialias=false,\
 URxvt*boldfont: xft:Inconsolata:style=bold:size=12,\
                 -*-unifont-*-*-*-*-*-*-*-*-*-*-*-*
 URxvt*letterSpace: -1
+URxvt*transparent: true
+URxvt*tintColor: white
+URxvt*shading: 20
+URxvt*depth: 32
+! Fade the text by the given percentage when focus is lost; option -fade.
+URxvt*fading: 50
+! Fade to this colour, when fading is used (see fading:). The default colour is black; option -fadecolor.
+URxvt*fadeColor: base00
+! True: set the urgency hint for the wm on receipt of a bell character.  False: do not set the urgency hint [default].
+URxvt*urgentOnBell: True
+! True: blink the cursor. False: do not blink the cursor [default]; option -bc.
+URxvt*cursorBlink: True
+! True: Make the cursor underlined. False: Make the cursor a box [default]; option -uc.
+URxvt*cursorUnderline: False
+! True: blank the pointer when a key is pressed or after a set number of seconds of inactivity. False: the pointer is always visible [default].
+URxvt*pointerBlank: True
 
-URxvt.scrollBar: false
-URxvt.borderless: true
-URxvt.perl-ext-common: clipboard
-URxvt.keysym.M-c:   perl:clipboard:copy
-URxvt.keysym.M-v:   perl:clipboard:paste
-URxvt.keysym.M-C-v: perl:clipboard:paste_escaped
+! True: enable the scrollbar [default]; option -sb. False: disable the scrollbar; option +sb.
+URxvt*scrollBar: False
+URxvt*borderless: True
+! Comma-separated list(s) of perl extension scripts (default: "default") to use in this terminal instance; option -pe.
+URxvt*perl-ext-common: default,matcher,clipboard
+! Specifies the program to be started with a URL argument. Used by the "selection-popup" and "matcher" perl extensions.
+URxvt*url-launcher: /usr/bin/chromium
+URxvt*matcher.button: 1
+URxvt*matcher.pattern.1: \\bwww\\.[\\w-]\\.[\\w./?&@#-]*[\\w/-]
+URxvt*keysym.M-c:   perl:clipboard:copy
+URxvt*keysym.M-v:   perl:clipboard:paste
+URxvt*keysym.M-C-v: perl:clipboard:paste_escaped
 
 ! }}}
