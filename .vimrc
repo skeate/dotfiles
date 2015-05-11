@@ -48,6 +48,9 @@ au FocusLost * :silent! wall
 let mapleader = "\\"
 let maplocalleader = ","
 
+" Don't show that damn preview window
+set completeopt-=preview
+
 " Cursorline {{{
 " Only show cursorline in the current window and in normal mode.
 
