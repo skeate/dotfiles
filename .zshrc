@@ -34,7 +34,7 @@ antigen bundle vagrant
 # }}}
 # Prompt/Theme ------------------------------------------------------------- {{{
 
-antigen theme bureau
+antigen theme ys
 
 # }}}
 # Completions -------------------------------------------------------------- {{{
@@ -46,6 +46,7 @@ compinit
 # Misc Settings ------------------------------------------------------------ {{{
 
 setopt HIST_IGNORE_DUPS
+setopt extendedglob
 export EDITOR=vim
 PATH=/usr/local/bin:$PATH:~/bin
 
