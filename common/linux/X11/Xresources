@@ -66,9 +66,11 @@ Xft.rgba: rgb
 ! }}}
 ! URxvt {{{
 
-URxvt*font: xft:Inconsolata:size=12:antialias=false,\
+URxvt*font: xft:Inconsolata:size=12,\
+            xft:Font Awesome:pixelsize=19:antialias=true,\
             -*-unifont-*-*-*-*-*-*-*-*-*-*-*-*
 URxvt*boldfont: xft:Inconsolata:style=bold:size=12,\
+                xft:Font Awesome:pixelsize=19:antialias=true,\
                 -*-unifont-*-*-*-*-*-*-*-*-*-*-*-*
 URxvt*letterSpace: -1
 URxvt*transparent: true

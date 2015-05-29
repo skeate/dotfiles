@@ -3,15 +3,17 @@
 
 # Antigen ------------------------------------------------------------------ {{{
 
-if [ ! -f ~/.zsh/antigen.zsh ]; then
+[[ -z $XDG_DATA_HOME ]] && echo 'data home not set' && return
+
+if [[ ! -f $XDG_DATA_HOME/zsh/antigen.zsh ]]; then
   echo " ** Antigen not found **"
-  echo "Making ~/.zsh if it doesn't exist..."
-  mkdir -p ~/.zsh
+  echo "Making $XDG_DATA_HOME/zsh if it doesn't exist..."
+  mkdir -p $XDG_DATA_HOME/zsh
   echo "Downloading antigen..."
   curl -L https://raw.githubusercontent.com/zsh-users/antigen/master/antigen.zsh \
-    > ~/.zsh/antigen.zsh
+    > $XDG_DATA_HOME/zsh/antigen.zsh
 fi
-source ~/.zsh/antigen.zsh
+source $XDG_DATA_HOME/zsh/antigen.zsh
 antigen use oh-my-zsh
 
 # }}}
@@ -47,8 +49,10 @@ compinit
 
 setopt HIST_IGNORE_DUPS
 setopt extendedglob
+
+export HISTFILE="$XDG_CACHE_HOME/zsh_history"
 export EDITOR=vim
-PATH=/usr/local/bin:$PATH:~/bin
+export PAGER=less
 
 # Help {{{
 
