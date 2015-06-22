@@ -578,6 +578,7 @@ nnoremap <leader>ev :vsplit ~/.local/etc/base/vim/vimrc<cr>
 nnoremap <leader>eV :vsplit scp://vagrant//<cr>
 nnoremap <leader>et :vsplit ~/.local/etc/base/tmux/tmux.conf<cr>
 nnoremap <leader>ec :vsplit ~/.local/etc<cr>
+nnoremap <leader>ez :vsplit ~/.local/etc/base/zsh<cr>
 
 " }}}
 " Searching and movement --------------------------------------------------- {{{
@@ -802,7 +803,7 @@ augroup END
 augroup vim
   au!
 
-  au BufRead *.vimrc setlocal foldlevel=0
+  au BufRead vimrc setlocal foldlevel=0
 
 augroup END
 

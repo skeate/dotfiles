@@ -53,6 +53,8 @@ setopt extendedglob
 
 source /usr/share/nvm/nvm.sh
 
+alias tmux='tmux -f $XDG_CONFIG_HOME/tmux/tmux.conf'
+
 # Help {{{
 
 autoload -U run-help
