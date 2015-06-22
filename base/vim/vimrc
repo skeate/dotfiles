@@ -26,7 +26,7 @@ set nowrap
 
 " Spelling
 set dictionary=/usr/share/dict/words
-set spellfile=~/.vim/custom-dictionary.utf-8.add,~/.vim-local-dictionary.utf-8.add
+set spellfile=$XDG_DATA_HOME/vim/custom-dictionary.utf-8.add
 nnoremap zG 2zg
 
 " Don't try to highlight lines longer than 800 characters.
@@ -102,9 +102,9 @@ set colorcolumn=+1
 set backup                        " enable backups
 set noswapfile                    " it's 2013, Vim.
 
-set undodir=~/.vim/tmp/undo//     " undo files
-set backupdir=~/.vim/tmp/backup// " backups
-set directory=~/.vim/tmp/swap//   " swap files
+set undodir=$XDG_CACHE_HOME/vim/tmp/undo//     " undo files
+set backupdir=$XDG_CACHE_HOME/vim/tmp/backup// " backups
+set directory=$XDG_CACHE_HOME/vim/tmp/swap//   " swap files
 
 " Make those folders automatically if they don't already exist.
 if !isdirectory(expand(&undodir))
@@ -124,19 +124,19 @@ endif
 
 " setup neobundle (including install if necessary) {{{
 
-if !filereadable($HOME.'/.vim/bundle/neobundle.vim/README.md')
+if !filereadable($XDG_DATA_HOME.'/vim/bundle/neobundle.vim/README.md')
   echo "Installing NeoBundle..."
   echo ""
-  if !isdirectory($HOME.'/.vim/bundle')
-    call mkdir($HOME.'/.vim/bundle', 'p')
+  if !isdirectory($XDG_DATA_HOME.'/vim/bundle')
+    call mkdir($XDG_DATA_HOME.'/vim/bundle', 'p')
   endif
   silent !git clone https://github.com/Shougo/neobundle.vim
-        \ ~/.vim/bundle/neobundle.vim
+        \ $XDG_DATA_HOME/vim/bundle/neobundle.vim
 endif
 
 filetype off
-set rtp+=~/.vim/bundle/neobundle.vim/
-call neobundle#begin(expand('~/.vim/bundle/'))
+set rtp+=$XDG_DATA_HOME/vim/bundle/neobundle.vim/
+call neobundle#begin(expand('$XDG_DATA_HOME/vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 " }}}
@@ -381,7 +381,7 @@ iabbrev lsad ಥ_ಥ
 iabbrev lhap ಥ‿ಥ
 iabbrev lmis ಠ‿ಠ
 
-iabbrev vrcf `~/.vimrc` file
+iabbrev vrcf `$XDG_CONFIG_HOME/vim/vimrc` file
 
 " }}}
 " Convenience mappings ----------------------------------------------------- {{{
