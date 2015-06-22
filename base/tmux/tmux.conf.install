@@ -1,0 +1,4 @@
+#!/bin/sh
+
+mkdir -p $XDG_CONFIG_HOME/tmux/plugins/tpm
+exec git clone https://github.com/tmux-plugins/tpm $XDG_CONFIG_HOME/tmux/plugins/tpm
