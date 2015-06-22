@@ -574,11 +574,10 @@ nnoremap zl :let @z=@"<cr>x$p:let @"=@z<cr>
 " }}}
 " Quick editing ------------------------------------------------------------ {{{
 
-nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>ev :vsplit ~/.local/etc/base/vim/vimrc<cr>
 nnoremap <leader>eV :vsplit scp://vagrant//<cr>
-nnoremap <leader>ed :vsplit ~/.vim/custom-dictionary.utf-8.add<cr>
-nnoremap <leader>eg :vsplit ~/.gitconfig<cr>
-nnoremap <leader>et :vsplit ~/.tmux.conf<cr>
+nnoremap <leader>et :vsplit ~/.local/etc/base/tmux/tmux.conf<cr>
+nnoremap <leader>ec :vsplit ~/.local/etc<cr>
 
 " }}}
 " Searching and movement --------------------------------------------------- {{{
