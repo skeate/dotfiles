@@ -43,6 +43,7 @@ antigen theme ys
 
 autoload -U compinit
 compinit
+source /usr/share/nvm/bash_completion
 
 # }}}
 # Misc Settings ------------------------------------------------------------ {{{
@@ -50,9 +51,7 @@ compinit
 setopt HIST_IGNORE_DUPS
 setopt extendedglob
 
-export HISTFILE="$XDG_CACHE_HOME/zsh_history"
-export EDITOR=vim
-export PAGER=less
+source /usr/share/nvm/nvm.sh
 
 # Help {{{
 
