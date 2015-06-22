@@ -237,6 +237,11 @@ NeoBundle 'Raimondi/delimitMate'             " pair quotes/brackets/etc
 NeoBundle 'Chiel92/vim-autoformat'           " auto format/beautify code
 NeoBundle 'colorizer'                        " highlight hex colors
 NeoBundle 'osyo-manga/vim-over'              " Highlight replacement text
+NeoBundle 'bigfish/vim-js-context-coloring', {
+      \ 'build' : {
+      \   'others' : 'npm install --update'
+      \   }
+      \ }
 
 " }}}
 " End neobundle, check for updates {{{
