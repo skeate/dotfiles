@@ -803,7 +803,8 @@ augroup END
 augroup vim
   au!
 
-  au BufRead vimrc setlocal foldlevel=0
+  au BufRead *.vimrc setlocal foldlevel=0
+  au BufRead *.vimrc setlocal fdm=marker
 
 augroup END
 
@@ -1009,7 +1010,11 @@ function! HiInterestingWord(n) " {{{
     normal! mz
 
     " Yank the current word into the z register.
-    normal! "zyiw
+    if mode() == "v"
+      normal! "zygv
+    else
+      normal! "zyiw
+    endif
 
     " Calculate an arbitrary match ID.  Hopefully nothing else is using it.
     let mid = 86750 + a:n
@@ -1037,16 +1042,22 @@ endfunction " }}}
 " Mappings {{{
 
 nnoremap <silent> <leader>1 :call HiInterestingWord(1)<cr>
+vnoremap <silent> <leader>1 :call HiInterestingWord(1)<cr>
 nnoremap <silent> <leader><leader>1 :call UnHiInterestingWord(1)<cr>
 nnoremap <silent> <leader>2 :call HiInterestingWord(2)<cr>
+vnoremap <silent> <leader>2 :call HiInterestingWord(2)<cr>
 nnoremap <silent> <leader><leader>2 :call UnHiInterestingWord(2)<cr>
 nnoremap <silent> <leader>3 :call HiInterestingWord(3)<cr>
+vnoremap <silent> <leader>3 :call HiInterestingWord(3)<cr>
 nnoremap <silent> <leader><leader>3 :call UnHiInterestingWord(3)<cr>
 nnoremap <silent> <leader>4 :call HiInterestingWord(4)<cr>
+vnoremap <silent> <leader>4 :call HiInterestingWord(4)<cr>
 nnoremap <silent> <leader><leader>4 :call UnHiInterestingWord(4)<cr>
 nnoremap <silent> <leader>5 :call HiInterestingWord(5)<cr>
+vnoremap <silent> <leader>5 :call HiInterestingWord(5)<cr>
 nnoremap <silent> <leader><leader>5 :call UnHiInterestingWord(5)<cr>
 nnoremap <silent> <leader>6 :call HiInterestingWord(6)<cr>
+vnoremap <silent> <leader>6 :call HiInterestingWord(6)<cr>
 nnoremap <silent> <leader><leader>6 :call UnHiInterestingWord(6)<cr>
 
 " }}}
@@ -1075,6 +1086,17 @@ nnoremap <leader>d :<C-u>call OpenNetrwInDrawer()<CR>
 " project manager {{{
 
 nnoremap <leader>p :so .vimrc-
+
+" }}}
+" Copy Matches {{{
+
+function! CopyMatches(reg)
+  let hits = []
+  %s//\=len(add(hits, submatch(0))) ? submatch(0) : ''/ge
+  let reg = empty(a:reg) ? '+' : a:reg
+  execute 'let @'.reg.' = join(hits, "\n") . "\n"'
+endfunction
+command! -register CopyMatches call CopyMatches(<q-reg>)
 
 " }}}
 
