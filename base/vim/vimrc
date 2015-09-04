@@ -122,133 +122,107 @@ endif
 " }}}
 " Plugins ------------------------------------------------------------------ {{{
 
-" setup neobundle (including install if necessary) {{{
+" setup vim-plug (including install if necessary) {{{
 
-if !filereadable($XDG_DATA_HOME.'/vim/bundle/neobundle.vim/README.md')
-  echo "Installing NeoBundle..."
+if !filereadable($XDG_DATA_HOME.'/vim/autoload/plug.vim')
+  echo "Installing vim-plug..."
   echo ""
-  if !isdirectory($XDG_DATA_HOME.'/vim/bundle')
-    call mkdir($XDG_DATA_HOME.'/vim/bundle', 'p')
-  endif
-  silent !git clone https://github.com/Shougo/neobundle.vim
-        \ $XDG_DATA_HOME/vim/bundle/neobundle.vim
+  silent !curl -fLo $XDG_DATA_HOME/vim/autoload/plug.vim --create-dirs
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 endif
 
-filetype off
-set rtp+=$XDG_DATA_HOME/vim/bundle/neobundle.vim/
-call neobundle#begin(expand('$XDG_DATA_HOME/vim/bundle/'))
-NeoBundleFetch 'Shougo/neobundle.vim'
+call plug#begin(expand('$XDG_DATA_HOME/vim/plugged/'))
 
 " }}}
 " vim-specific {{{
 
-NeoBundle 'tpope/vim-sensible'               " sensible defaults
-NeoBundle 'flazz/vim-colorschemes'           " Color pack
-NeoBundle 'bling/vim-airline'                " nice statusbar
-NeoBundle 'xolox/vim-misc'                   " required for vim-shell
-NeoBundle 'xolox/vim-shell'                  " better integration with OS
-NeoBundle 'gcmt/taboo.vim'                   " tab renaming
-NeoBundle 'majutsushi/tagbar'                " tag browser
-NeoBundle 'Shougo/vimproc.vim', {
-      \ 'build' : {
-      \     'windows' : 'tools\\update-dll-mingw',
-      \     'cygwin' : 'make -f make_cygwin.mak',
-      \     'mac' : 'make -f make_mac.mak',
-      \     'linux' : 'make',
-      \     'unix' : 'gmake',
-      \    },
-      \ }
-NeoBundle 'YankRing.vim'                     " yank/delete/change memory
+Plug 'tpope/vim-sensible'               " sensible defaults
+Plug 'flazz/vim-colorschemes'           " Color pack
+Plug 'bling/vim-airline'                " nice statusbar
+Plug 'xolox/vim-misc'                   " required for vim-shell
+Plug 'xolox/vim-shell'                  " better integration with OS
+Plug 'gcmt/taboo.vim'                   " tab renaming
+Plug 'majutsushi/tagbar'                " tag browser
 
 " }}}
 " Movement {{{
 
-NeoBundle 'b4winckler/vim-angry.git'         " add function arg text object
-NeoBundle 'camelcasemotion'                  " camelcase motion with (eg) ,w
-NeoBundle 'Lokaltog/vim-easymotion'          " move around easier
-NeoBundle 'nathanaelkane/vim-indent-guides'  " show indent guides
-NeoBundle 'mileszs/ack.vim'                  " find in files
-NeoBundle 'rking/ag.vim'                     " same-ish as above but with ag!
+Plug 'b4winckler/vim-angry.git'         " add function arg text object
+Plug 'camelcasemotion'                  " camelcase motion with (eg) ,w
+Plug 'Lokaltog/vim-easymotion'          " move around easier
+Plug 'nathanaelkane/vim-indent-guides'  " show indent guides
+Plug 'mileszs/ack.vim'                  " find in files
+Plug 'rking/ag.vim'                     " same-ish as above but with ag!
+Plug 'terryma/vim-multiple-cursors'     " multiple cursors with <c-n>
 
 " }}}
 " Management {{{
 
-NeoBundle 'dsawardekar/portkey'              " switch between related files
-NeoBundle 'roman/golden-ratio'               " resize windows automatically
-NeoBundle 'sjl/gundo.vim'                    " show undo tree
-NeoBundle 'tommcdo/vim-lion'                 " align to character
-NeoBundle 'tpope/vim-fugitive'               " git support
-NeoBundle 'tpope/vim-repeat'                 " fix . repeating for plugins
-NeoBundle 'tpope/vim-surround'               " surround object with text/tags
-NeoBundle 'tpope/vim-unimpaired'             " add pairwise operators with [x ]x
-NeoBundle 'tpope/vim-vinegar'                " make netrw nicer
-NeoBundle 'kien/ctrlp.vim'                   " fuzzy file finder
-NeoBundle 'jlanzarotta/bufexplorer'          " buffer list
+Plug 'dsawardekar/portkey'              " switch between related files
+Plug 'roman/golden-ratio'               " resize windows automatically
+Plug 'sjl/gundo.vim'                    " show undo tree
+Plug 'tommcdo/vim-lion'                 " align to character
+Plug 'tpope/vim-fugitive'               " git support
+Plug 'tpope/vim-repeat'                 " fix . repeating for plugins
+Plug 'tpope/vim-surround'               " surround object with text/tags
+Plug 'tpope/vim-unimpaired'             " add pairwise operators with [x ]x
+Plug 'tpope/vim-vinegar'                " make netrw nicer
+Plug 'kien/ctrlp.vim'                   " fuzzy file finder
+Plug 'jlanzarotta/bufexplorer'          " buffer list
 
 " }}}
 " Syntax & Autocomplete {{{
 
-NeoBundle 'dsawardekar/ember.vim'                  " Ember syntax/portkey
-NeoBundle 'editorconfig/editorconfig-vim'          " editor config reader
-NeoBundle 'elzr/vim-json'                          " JSON syntax
-NeoBundle 'hail2u/vim-css3-syntax'                 " CSS3 syntax &c.
-NeoBundle 'jelera/vim-javascript-syntax'           " better syntax highlighting
-NeoBundle 'kchmck/vim-coffee-script'               " Coffeescript syntax &c.
-NeoBundle 'mintplant/vim-literate-coffeescript'    " .litcoffee support
-NeoBundle 'mustache/vim-mustache-handlebars'       " Handlebars syntax
-NeoBundle 'othree/html5.vim'                       " HTML5 syntax/autocomplete
-NeoBundle 'othree/javascript-libraries-syntax.vim' " library syntax support
-NeoBundle 'pangloss/vim-javascript'                " more syntax highlighting
-NeoBundle 'scrooloose/syntastic'                   " syntax checking
-NeoBundle 'Valloric/YouCompleteMe', {
-      \ 'build' : {
-      \   'mac' : './install.sh --clang-completer --system-libclang --omnisharp-completer',
-      \   'unix' : './install.sh --clang-completer --system-libclang --omnisharp-completer',
-      \   'windows' : './install.sh --clang-completer --system-libclang --omnisharp-completer',
-      \   'cygwin' : './install.sh --clang-completer --system-libclang --omnisharp-completer'
-      \   }
-      \ }
-"NeoBundle 'Shougo/neocomplete.vim'                 " autocompletion
-NeoBundle 'Shougo/neosnippet-snippets'             " collection of snippets
-NeoBundle 'Shougo/neosnippet.vim'                  " snippets
-NeoBundle 'SyntaxComplete'                         " syntax keywords in omnicmpl
-NeoBundle 'tpope/vim-haml'                         " Haml, Sass, SCSS
-NeoBundle 'groenewege/vim-less'                    " LESS
-NeoBundle 'tpope/vim-markdown'                     " Markdown syntax
-NeoBundle 'wizicer/vim-jison'                      " Jison (Bison/Flex) syntax
-NeoBundle 'marijnh/tern_for_vim',                  " JS autocomplete
+Plug 'dsawardekar/ember.vim'                  " Ember syntax/portkey
+Plug 'editorconfig/editorconfig-vim'          " editor config reader
+Plug 'elzr/vim-json'                          " JSON syntax
+Plug 'hail2u/vim-css3-syntax'                 " CSS3 syntax &c.
+Plug 'jelera/vim-javascript-syntax'           " better syntax highlighting
+Plug 'kchmck/vim-coffee-script'               " Coffeescript syntax &c.
+Plug 'mintplant/vim-literate-coffeescript'    " .litcoffee support
+Plug 'mustache/vim-mustache-handlebars'       " Handlebars syntax
+Plug 'othree/html5.vim'                       " HTML5 syntax/autocomplete
+Plug 'othree/javascript-libraries-syntax.vim' " library syntax support
+Plug 'pangloss/vim-javascript'                " more syntax highlighting
+Plug 'scrooloose/syntastic'                   " syntax checking
+Plug 'Valloric/YouCompleteMe',                " fast autocomplete
       \ {
-      \   'build_commands': 'npm',
-      \   'build' : 'npm install'
+      \   'do' : './install.py'
       \ }
-NeoBundle 'Slava/tern-meteor',
+Plug 'Shougo/neosnippet-snippets'             " collection of snippets
+Plug 'Shougo/neosnippet.vim'                  " snippets
+Plug 'SyntaxComplete'                         " syntax keywords in omnicmpl
+Plug 'tpope/vim-haml'                         " Haml, Sass, SCSS
+Plug 'groenewege/vim-less'                    " LESS
+Plug 'tpope/vim-markdown'                     " Markdown syntax
+Plug 'wizicer/vim-jison'                      " Jison (Bison/Flex) syntax
+Plug 'marijnh/tern_for_vim',                  " JS autocomplete
       \ {
-      \   'build' : {
-      \     'unix': 'cp meteor.js ../tern_for_vim/node_modules/tern/plugin/meteor.js'
-      \   }
+      \   'do': 'npm install'
+      \ }
+Plug 'Slava/tern-meteor',
+      \ {
+      \   'do' : 'cp meteor.js ../tern_for_vim/node_modules/tern/plugin/meteor.js'
       \ }
 
 " }}}
 " Code Assist {{{
 
-NeoBundle 'mattn/emmet-vim'                  " <C-Y>, to expand html
-NeoBundle 'scrooloose/nerdcommenter'         " comment code
-NeoBundle 'Raimondi/delimitMate'             " pair quotes/brackets/etc
-NeoBundle 'Chiel92/vim-autoformat'           " auto format/beautify code
-NeoBundle 'colorizer'                        " highlight hex colors
-NeoBundle 'osyo-manga/vim-over'              " Highlight replacement text
-NeoBundle 'bigfish/vim-js-context-coloring', {
-      \ 'build' : {
-      \   'others' : 'npm install --update'
-      \   }
-      \ }
+Plug 'mattn/emmet-vim'                  " <C-Y>, to expand html
+Plug 'scrooloose/nerdcommenter'         " comment code
+Plug 'Raimondi/delimitMate'             " pair quotes/brackets/etc
+Plug 'Chiel92/vim-autoformat'           " auto format/beautify code
+Plug 'colorizer'                        " highlight hex colors
+Plug 'osyo-manga/vim-over'              " Highlight replacement text
+Plug 'bigfish/vim-js-context-coloring', " Show context coloring in JS
+      \ { 'do': 'npm install --update' }
 
 " }}}
-" End neobundle, check for updates {{{
+" End vim-plug, check for updates {{{
 
-call neobundle#end()
-filetype plugin indent on
-NeoBundleCheck
+call plug#end()
+PlugInstall
+
 
 " }}}
 
