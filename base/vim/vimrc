@@ -315,6 +315,14 @@ let g:tern_show_signature_in_pum = 1
 noremap <leader>} :Autoformat<cr><cr>
 
 " }}}
+" vim-js-context-coloring {{{
+
+let g:js_context_colors_enabled = 0
+let g:js_context_colors_usemaps = 0
+let g:js_context_colors_block_scope_with_let = 1
+nnoremap <leader>cx JSContextColorToggle
+
+" }}}
 " vim-over {{{
 
 function! VisualFindAndReplace()
