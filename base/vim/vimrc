@@ -689,7 +689,7 @@ function! MyFoldText() " {{{
 
     let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
     let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
-    return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . '…' . ' '
+    return line . ' ' . repeat(" ", fillcharcount) . foldedlinecount . ' '
 endfunction " }}}
 set foldtext=MyFoldText()
 
@@ -784,8 +784,8 @@ augroup END
 augroup vim
   au!
 
-  au BufRead *.vimrc setlocal foldlevel=0
-  au BufRead *.vimrc setlocal fdm=marker
+  au BufRead vimrc setlocal foldlevel=0
+  au BufRead vimrc setlocal fdm=marker
 
 augroup END
 
