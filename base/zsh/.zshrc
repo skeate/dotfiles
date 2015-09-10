@@ -39,6 +39,13 @@ antigen bundle vagrant
 antigen theme ys
 
 # }}}
+# Path Config -------------------------------------------------------------- {{{
+
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$PATH:$GEM_HOME/bin"
+export PATH="$PATH:$HOME/.local/lib/nodejs/bin"
+
+# }}}
 # Completions -------------------------------------------------------------- {{{
 
 autoload -U compinit

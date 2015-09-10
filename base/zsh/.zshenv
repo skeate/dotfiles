@@ -1,5 +1,3 @@
-export PATH="$HOME/.local/bin:$PATH"
-
 export XDG_CONFIG_HOME="$HOME/.config"
 export  XDG_CACHE_HOME="$HOME/.cache"
 export   XDG_DATA_HOME="$HOME/.local/share"
@@ -21,13 +19,11 @@ then
   export GEMRC="$XDG_CONFIG_HOME/gemrc/config"
   export GEM_HOME="$HOME/.local/lib/ruby/gems/$(ruby -e 'puts RbConfig::CONFIG["ruby_version"]')"
   export GEM_SPEC_CACHE="$XDG_CACHE_HOME/gem/specs"
-  export PATH="$PATH:$GEM_HOME/bin"
 fi
 
 if hash npm 2> /dev/null
 then
   export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
-  export PATH="$PATH:$HOME/.local/lib/nodejs/bin"
 fi
 
 export LESSHISTFILE="$XDG_CACHE_HOME/less_history"
