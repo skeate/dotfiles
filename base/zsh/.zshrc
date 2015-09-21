@@ -50,7 +50,7 @@ export PATH="$PATH:$HOME/.local/lib/nodejs/bin"
 
 autoload -U compinit
 compinit
-source /usr/share/nvm/bash_completion
+#source /usr/share/nvm/bash_completion
 
 # }}}
 # Misc Settings ------------------------------------------------------------ {{{
@@ -58,7 +58,7 @@ source /usr/share/nvm/bash_completion
 setopt HIST_IGNORE_DUPS
 setopt extendedglob
 
-source /usr/share/nvm/nvm.sh
+source $XDG_DATA_HOME/nvm/nvm.sh
 
 alias tmux='tmux -f $XDG_CONFIG_HOME/tmux/tmux.conf'
 

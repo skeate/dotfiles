@@ -148,7 +148,7 @@ Plug 'majutsushi/tagbar'                " tag browser
 " }}}
 " Movement {{{
 
-Plug 'b4winckler/vim-angry'         " add function arg text object
+Plug 'b4winckler/vim-angry'             " add function arg text object
 Plug 'camelcasemotion'                  " camelcase motion with (eg) ,w
 Plug 'Lokaltog/vim-easymotion'          " move around easier
 Plug 'nathanaelkane/vim-indent-guides'  " show indent guides
@@ -185,25 +185,16 @@ Plug 'othree/html5.vim'                       " HTML5 syntax/autocomplete
 Plug 'othree/javascript-libraries-syntax.vim' " library syntax support
 Plug 'pangloss/vim-javascript'                " more syntax highlighting
 Plug 'scrooloose/syntastic'                   " syntax checking
-Plug 'Valloric/YouCompleteMe',                " fast autocomplete
-      \ {
-      \   'do' : './install.py'
-      \ }
+"Plug 'Shougo/deoplete.nvim'                   " neovim-compatible neocomplete
 Plug 'Shougo/neosnippet-snippets'             " collection of snippets
 Plug 'Shougo/neosnippet.vim'                  " snippets
-Plug 'SyntaxComplete'                         " syntax keywords in omnicmpl
+Plug 'Shougo/neco-syntax'                     " syntax keywords in omnicmpl
 Plug 'tpope/vim-haml'                         " Haml, Sass, SCSS
 Plug 'groenewege/vim-less'                    " LESS
 Plug 'tpope/vim-markdown'                     " Markdown syntax
 Plug 'wizicer/vim-jison'                      " Jison (Bison/Flex) syntax
-Plug 'marijnh/tern_for_vim',                  " JS autocomplete
-      \ {
-      \   'do': 'npm install'
-      \ }
-Plug 'Slava/tern-meteor',
-      \ {
-      \   'do' : 'cp meteor.js ../tern_for_vim/node_modules/tern/plugin/meteor.js'
-      \ }
+Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
+Plug 'Slava/tern-meteor', { 'do' : 'cp meteor.js ../tern_for_vim/node_modules/tern/plugin/meteor.js' }
 
 " }}}
 " Code Assist {{{
@@ -214,14 +205,12 @@ Plug 'Raimondi/delimitMate'             " pair quotes/brackets/etc
 Plug 'Chiel92/vim-autoformat'           " auto format/beautify code
 Plug 'colorizer'                        " highlight hex colors
 Plug 'osyo-manga/vim-over'              " Highlight replacement text
-Plug 'bigfish/vim-js-context-coloring', " Show context coloring in JS
-      \ { 'do': 'npm install --update' }
+Plug 'bigfish/vim-js-context-coloring', { 'do': 'npm install --update' }
 
 " }}}
 " End vim-plug {{{
 
 call plug#end()
-PlugStatus
 
 " }}}
 
@@ -252,6 +241,29 @@ let g:ctrlp_custom_ignore = {
 let g:delimitMate_expand_space = 1
 let g:delimitMate_expand_cr = 1
 " }}}
+" deoplete {{{
+
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#omni_patterns = {}
+let g:deoplete#omni_patterns.html = '<[^>]*'
+let g:deoplete#omni_patterns.xml  = '<[^>]*'
+let g:deoplete#omni_patterns.md   = '<[^>]*'
+let g:deoplete#omni_patterns.css   = '^\s\+\w\+\|\w\+[):;]\?\s\+\w*\|[@!]'
+let g:deoplete#omni_patterns.scss   = '^\s\+\w\+\|\w\+[):;]\?\s\+\w*\|[@!]'
+let g:deoplete#omni_patterns.sass   = '^\s\+\w\+\|\w\+[):;]\?\s\+\w*\|[@!]'
+let g:deoplete#omni_patterns.javascript = '[^. \t]\.\(\h\w*\)\?'
+let g:deoplete#omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)\w*'
+let g:deoplete#omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
+let g:deoplete#omni_patterns.go = '[^.[:digit:] *\t]\.\w*'
+let g:deoplete#omni_patterns.ruby = ['[^. *\t]\.\w*', '\h\w*::']
+let g:deoplete#omni_patterns.python = ['[^. *\t]\.\h\w*\','\h\w*::']
+let g:deoplete#omni_patterns.python3 = ['[^. *\t]\.\h\w*\','\h\w*::']
+let g:deoplete#sources = {}
+let g:deoplete#sources._ = ['buffer', 'omni']
+let g:deoplete#sources.javascript = ['omni', 'buffer', 'tag']
+set completeopt+=noinsert
+
+" }}}
 " Golden Ratio {{{
 
 " GR fucks up the text alignment when switching windows, so shift right on entry
@@ -279,12 +291,12 @@ smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
 
 " SuperTab like snippets behavior.
-imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-      \ "\<Plug>(neosnippet_expand_or_jump)"
-      \ : pumvisible() ? "\<C-n>" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-      \ "\<Plug>(neosnippet_expand_or_jump)"
-      \: "\<TAB>"
+"imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+      "\ "\<Plug>(neosnippet_expand_or_jump)"
+      "\ : pumvisible() ? "\<C-n>" : "\<TAB>"
+"smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+      "\ "\<Plug>(neosnippet_expand_or_jump)"
+      "\: "\<TAB>"
 
 " For snippet_complete marker.
 if has('conceal')
@@ -292,11 +304,13 @@ if has('conceal')
 endif
 " }}}
 " Syntastic {{{
+
 """ only check HTML if :SyntasticCheck called explicitly
 """ otherwise syntastic reports errors on HTML templates (eg handlebars)
 let g:syntastic_mode_map = {'passive_filetypes': ['html']}
 let g:syntastic_aggregate_errors = 1
-let g:syntastic_javascript_checkers=['jshint','jscs']
+let g:syntastic_javascript_checkers=['eslint']
+
 " }}}
 " Taboo {{{
 
@@ -319,7 +333,7 @@ noremap <leader>} :Autoformat<cr><cr>
 let g:js_context_colors_enabled = 0
 let g:js_context_colors_usemaps = 0
 let g:js_context_colors_block_scope_with_let = 1
-nnoremap <leader>cx JSContextColorToggle
+nnoremap <leader>cx :JSContextColorToggle<cr>
 
 " }}}
 " vim-over {{{
@@ -744,6 +758,15 @@ augroup ft_css
     "     }
     au BufNewFile,BufRead *.scss,*.sass,*.css nnoremap <buffer>
           \ <localleader>S ?{<CR>jV/\v^\s*\}?$<CR>k:sort<CR>:noh<CR>
+augroup END
+
+" }}}
+" eslintrc {{{
+
+augroup ft_eslintrc
+  au!
+
+  au BufNewFile,BufReadPost .eslintrc setl filetype=json
 augroup END
 
 " }}}
