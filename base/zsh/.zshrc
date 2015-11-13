@@ -61,6 +61,7 @@ setopt extendedglob
 source $XDG_DATA_HOME/nvm/nvm.sh
 
 alias tmux='tmux -f $XDG_CONFIG_HOME/tmux/tmux.conf'
+nvm use stable
 
 # Help {{{
 

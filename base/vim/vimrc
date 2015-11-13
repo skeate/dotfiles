@@ -131,6 +131,7 @@ if !filereadable($XDG_DATA_HOME.'/vim/autoload/plug.vim')
         \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 endif
 
+set rtp+=$XDG_CONFIG_HOME/vim/
 set rtp+=$XDG_DATA_HOME/vim/
 call plug#begin(expand('$XDG_DATA_HOME/vim/plugged/'))
 
@@ -178,14 +179,17 @@ Plug 'dsawardekar/ember.vim'                  " Ember syntax/portkey
 Plug 'editorconfig/editorconfig-vim'          " editor config reader
 Plug 'elzr/vim-json'                          " JSON syntax
 Plug 'hail2u/vim-css3-syntax'                 " CSS3 syntax &c.
-Plug 'jelera/vim-javascript-syntax'           " better syntax highlighting
+"Plug 'jelera/vim-javascript-syntax'           " better syntax highlighting
 Plug 'kchmck/vim-coffee-script'               " Coffeescript syntax &c.
 Plug 'mustache/vim-mustache-handlebars'       " Handlebars syntax
 Plug 'othree/html5.vim'                       " HTML5 syntax/autocomplete
-Plug 'othree/javascript-libraries-syntax.vim' " library syntax support
+"Plug 'othree/javascript-libraries-syntax.vim' " library syntax support
 Plug 'pangloss/vim-javascript'                " more syntax highlighting
+Plug 'isRuslan/vim-es6'                       " es6 snippets and highlighting
+Plug 'heavenshell/vim-jsdoc'                  " jsdoc insertion
 Plug 'scrooloose/syntastic'                   " syntax checking
 "Plug 'Shougo/deoplete.nvim'                   " neovim-compatible neocomplete
+Plug 'Shougo/neocomplete'                     " autocomplete w/ snippet support
 Plug 'Shougo/neosnippet-snippets'             " collection of snippets
 Plug 'Shougo/neosnippet.vim'                  " snippets
 Plug 'Shougo/neco-syntax'                     " syntax keywords in omnicmpl
@@ -193,8 +197,9 @@ Plug 'tpope/vim-haml'                         " Haml, Sass, SCSS
 Plug 'groenewege/vim-less'                    " LESS
 Plug 'tpope/vim-markdown'                     " Markdown syntax
 Plug 'wizicer/vim-jison'                      " Jison (Bison/Flex) syntax
-Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
+"Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
 Plug 'Slava/tern-meteor', { 'do' : 'cp meteor.js ../tern_for_vim/node_modules/tern/plugin/meteor.js' }
+Plug 'kylef/apiblueprint.vim'
 
 " }}}
 " Code Assist {{{
@@ -232,7 +237,7 @@ let g:bufExplorerShowRelativePath=1
 " ctrlp {{{
 
 let g:ctrlp_custom_ignore = {
-      \ 'dir': '\.git$\|\.?tmp$',
+      \ 'dir': '\.git$\|\.?tmp$\|node_modules$',
       \ 'file': '\.so$\|\.dat$\|\.DS_Store$'
       \ }
 
@@ -284,6 +289,12 @@ autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=gray15 ctermbg=235
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=gray10 ctermbg=236
 
 " }}}
+" jsdoc {{{
+
+let g:jsdoc_enable_es6 = 1
+nmap <silent> <C-l> ?function<cr>:noh<cr><Plug>(jsdoc)
+
+" }}}
 " neosnippet {{{
 " Plugin key-mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -310,6 +321,7 @@ endif
 let g:syntastic_mode_map = {'passive_filetypes': ['html']}
 let g:syntastic_aggregate_errors = 1
 let g:syntastic_javascript_checkers=['eslint']
+let g:syntastic_always_populate_loc_list = 1
 
 " }}}
 " Taboo {{{
@@ -566,6 +578,8 @@ nnoremap U :syntax sync fromstart<cr>:redraw!<cr>
 " This should preserve your last yank/delete as well.
 nnoremap zl :let @z=@"<cr>x$p:let @"=@z<cr>
 
+nmap <leader>a gLi{:
+
 " }}}
 " Quick editing ------------------------------------------------------------ {{{
 
@@ -786,6 +800,7 @@ augroup ft_javascript
   au!
 
   au BufNewFile,BufReadPost *.js setl foldmethod=indent
+  "au BufEnter *.js call TextEnableCodeSnip('html', 'html`', '`;', 'Keyword')
 augroup END
 
 " }}}
@@ -1089,7 +1104,7 @@ nnoremap <leader>d :<C-u>call OpenNetrwInDrawer()<CR>
 " }}}
 " project manager {{{
 
-nnoremap <leader>p :so .vimrc-
+nnoremap <leader>p :so .vimproj<cr>
 
 " }}}
 " Copy Matches {{{
@@ -1126,6 +1141,34 @@ endfunction
 function! Redraw()
   redraw
   return ''
+endfunction
+
+" }}}
+" snippet highlighting {{{
+
+function! TextEnableCodeSnip(filetype, start, end, textSnipHl) abort
+  let ft = toupper(a:filetype)
+  let group = 'textGroup' . ft
+  if exists('b:current_syntax')
+    let s:current_syntax = b:current_syntax
+    " Remove current syntax definition, as some syntax files (e.g. cpp.vim)
+    " do nothing if b:current_syntax is defined.
+    unlet b:current_syntax
+  endif
+  execute 'syntax include @' . group . ' syntax/' . a:filetype . '.vim'
+  try
+    execute 'syntax include @' . group . ' after/syntax/' . a:filetype . '.vim'
+  catch
+  endtry
+  if exists('s:current_syntax')
+    let b:current_syntax = s:current_syntax
+  else
+    unlet b:current_syntax
+  endif
+  execute 'syntax region textSnip' . ft .
+  \ ' matchgroup=' . a:textSnipHl .
+  \ ' start="' . a:start . '" end="' . a:end . '"' .
+  \ ' contains=@' . group
 endfunction
 
 " }}}
