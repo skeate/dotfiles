@@ -63,6 +63,8 @@ source $XDG_DATA_HOME/nvm/nvm.sh
 alias tmux='tmux -f $XDG_CONFIG_HOME/tmux/tmux.conf'
 nvm use stable
 
+export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
+
 # Help {{{
 
 autoload -U run-help
