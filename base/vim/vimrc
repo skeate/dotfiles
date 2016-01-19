@@ -136,6 +136,7 @@ set rtp+=$XDG_DATA_HOME/vim/
 call plug#begin(expand('$XDG_DATA_HOME/vim/plugged/'))
 
 " }}}
+
 " vim-specific {{{
 
 Plug 'tpope/vim-sensible'               " sensible defaults
@@ -214,6 +215,7 @@ Plug 'osyo-manga/vim-over'              " Highlight replacement text
 Plug 'bigfish/vim-js-context-coloring', { 'do': 'npm install --update' }
 
 " }}}
+
 " End vim-plug {{{
 
 call plug#end()
@@ -244,8 +246,10 @@ let g:ctrlp_custom_ignore = {
 
 " }}}
 " delimitMate {{{
+
 let g:delimitMate_expand_space = 1
 let g:delimitMate_expand_cr = 1
+
 " }}}
 " deoplete {{{
 
@@ -813,6 +817,7 @@ augroup ft_html
 
   au FileType html setlocal foldmethod=indent
   au FileType html let b:delimitMate_matchpairs = "(:),[:],{:}"
+
 augroup END
 
 " }}}
