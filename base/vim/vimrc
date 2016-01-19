@@ -193,7 +193,6 @@ Plug 'Shougo/deoplete.nvim'                   " neovim-compatible neocomplete
 Plug 'Shougo/neosnippet-snippets'             " collection of snippets
 Plug 'Shougo/neosnippet.vim'                  " snippets
 Plug 'Shougo/neco-syntax'                     " syntax keywords in omnicmpl
-Plug 'tpope/vim-haml'                         " Haml, Sass, SCSS
 Plug 'groenewege/vim-less'                    " LESS
 Plug 'tpope/vim-markdown'                     " Markdown syntax
 Plug 'wizicer/vim-jison'                      " Jison (Bison/Flex) syntax
@@ -762,7 +761,6 @@ augroup ft_css
 
     au Filetype scss,sass,css setlocal foldmethod=marker
     au Filetype scss,sass,css setlocal foldmarker={,}
-    au Filetype scss,sass,css setlocal omnifunc=csscomplete#CompleteCSS
     au Filetype scss,sass,css setlocal iskeyword+=-
 
     " Use <leader>S to sort properties.  Turns this:
@@ -804,6 +802,7 @@ augroup ft_html
   au!
 
   au FileType html setlocal foldmethod=indent
+  au FileType html let b:delimitMate_matchpairs = "(:),[:],{:}"
 augroup END
 
 " }}}
