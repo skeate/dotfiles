@@ -201,6 +201,7 @@ Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
 Plug 'Slava/tern-meteor', { 'do' : 'cp meteor.js ../tern_for_vim/node_modules/tern/plugin/meteor.js' }
 Plug 'kylef/apiblueprint.vim'
 Plug 'lervag/vimtex'
+Plug 'tmux-plugins/vim-tmux'
 Plug 'davidhalter/jedi-vim'
 
 " }}}
