@@ -2,7 +2,6 @@
 
 fork() { (setsid "$@" & ) }
 
-fork xrandr --output DVI-I-1 --primary --auto --output HDMI-0 --auto --left-of DVI-I-1 --output DVI-D-0 --auto --right-of DVI-I-1
 fork xrdb -load ~/.config/X11/Xresources
 fork xset +dpms
 exec /usr/bin/i3
