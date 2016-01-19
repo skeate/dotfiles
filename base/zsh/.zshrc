@@ -58,12 +58,16 @@ compinit
 setopt HIST_IGNORE_DUPS
 setopt extendedglob
 
-source $XDG_DATA_HOME/nvm/nvm.sh
-
 alias tmux='tmux -f $XDG_CONFIG_HOME/tmux/tmux.conf'
+
+source $XDG_DATA_HOME/nvm/nvm.sh
 nvm use stable
 
 export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
+
+eval "$(thefuck --alias)"
+
+alias vim='nvim'
 
 # Help {{{
 
