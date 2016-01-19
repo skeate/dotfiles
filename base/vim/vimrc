@@ -266,9 +266,18 @@ let g:deoplete#omni_patterns.ruby = ['[^. *\t]\.\w*', '\h\w*::']
 let g:deoplete#omni_patterns.python = ['[^. *\t]\.\h\w*\','\h\w*::']
 let g:deoplete#omni_patterns.python3 = ['[^. *\t]\.\h\w*\','\h\w*::']
 let g:deoplete#sources = {}
-let g:deoplete#sources._ = ['buffer', 'omni']
-let g:deoplete#sources.javascript = ['omni', 'buffer', 'tag']
-set completeopt+=noinsert
+let g:deoplete#sources._ = []
+
+inoremap <silent><expr><Tab>
+      \ pumvisible() ? "\<C-n>" :
+      \ deoplete#mappings#manual_complete()
+inoremap <silent><expr><S-Tab>
+      \ pumvisible() ? "\<C-p>" :
+      \ deoplete#mappings#manual_complete()
+inoremap <expr><BS>
+      \ deoplete#mappings#smart_close_popup() . "\<C-h>"
+
+set wildignorecase
 
 " }}}
 " Golden Ratio {{{
@@ -298,23 +307,20 @@ nmap <silent> <C-l> ?function<cr>:noh<cr><Plug>(jsdoc)
 
 " }}}
 " neosnippet {{{
-" Plugin key-mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
 
 " SuperTab like snippets behavior.
-"imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-      "\ "\<Plug>(neosnippet_expand_or_jump)"
-      "\ : pumvisible() ? "\<C-n>" : "\<TAB>"
-"smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-      "\ "\<Plug>(neosnippet_expand_or_jump)"
-      "\: "\<TAB>"
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+      \ "\<Plug>(neosnippet_expand_or_jump)"
+      \ : pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+      \ "\<Plug>(neosnippet_expand_or_jump)"
+      \ : "\<TAB>"
 
 " For snippet_complete marker.
 if has('conceal')
   set conceallevel=2 concealcursor=i
 endif
+
 " }}}
 " Syntastic {{{
 
@@ -804,7 +810,6 @@ augroup END
 " }}}
 " Javascript {{{
 
-" let g:neocomplete#force_omni_input_patterns.javascript = '[^. \t]\.\w*'
 augroup ft_javascript
   au!
 
