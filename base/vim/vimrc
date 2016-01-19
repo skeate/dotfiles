@@ -342,6 +342,8 @@ let g:syntastic_always_populate_loc_list = 1
 
 nnoremap <leader>tr <Esc>:TabooRename<space>
 nnoremap <leader>to <Esc>:TabooOpen<space>
+let g:taboo_tab_format = " [%N %f]%m "
+let g:taboo_renamed_tab_format = " [%N %l]%m "
 
 " }}}
 " tern for vim {{{
