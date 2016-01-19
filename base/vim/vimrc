@@ -201,6 +201,7 @@ Plug 'wizicer/vim-jison'                      " Jison (Bison/Flex) syntax
 "Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
 Plug 'Slava/tern-meteor', { 'do' : 'cp meteor.js ../tern_for_vim/node_modules/tern/plugin/meteor.js' }
 Plug 'kylef/apiblueprint.vim'
+Plug 'lervag/vimtex'
 
 " }}}
 " Code Assist {{{
@@ -369,6 +370,13 @@ xnoremap <Leader>fr :call VisualFindAndReplaceWithSelection()<CR>
 " not really vinegar's fault, but netrw takes over last buffer, which is awkward
 " behaviour; this fixes it
 let g:netrw_altfile = 1
+
+" }}}
+" vimtex {{{
+
+let g:tex_flavor = 'latex'
+let g:vimtex_view_method = 'zathura'
+let g:vimtex_latexmk_progname = 'nvr'
 
 " }}}
 " YouCompleteMe {{{
