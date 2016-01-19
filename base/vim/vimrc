@@ -171,6 +171,7 @@ Plug 'tpope/vim-unimpaired'             " add pairwise operators with [x ]x
 Plug 'tpope/vim-vinegar'                " make netrw nicer
 Plug 'kien/ctrlp.vim'                   " fuzzy file finder
 Plug 'jlanzarotta/bufexplorer'          " buffer list
+Plug 'airblade/vim-gitgutter'           " show git changes in gutter
 
 " }}}
 " Syntax & Autocomplete {{{
