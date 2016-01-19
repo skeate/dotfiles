@@ -200,6 +200,7 @@ Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
 Plug 'Slava/tern-meteor', { 'do' : 'cp meteor.js ../tern_for_vim/node_modules/tern/plugin/meteor.js' }
 Plug 'kylef/apiblueprint.vim'
 Plug 'lervag/vimtex'
+Plug 'davidhalter/jedi-vim'
 
 " }}}
 " Code Assist {{{
@@ -296,6 +297,13 @@ let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_auto_colors = 0
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=gray15 ctermbg=235
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=gray10 ctermbg=236
+
+" }}}
+" jedi {{{
+
+let g:jedi#completions_enabled = 0
+let g:jedi#auto_vim_configuration = 0
+autocmd FileType python setlocal omnifunc=jedi#completions
 
 " }}}
 " jsdoc {{{
