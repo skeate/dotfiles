@@ -189,8 +189,7 @@ Plug 'pangloss/vim-javascript'                " more syntax highlighting
 Plug 'isRuslan/vim-es6'                       " es6 snippets and highlighting
 Plug 'heavenshell/vim-jsdoc'                  " jsdoc insertion
 Plug 'scrooloose/syntastic'                   " syntax checking
-"Plug 'Shougo/deoplete.nvim'                   " neovim-compatible neocomplete
-Plug 'Shougo/neocomplete'                     " autocomplete w/ snippet support
+Plug 'Shougo/deoplete.nvim'                   " neovim-compatible neocomplete
 Plug 'Shougo/neosnippet-snippets'             " collection of snippets
 Plug 'Shougo/neosnippet.vim'                  " snippets
 Plug 'Shougo/neco-syntax'                     " syntax keywords in omnicmpl
@@ -198,7 +197,7 @@ Plug 'tpope/vim-haml'                         " Haml, Sass, SCSS
 Plug 'groenewege/vim-less'                    " LESS
 Plug 'tpope/vim-markdown'                     " Markdown syntax
 Plug 'wizicer/vim-jison'                      " Jison (Bison/Flex) syntax
-"Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
+Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
 Plug 'Slava/tern-meteor', { 'do' : 'cp meteor.js ../tern_for_vim/node_modules/tern/plugin/meteor.js' }
 Plug 'kylef/apiblueprint.vim'
 Plug 'lervag/vimtex'
