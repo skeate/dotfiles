@@ -1,4 +1,15 @@
-#!/bin/sh
+#!/bin/zsh
 
-mkdir -p $XDG_CONFIG_HOME/tmux/plugins/tpm
-exec git clone https://github.com/tmux-plugins/tpm $XDG_CONFIG_HOME/tmux/plugins/tpm
+source ../zsh/.zshenv
+
+TPM_DIR=$XDG_CONFIG_HOME/tmux/plugins/tpm
+
+if [ -d "$TPM_DIR" ]; then
+  echo "Updating tmux plugin manager"
+  cd $TPM_DIR
+  git pull
+else
+  echo "Installing tmux plugin manager"
+  mkdir -p $TPM_DIR 
+  git clone https://github.com/tmux-plugins/tpm $XDG_CONFIG_HOME/tmux/plugins/tpm
+fi
