@@ -32,6 +32,8 @@ antigen bundle node
 antigen bundle npm
 antigen bundle sudo
 antigen bundle vagrant
+antigen bundle dircycle
+antigen bundle systemd
 
 # }}}
 # Prompt/Theme ------------------------------------------------------------- {{{
@@ -50,7 +52,8 @@ export PATH="$PATH:$HOME/.local/lib/nodejs/bin"
 
 autoload -U compinit
 compinit
-#source /usr/share/nvm/bash_completion
+[ -s $NVM_DIR/bash_completion ] && . $NVM_DIR/bash_completion
+[ -s /usr/share/nvm/bash_completion ] && . /usr/share/nvm/bash_completion
 
 # }}}
 # Misc Settings ------------------------------------------------------------ {{{
@@ -60,10 +63,9 @@ setopt extendedglob
 
 alias tmux='tmux -f $XDG_CONFIG_HOME/tmux/tmux.conf'
 
-source $XDG_DATA_HOME/nvm/nvm.sh
+[ -s "$NVM_DIR/nvm.sh" ] && . $NVM_DIR/nvm.sh
+[ -s "/usr/share/nvm/nvm.sh" ] && . "/usr/share/nvm/nvm.sh"
 nvm use stable
-
-export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
 
 eval "$(thefuck --alias)"
 
@@ -80,7 +82,7 @@ alias help=run-help
 
 # }}}
 
-###-begin-npm-completion-###
+###-begin-npm-completion-### {{{
 #
 # npm command completion script
 #
@@ -136,6 +138,4 @@ elif type compctl &>/dev/null; then
   }
   compctl -K _npm_completion npm
 fi
-###-end-npm-completion-###
-
-[ -s "/usr/share/nvm/nvm.sh" ] && . "/usr/share/nvm/nvm.sh"
+###-end-npm-completion-### }}}
