@@ -66,10 +66,10 @@ Xft.rgba: rgb
 ! }}}
 ! URxvt {{{
 
-URxvt*font: xft:Deja Vu Sans Mono:size=12,\
+URxvt*font: xft:Deja Vu Sans Mono:size=10,\
             xft:Font Awesome:pixelsize=19:antialias=true,\
             -*-unifont-*-*-*-*-*-*-*-*-*-*-*-*
-URxvt*boldfont: xft:Deja Vu Sans Mono:style=bold:size=12,\
+URxvt*boldfont: xft:Deja Vu Sans Mono:style=bold:size=10,\
                 xft:Font Awesome:pixelsize=19:antialias=true,\
                 -*-unifont-*-*-*-*-*-*-*-*-*-*-*-*
 URxvt*letterSpace: -1
