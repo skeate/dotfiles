@@ -48,8 +48,10 @@ au FocusLost * :silent! wall
 let mapleader = "\\"
 let maplocalleader = ","
 
-" Don't show that damn preview window
-set completeopt-=preview
+set completeopt=longest,menuone
+
+" Always show tabs
+set showtabline=2
 
 " Cursorline {{{
 " Only show cursorline in the current window and in normal mode.
@@ -170,7 +172,7 @@ Plug 'tpope/vim-repeat'                 " fix . repeating for plugins
 Plug 'tpope/vim-surround'               " surround object with text/tags
 Plug 'tpope/vim-unimpaired'             " add pairwise operators with [x ]x
 Plug 'tpope/vim-vinegar'                " make netrw nicer
-Plug 'kien/ctrlp.vim'                   " fuzzy file finder
+Plug 'ctrlpvim/ctrlp.vim'               " fuzzy file finder
 Plug 'jlanzarotta/bufexplorer'          " buffer list
 Plug 'airblade/vim-gitgutter'           " show git changes in gutter
 
@@ -241,7 +243,7 @@ let g:bufExplorerShowRelativePath=1
 " ctrlp {{{
 
 let g:ctrlp_custom_ignore = {
-      \ 'dir': '\.git$\|\.?tmp$\|node_modules$',
+      \ 'dir': '\.git$\|\.?tmp$\|node_modules$\|bower_components$',
       \ 'file': '\.so$\|\.dat$\|\.DS_Store$'
       \ }
 
