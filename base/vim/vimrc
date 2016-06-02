@@ -411,6 +411,7 @@ let g:ycm_confirm_extra_conf = 0
 
 set t_Co=256
 colorscheme hybrid
+set background=dark
 
 " Highlight VCS conflict markers
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
