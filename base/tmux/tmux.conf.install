@@ -2,7 +2,7 @@
 
 source ../zsh/.zshenv
 
-TPM_DIR=$XDG_CONFIG_HOME/tmux/plugins/tpm
+TPM_DIR=$XDG_DATA_HOME/tmux/plugins/tpm
 
 if [ -d "$TPM_DIR" ]; then
   echo "Updating tmux plugin manager"
@@ -11,5 +11,5 @@ if [ -d "$TPM_DIR" ]; then
 else
   echo "Installing tmux plugin manager"
   mkdir -p $TPM_DIR 
-  git clone https://github.com/tmux-plugins/tpm $XDG_CONFIG_HOME/tmux/plugins/tpm
+  git clone https://github.com/tmux-plugins/tpm $TPM_DIR
 fi

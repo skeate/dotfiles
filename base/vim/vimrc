@@ -148,6 +148,7 @@ Plug 'xolox/vim-misc'                   " required for vim-shell
 Plug 'xolox/vim-shell'                  " better integration with OS
 Plug 'gcmt/taboo.vim'                   " tab renaming
 Plug 'majutsushi/tagbar'                " tag browser
+Plug 'tpope/vim-obsession'              " session management
 
 " }}}
 " Movement {{{
@@ -216,6 +217,7 @@ Plug 'Chiel92/vim-autoformat'           " auto format/beautify code
 Plug 'colorizer'                        " highlight hex colors
 Plug 'osyo-manga/vim-over'              " Highlight replacement text
 Plug 'bigfish/vim-js-context-coloring', { 'do': 'npm install --update' }
+Plug 'sidorares/node-vim-debugger'      
 
 " }}}
 
@@ -230,9 +232,19 @@ call plug#end()
 
 " Airline {{{
 
-if(has('gui_running'))
-  let g:airline_powerline_fonts = 1
-endif
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#syntastic#enabled = 1
+let g:airline_mode_map = {
+      \ '__' : '-',
+      \ 'n'  : 'N',
+      \ 'i'  : 'I',
+      \ 'R'  : 'R',
+      \ 'c'  : 'C',
+      \ 'v'  : 'V',
+      \ 'V'  : 'V',
+      \ 's'  : 'S',
+      \ 'S'  : 'S',
+      \ }
 
 " }}}
 " bufexplorer {{{

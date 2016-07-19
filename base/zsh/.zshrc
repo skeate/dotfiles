@@ -1,44 +1,58 @@
 # .zshrc
 # Created by Jonathan Skeate
 
-# Antigen ------------------------------------------------------------------ {{{
+# zgen ------------------------------------------------------------------ {{{
 
 [[ -z $XDG_DATA_HOME ]] && echo 'data home not set' && return
 
-if [[ ! -f $XDG_DATA_HOME/zsh/antigen.zsh ]]; then
-  echo " ** Antigen not found **"
+if [[ ! -f $XDG_DATA_HOME/zsh/zgen/zgen.zsh ]]; then
+  echo " ** zgen not found **"
   echo "Making $XDG_DATA_HOME/zsh if it doesn't exist..."
   mkdir -p $XDG_DATA_HOME/zsh
-  echo "Downloading antigen..."
-  curl -L https://raw.githubusercontent.com/zsh-users/antigen/master/antigen.zsh \
-    > $XDG_DATA_HOME/zsh/antigen.zsh
+  echo "Downloading zgen..."
+  git clone https://github.com/tarjoilija/zgen.git $XDG_DATA_HOME/zsh/zgen
 fi
-source $XDG_DATA_HOME/zsh/antigen.zsh
-antigen use oh-my-zsh
+source $XDG_DATA_HOME/zsh/zgen/zgen.zsh
+
+# }}}
+# Z ------------------------------------------------------------------------ {{{
+
+if [[ ! -f $XDG_DATA_HOME/zsh/z.sh ]]; then
+  echo " ** z not found **"
+  echo "Downloading z..."
+  curl -L https://raw.githubusercontent.com/rupa/z/master/z.sh \
+    > $XDG_DATA_HOME/zsh/z.sh
+fi
+#source $XDG_DATA_HOME/zsh/z.sh
 
 # }}}
 # Plugins ------------------------------------------------------------------ {{{
 
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle zsh-users/zsh-completions src
-antigen bundle git
-antigen bundle sharat87/autoenv # auto-execs .env files when CDing into dir
-antigen bundle archlinux # pacman/yaourt shortcuts
-antigen bundle bower # bower aliases/completion
-antigen bundle git-extras
-antigen bundle gitfast
-antigen bundle meteor
-antigen bundle node
-antigen bundle npm
-antigen bundle sudo
-antigen bundle vagrant
-antigen bundle dircycle
-antigen bundle systemd
+if ! zgen saved; then
+  zgen oh-my-zsh
 
-# }}}
-# Prompt/Theme ------------------------------------------------------------- {{{
+  zgen oh-my-zsh plugins/git
+  zgen oh-my-zsh plugins/git
+  zgen oh-my-zsh plugins/archlinux # pacman/yaourt shortcuts
+  zgen oh-my-zsh plugins/bower # bower aliases/completion
+  zgen oh-my-zsh plugins/git-extras
+  zgen oh-my-zsh plugins/gitfast
+  zgen oh-my-zsh plugins/meteor
+  zgen oh-my-zsh plugins/node
+  zgen oh-my-zsh plugins/npm
+  zgen oh-my-zsh plugins/sudo
+  zgen oh-my-zsh plugins/vagrant
+  zgen oh-my-zsh plugins/dircycle
+  zgen oh-my-zsh plugins/systemd
 
-antigen theme ys
+  zgen load sharat87/autoenv # auto-execs .env files when CDing into dir
+  zgen load zsh-users/zsh-syntax-highlighting
+  zgen load zsh-users/zsh-completions src
+
+  zgen oh-my-zsh themes/ys
+
+  zgen save
+fi
 
 # }}}
 # Path Config -------------------------------------------------------------- {{{
@@ -50,10 +64,12 @@ export PATH="$PATH:$HOME/.local/lib/nodejs/bin"
 # }}}
 # Completions -------------------------------------------------------------- {{{
 
-autoload -U compinit
-compinit
-[ -s $NVM_DIR/bash_completion ] && . $NVM_DIR/bash_completion
-[ -s /usr/share/nvm/bash_completion ] && . /usr/share/nvm/bash_completion
+sourceIfExists() {
+  [ -s $1 ] && . $1
+}
+sourceIfExists $NVM_DIR/bash_completion
+sourceIfExists /usr/share/nvm/bash_completion
+sourceIfExists ~/.local/lib/dots/contrib/bash_completion
 
 # }}}
 # Misc Settings ------------------------------------------------------------ {{{
@@ -63,8 +79,8 @@ setopt extendedglob
 
 alias tmux='tmux -f $XDG_CONFIG_HOME/tmux/tmux.conf'
 
-[ -s "$NVM_DIR/nvm.sh" ] && . $NVM_DIR/nvm.sh
-[ -s "/usr/share/nvm/nvm.sh" ] && . "/usr/share/nvm/nvm.sh"
+sourceIfExists $NVM_DIR/nvm.sh
+sourceIfExists /usr/share/nvm/nvm.sh
 nvm use stable
 
 eval "$(thefuck --alias)"
@@ -81,7 +97,3 @@ alias help=run-help
 # }}}
 
 # }}}
-
-eval "`npm completion`"
-
-[ -s "/usr/share/nvm/nvm.sh" ] && . "/usr/share/nvm/nvm.sh"
