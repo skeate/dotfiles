@@ -271,31 +271,17 @@ let g:delimitMate_expand_cr = 1
 " deoplete {{{
 
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#omni_patterns = {}
-let g:deoplete#omni_patterns.html = '<[^>]*'
-let g:deoplete#omni_patterns.xml  = '<[^>]*'
-let g:deoplete#omni_patterns.md   = '<[^>]*'
-let g:deoplete#omni_patterns.css   = '^\s\+\w\+\|\w\+[):;]\?\s\+\w*\|[@!]'
-let g:deoplete#omni_patterns.scss   = '^\s\+\w\+\|\w\+[):;]\?\s\+\w*\|[@!]'
-let g:deoplete#omni_patterns.sass   = '^\s\+\w\+\|\w\+[):;]\?\s\+\w*\|[@!]'
-let g:deoplete#omni_patterns.javascript = '[^. \t]\.\(\h\w*\)\?'
-let g:deoplete#omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)\w*'
-let g:deoplete#omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
-let g:deoplete#omni_patterns.go = '[^.[:digit:] *\t]\.\w*'
-let g:deoplete#omni_patterns.ruby = ['[^. *\t]\.\w*', '\h\w*::']
-let g:deoplete#omni_patterns.python = ['[^. *\t]\.\h\w*\','\h\w*::']
-let g:deoplete#omni_patterns.python3 = ['[^. *\t]\.\h\w*\','\h\w*::']
 let g:deoplete#sources = {}
 let g:deoplete#sources._ = []
 
 inoremap <silent><expr><Tab>
       \ pumvisible() ? "\<C-n>" :
-      \ deoplete#mappings#manual_complete()
+      \ deoplete#manual_complete()
 inoremap <silent><expr><S-Tab>
       \ pumvisible() ? "\<C-p>" :
-      \ deoplete#mappings#manual_complete()
+      \ deoplete#manual_complete()
 inoremap <expr><BS>
-      \ deoplete#mappings#smart_close_popup() . "\<C-h>"
+      \ deoplete#smart_close_popup() . "\<C-h>"
 
 set wildignorecase
 
@@ -318,13 +304,6 @@ let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_auto_colors = 0
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=gray15 ctermbg=235
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=gray10 ctermbg=236
-
-" }}}
-" jedi {{{
-
-let g:jedi#completions_enabled = 0
-let g:jedi#auto_vim_configuration = 0
-autocmd FileType python setlocal omnifunc=jedi#completions
 
 " }}}
 " jsdoc {{{
@@ -423,11 +402,6 @@ let g:netrw_altfile = 1
 let g:tex_flavor = 'latex'
 let g:vimtex_view_method = 'zathura'
 let g:vimtex_latexmk_progname = 'nvr'
-
-" }}}
-" YouCompleteMe {{{
-
-let g:ycm_confirm_extra_conf = 0
 
 " }}}
 
