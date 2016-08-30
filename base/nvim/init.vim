@@ -1,12 +1,8 @@
-" .vimrc
+" init.vim
 " Author: Jonathan Skeate
-" https://github.com/skeate/dotfiles/blob/master/.vimrc
-" Significant chunks based on Steve Losh's @
-" http://bitbucket.org/sjl/dotfiles/src/tip/vim/
-" Less significant chunks from other places
 
 " Basics ------------------------------------------------------------------- {{{
-set nocompatible
+
 set showmode
 set hidden
 set visualbell
@@ -54,8 +50,8 @@ set completeopt=longest,menuone
 set showtabline=2
 
 " Cursorline {{{
-" Only show cursorline in the current window and in normal mode.
 
+" Only show cursorline in the current window and in normal mode.
 augroup cline
     au!
     au WinLeave,InsertEnter * set nocursorline
@@ -64,8 +60,8 @@ augroup END
 
 " }}}
 " Trailing whitespace {{{
+"
 " Only shown when not in insert mode
-
 augroup trailing
     au!
     au InsertEnter * :set listchars-=trail:⌴
@@ -74,6 +70,7 @@ augroup END
 
 " }}}
 " Wildmenu completion {{{
+
 set wildmode=longest:full,full
 
 set wildignore+=.hg,.git,.svn                    " Version control
@@ -87,6 +84,7 @@ set wildignore+=*.luac                           " Lua byte code
 set wildignore+=migrations                       " Django migrations
 set wildignore+=*.pyc                            " Python byte code
 set wildignore+=*.orig                           " Merge resolution files
+
 " }}}
 " Tabs, spaces, wrapping {{{
 
@@ -101,12 +99,11 @@ set colorcolumn=+1
 " }}}
 " Backups {{{
 
-set backup                        " enable backups
-set noswapfile                    " it's 2013, Vim.
+set backup
+set noswapfile
 
-set undodir=$XDG_CACHE_HOME/vim/tmp/undo//     " undo files
-set backupdir=$XDG_CACHE_HOME/vim/tmp/backup// " backups
-set directory=$XDG_CACHE_HOME/vim/tmp/swap//   " swap files
+set undodir=$XDG_CACHE_HOME/nvim/undo//     " undo files
+set backupdir=$XDG_CACHE_HOME/nvim/backup// " backups
 
 " Make those folders automatically if they don't already exist.
 if !isdirectory(expand(&undodir))
@@ -139,85 +136,90 @@ call plug#begin(expand('$XDG_DATA_HOME/vim/plugged/'))
 
 " }}}
 
-" vim-specific {{{
+" general {{{
 
 Plug 'tpope/vim-sensible'               " sensible defaults
+Plug 'tpope/vim-repeat'                 " fix . repeating for plugins
+Plug 'tpope/vim-surround'               " surround object with text/tags
+Plug 'tpope/vim-vinegar'                " make netrw nicer
 Plug 'flazz/vim-colorschemes'           " Color pack
 Plug 'bling/vim-airline'                " nice statusbar
-Plug 'xolox/vim-misc'                   " required for vim-shell
-Plug 'xolox/vim-shell'                  " better integration with OS
 Plug 'gcmt/taboo.vim'                   " tab renaming
 Plug 'majutsushi/tagbar'                " tag browser
 Plug 'tpope/vim-obsession'              " session management
-
-" }}}
-" Movement {{{
-
 Plug 'b4winckler/vim-angry'             " add function arg text object
 Plug 'camelcasemotion'                  " camelcase motion with (eg) ,w
 Plug 'Lokaltog/vim-easymotion'          " move around easier
 Plug 'nathanaelkane/vim-indent-guides'  " show indent guides
-Plug 'mileszs/ack.vim'                  " find in files
-Plug 'rking/ag.vim'                     " same-ish as above but with ag!
+Plug 'rking/ag.vim'                     " search in files
 Plug 'terryma/vim-multiple-cursors'     " multiple cursors with <c-n>
-
-" }}}
-" Management {{{
-
-Plug 'dsawardekar/portkey'              " switch between related files
 Plug 'roman/golden-ratio'               " resize windows automatically
 Plug 'sjl/gundo.vim'                    " show undo tree
 Plug 'tommcdo/vim-lion'                 " align to character
 Plug 'tpope/vim-fugitive'               " git support
-Plug 'tpope/vim-repeat'                 " fix . repeating for plugins
-Plug 'tpope/vim-surround'               " surround object with text/tags
 Plug 'tpope/vim-unimpaired'             " add pairwise operators with [x ]x
-Plug 'tpope/vim-vinegar'                " make netrw nicer
 Plug 'ctrlpvim/ctrlp.vim'               " fuzzy file finder
 Plug 'jlanzarotta/bufexplorer'          " buffer list
 Plug 'airblade/vim-gitgutter'           " show git changes in gutter
+Plug 'editorconfig/editorconfig-vim'    " editor config reader
+Plug 'scrooloose/syntastic'             " syntax checking
+Plug 'Shougo/deoplete.nvim'             " neovim-compatible neocomplete
+Plug 'Shougo/neosnippet.vim'            " snippets
+Plug 'Shougo/neosnippet-snippets'       " collection of snippets
+Plug 'Shougo/neco-syntax'               " syntax keywords in omnicmpl
+Plug 'tpope/commentary'
+Plug 'Raimondi/delimitMate'
 
 " }}}
-" Syntax & Autocomplete {{{
+" Javascript & co. {{{
 
-Plug 'dsawardekar/ember.vim'                  " Ember syntax/portkey
-Plug 'editorconfig/editorconfig-vim'          " editor config reader
-Plug 'elzr/vim-json'                          " JSON syntax
-Plug 'hail2u/vim-css3-syntax'                 " CSS3 syntax &c.
-"Plug 'jelera/vim-javascript-syntax'           " better syntax highlighting
-Plug 'kchmck/vim-coffee-script'               " Coffeescript syntax &c.
-Plug 'mustache/vim-mustache-handlebars'       " Handlebars syntax
-Plug 'othree/html5.vim'                       " HTML5 syntax/autocomplete
-"Plug 'othree/javascript-libraries-syntax.vim' " library syntax support
-Plug 'pangloss/vim-javascript'                " more syntax highlighting
-Plug 'isRuslan/vim-es6'                       " es6 snippets and highlighting
-Plug 'heavenshell/vim-jsdoc'                  " jsdoc insertion
-Plug 'scrooloose/syntastic'                   " syntax checking
-Plug 'Shougo/deoplete.nvim'                   " neovim-compatible neocomplete
-Plug 'Shougo/neosnippet-snippets'             " collection of snippets
-Plug 'Shougo/neosnippet.vim'                  " snippets
-Plug 'Shougo/neco-syntax'                     " syntax keywords in omnicmpl
-Plug 'groenewege/vim-less'                    " LESS
-Plug 'tpope/vim-markdown'                     " Markdown syntax
-Plug 'wizicer/vim-jison'                      " Jison (Bison/Flex) syntax
-Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
-Plug 'Slava/tern-meteor', { 'do' : 'cp meteor.js ../tern_for_vim/node_modules/tern/plugin/meteor.js' }
-Plug 'kylef/apiblueprint.vim'
-Plug 'lervag/vimtex'
-Plug 'tmux-plugins/vim-tmux'
-Plug 'davidhalter/jedi-vim'
+Plug 'carlitux/deoplete-ternjs',        { 'for': 'javascript' }
+Plug 'pangloss/vim-javascript',         { 'for': 'javascript' }
+Plug 'isRuslan/vim-es6',                { 'for': 'javascript' }
+Plug 'heavenshell/vim-jsdoc',           { 'for': 'javascript' }
+Plug 'dsawardekar/ember.vim',           { 'for': 'javascript' }
+Plug 'bigfish/vim-js-context-coloring', { 'for': 'javascript', 'do': 'npm install --update' }
+
+Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
+
+Plug 'elzr/vim-json', { 'for': 'json' }
 
 " }}}
+" CSS & co. {{{
+
+Plug 'hail2u/vim-css3-syntax', { 'for': ['css', 'scss'] }
+
+Plug 'groenewege/vim-less', { 'for': 'less' }
+
+" }}}
+" HTML & co. {{{
+
+Plug 'othree/html5.vim', { 'for': ['html', 'handlebars'] }
+Plug 'mattn/emmet-vim', { 'for': ['html', 'handlebars'] }
+
+Plug 'mustache/vim-mustache-handlebars', { 'for': 'handlebars' }
+
+Plug 'tpope/vim-markdown', { 'for': 'markdown' }
+
+" }}}
+" Python {{{
+
+Plug 'zchee/deoplete-jedi', { 'for': 'python' }
+
+" }}}
+" Miscellaneous {{{
+
+Plug 'wizicer/vim-jison', { 'for': 'yacc' }
+Plug 'lervag/vimtex', { 'for': 'tex' }
+Plug 'tmux-plugins/vim-tmux', { 'for': 'tmux' }
+
+" }}}
+
 " Code Assist {{{
 
-Plug 'mattn/emmet-vim'                  " <C-Y>, to expand html
-Plug 'scrooloose/nerdcommenter'         " comment code
-Plug 'Raimondi/delimitMate'             " pair quotes/brackets/etc
 Plug 'Chiel92/vim-autoformat'           " auto format/beautify code
-Plug 'colorizer'                        " highlight hex colors
-Plug 'osyo-manga/vim-over'              " Highlight replacement text
-Plug 'bigfish/vim-js-context-coloring', { 'do': 'npm install --update' }
-Plug 'sidorares/node-vim-debugger'      
+Plug 'colorizer'
+Plug 'osyo-manga/vim-over'
 
 " }}}
 
@@ -363,6 +365,12 @@ nnoremap <leader>tr <Esc>:TabooRename<space>
 nnoremap <leader>to <Esc>:TabooOpen<space>
 let g:taboo_tab_format = " [%N %f]%m "
 let g:taboo_renamed_tab_format = " [%N %l]%m "
+set sessionoptions += tabpages,globals
+
+" }}}
+" Tagbar {{{
+
+nmap <leader>T :TagbarOpenAutoClose<cr>
 
 " }}}
 " tern for vim {{{
@@ -381,6 +389,11 @@ let g:js_context_colors_enabled = 0
 let g:js_context_colors_usemaps = 0
 let g:js_context_colors_block_scope_with_let = 1
 nnoremap <leader>cx :JSContextColorToggle<cr>
+
+" }}}
+" vim-obsession {{{
+
+let g:airline_section_z = airline#section#create(['%{ObsessionStatus(''$'', '''')}', 'windowswap', '%3p%% ', 'linenr', ':%3v '])
 
 " }}}
 " vim-over {{{
@@ -626,8 +639,7 @@ nmap <leader>a gLi{:
 " }}}
 " Quick editing ------------------------------------------------------------ {{{
 
-nnoremap <leader>ev :vsplit ~/.local/etc/base/vim/vimrc<cr>
-nnoremap <leader>eV :vsplit scp://vagrant//<cr>
+nnoremap <leader>ev :vsplit ~/.local/etc/base/nvim/init.vim<cr>
 nnoremap <leader>et :vsplit ~/.local/etc/base/tmux/tmux.conf<cr>
 nnoremap <leader>ec :vsplit ~/.local/etc<cr>
 nnoremap <leader>ez :vsplit ~/.local/etc/base/zsh<cr>
@@ -1135,21 +1147,6 @@ hi def InterestingWord6 guifg=#000000 ctermfg=16 guibg=#ff2c4b ctermbg=195
 " }}}
 
 " }}}
-" netrw tree drawer {{{
-
-function! OpenNetrwInDrawer()
-  silent! exec 'topleft vertical 30 new'
-  silent! exec 'edit .'
-  silent! exec 'normal iii'
-endfunction
-nnoremap <leader>d :<C-u>call OpenNetrwInDrawer()<CR>
-
-" }}}
-" project manager {{{
-
-nnoremap <leader>p :so .vimproj<cr>
-
-" }}}
 " Copy Matches {{{
 
 function! CopyMatches(reg)
@@ -1233,11 +1230,16 @@ else
   if has("unix")
     let s:uname = system("uname")
     if s:uname == "Darwin\n"
-      "Mac options here
+      " Mac options here
       " Inconsolata is a bit small on osx
       set guifont=Inconsolata\ for\ Powerline:h13
+      let g:python_host_prog = '/usr/local/bin/python2'
+      let g:python3_host_prog = '/usr/local/bin/python3'
     else
-      set guifont=Inconsolata-g\ for\ Powerline
+      " linux options here
+      " configure python path
+      let g:python_host_prog = '/usr/bin/python2'
+      let g:python3_host_prog = '/usr/bin/python3'
     endif
   endif
 endif
