@@ -169,6 +169,8 @@ Plug 'Shougo/neosnippet-snippets'       " collection of snippets
 Plug 'Shougo/neco-syntax'               " syntax keywords in omnicmpl
 Plug 'tpope/commentary'
 Plug 'Raimondi/delimitMate'
+Plug 'colorizer'
+Plug 'osyo-manga/vim-over'
 
 " }}}
 " Javascript & co. {{{
@@ -205,6 +207,7 @@ Plug 'tpope/vim-markdown', { 'for': 'markdown' }
 " Python {{{
 
 Plug 'zchee/deoplete-jedi', { 'for': 'python' }
+Plug 'hynek/vim-python-pep8-indent'     " fix python indenting
 
 " }}}
 " Miscellaneous {{{
@@ -212,14 +215,6 @@ Plug 'zchee/deoplete-jedi', { 'for': 'python' }
 Plug 'wizicer/vim-jison', { 'for': 'yacc' }
 Plug 'lervag/vimtex', { 'for': 'tex' }
 Plug 'tmux-plugins/vim-tmux', { 'for': 'tmux' }
-
-" }}}
-
-" Code Assist {{{
-
-Plug 'Chiel92/vim-autoformat'           " auto format/beautify code
-Plug 'colorizer'
-Plug 'osyo-manga/vim-over'
 
 " }}}
 

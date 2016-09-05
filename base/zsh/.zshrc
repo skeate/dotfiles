@@ -83,6 +83,12 @@ sourceIfExists $NVM_DIR/nvm.sh
 sourceIfExists /usr/share/nvm/nvm.sh
 nvm use stable
 
+# python virtualenvwrapper
+mkdir -p $XDG_DATA_HOME/virtualenvs
+export WORKON_HOME=$XDG_DATA_HOME/virtualenvs
+export PROJECT_HOME=$HOME/Code
+sourceIfExists /usr/bin/virtualenvwrapper.sh
+
 eval "$(thefuck --alias)"
 
 alias vim='nvim'
