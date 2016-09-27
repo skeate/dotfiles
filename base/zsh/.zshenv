@@ -2,7 +2,6 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export  XDG_CACHE_HOME="$HOME/.cache"
 export   XDG_DATA_HOME="$HOME/.local/share"
 
-export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
 export EDITOR=nvim
 export TERMINAL=urxvt
 export HISTFILE="$XDG_CACHE_HOME/zsh_history"

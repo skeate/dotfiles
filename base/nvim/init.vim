@@ -167,7 +167,7 @@ Plug 'Shougo/deoplete.nvim'             " neovim-compatible neocomplete
 Plug 'Shougo/neosnippet.vim'            " snippets
 Plug 'Shougo/neosnippet-snippets'       " collection of snippets
 Plug 'Shougo/neco-syntax'               " syntax keywords in omnicmpl
-Plug 'tpope/commentary'
+Plug 'tpope/vim-commentary'
 Plug 'Raimondi/delimitMate'
 Plug 'colorizer'
 Plug 'osyo-manga/vim-over'
@@ -339,7 +339,8 @@ nnoremap <leader>tr <Esc>:TabooRename<space>
 nnoremap <leader>to <Esc>:TabooOpen<space>
 let g:taboo_tab_format = " [%N %f]%m "
 let g:taboo_renamed_tab_format = " [%N %l]%m "
-set sessionoptions += tabpages,globals
+set sessionoptions+=tabpages
+set sessionoptions+=globals
 
 " }}}
 " Tagbar {{{
