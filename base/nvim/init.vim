@@ -143,6 +143,7 @@ Plug 'tpope/vim-repeat'                 " fix . repeating for plugins
 Plug 'tpope/vim-surround'               " surround object with text/tags
 Plug 'tpope/vim-vinegar'                " make netrw nicer
 Plug 'flazz/vim-colorschemes'           " Color pack
+Plug 'dracula/vim'                      " dracula theme
 Plug 'bling/vim-airline'                " nice statusbar
 Plug 'gcmt/taboo.vim'                   " tab renaming
 Plug 'majutsushi/tagbar'                " tag browser
@@ -217,7 +218,6 @@ Plug 'lervag/vimtex', { 'for': 'tex' }
 Plug 'tmux-plugins/vim-tmux', { 'for': 'tmux' }
 
 " }}}
-
 " End vim-plug {{{
 
 call plug#end()
@@ -404,7 +404,6 @@ let g:vimtex_latexmk_progname = 'nvr'
 " }}}
 " Color scheme ------------------------------------------------------------- {{{
 
-set t_Co=256
 colorscheme hybrid
 set background=dark
 
@@ -418,8 +417,6 @@ iabbrev ldis ಠ_ಠ
 iabbrev lsad ಥ_ಥ
 iabbrev lhap ಥ‿ಥ
 iabbrev lmis ಠ‿ಠ
-
-iabbrev vrcf `$XDG_CONFIG_HOME/vim/vimrc` file
 
 " }}}
 " Convenience mappings ----------------------------------------------------- {{{
@@ -847,8 +844,8 @@ augroup END
 augroup vim
   au!
 
-  au BufRead vimrc setlocal foldlevel=0
-  au BufRead vimrc setlocal fdm=marker
+  au BufRead init.vim setlocal foldlevel=0
+  au BufRead init.vim setlocal fdm=marker
 
 augroup END
 
