@@ -178,7 +178,7 @@ exec --no-startup-id compton -c --backend=glx -z
 assign [class="keepass2"] BG
 assign [class="Steam"] Steam
 
-exec --no-startup-id i3-msg 'workspace 11:BG; exec keepass; sleep 1; workspace 1'
+#exec --no-startup-id i3-msg 'workspace 10:BG; exec keepass; sleep 1; workspace 1'
 
 bindsym XF86AudioRaiseVolume exec amixer -q set Master 1%+ unmute; exec pkill -RTMIN+10 i3blocks
 bindsym XF86AudioLowerVolume exec amixer -q set Master 1%- unmute; exec pkill -RTMIN+10 i3blocks
