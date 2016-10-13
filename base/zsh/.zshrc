@@ -91,8 +91,6 @@ sourceIfExists /usr/bin/virtualenvwrapper.sh
 
 eval "$(thefuck --alias)"
 
-alias vim='nvim'
-
 # Help {{{
 
 autoload -U run-help
