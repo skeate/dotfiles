@@ -77,7 +77,6 @@ sourceIfExists ~/.local/lib/dots/contrib/bash_completion
 setopt HIST_IGNORE_DUPS
 setopt extendedglob
 
-alias tmux='tmux -f $XDG_CONFIG_HOME/tmux/tmux.conf'
 
 sourceIfExists $NVM_DIR/nvm.sh
 sourceIfExists /usr/share/nvm/nvm.sh
@@ -96,8 +95,14 @@ eval "$(thefuck --alias)"
 autoload -U run-help
 autoload run-help-git
 unalias run-help
-alias help=run-help
 
 # }}}
+
+# }}}
+# Aliases ------------------------------------------------------------------ {{{
+
+alias tmux='tmux -f $XDG_CONFIG_HOME/tmux/tmux.conf'
+alias help=run-help
+alias glr='git pull --rebase'
 
 # }}}
