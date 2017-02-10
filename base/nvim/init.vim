@@ -142,8 +142,7 @@ Plug 'tpope/vim-sensible'               " sensible defaults
 Plug 'tpope/vim-repeat'                 " fix . repeating for plugins
 Plug 'tpope/vim-surround'               " surround object with text/tags
 Plug 'tpope/vim-vinegar'                " make netrw nicer
-Plug 'flazz/vim-colorschemes'           " Color pack
-Plug 'dracula/vim'                      " dracula theme
+Plug 'chriskempson/base16-vim'          " Color pack
 Plug 'bling/vim-airline'                " nice statusbar
 Plug 'gcmt/taboo.vim'                   " tab renaming
 Plug 'majutsushi/tagbar'                " tag browser
@@ -169,23 +168,26 @@ Plug 'Shougo/neosnippet.vim'            " snippets
 Plug 'Shougo/neosnippet-snippets'       " collection of snippets
 Plug 'Shougo/neco-syntax'               " syntax keywords in omnicmpl
 Plug 'tpope/vim-commentary'
-Plug 'Raimondi/delimitMate'
+Plug 'jiangmiao/auto-pairs'
 Plug 'colorizer'
 Plug 'osyo-manga/vim-over'
 
 " }}}
 " Javascript & co. {{{
 
-Plug 'carlitux/deoplete-ternjs',        { 'for': 'javascript' }
+Plug 'carlitux/deoplete-ternjs',        { 'for': 'javascript', 'do': 'npm install -g tern' }
 Plug 'pangloss/vim-javascript',         { 'for': 'javascript' }
 Plug 'isRuslan/vim-es6',                { 'for': 'javascript' }
 Plug 'heavenshell/vim-jsdoc',           { 'for': 'javascript' }
 Plug 'dsawardekar/ember.vim',           { 'for': 'javascript' }
-Plug 'bigfish/vim-js-context-coloring', { 'for': 'javascript', 'do': 'npm install --update' }
+Plug 'mxw/vim-jsx',                     { 'for': 'javascript' }
 
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 
 Plug 'elzr/vim-json', { 'for': 'json' }
+
+Plug 'HerringtonDarkholme/yats.vim', { 'for': 'typescript' }
+Plug 'mhartington/deoplete-typescript', { 'for': 'typescript' }
 
 " }}}
 " CSS & co. {{{
@@ -330,6 +332,8 @@ endif
 let g:syntastic_mode_map = {'passive_filetypes': ['html']}
 let g:syntastic_aggregate_errors = 1
 let g:syntastic_javascript_checkers=['eslint']
+let g:syntastic_typescript_checkers=['tslint']
+let g:syntastic_scss_checkers=['stylelint']
 let g:syntastic_always_populate_loc_list = 1
 
 " }}}
@@ -348,7 +352,7 @@ set sessionoptions+=globals
 nmap <leader>T :TagbarOpenAutoClose<cr>
 
 " }}}
-" tern for vim {{{
+" deoplete-ternjs {{{
 
 let g:tern_show_signature_in_pum = 1
 
@@ -358,12 +362,9 @@ let g:tern_show_signature_in_pum = 1
 noremap <leader>} :Autoformat<cr><cr>
 
 " }}}
-" vim-js-context-coloring {{{
+" vim-jsx {{{
 
-let g:js_context_colors_enabled = 0
-let g:js_context_colors_usemaps = 0
-let g:js_context_colors_block_scope_with_let = 1
-nnoremap <leader>cx :JSContextColorToggle<cr>
+let g:jsx_ext_required = 0
 
 " }}}
 " vim-obsession {{{
@@ -404,7 +405,8 @@ let g:vimtex_latexmk_progname = 'nvr'
 " }}}
 " Color scheme ------------------------------------------------------------- {{{
 
-colorscheme hybrid
+set termguicolors
+colorscheme base16-solar-flare
 set background=dark
 
 " Highlight VCS conflict markers
@@ -716,7 +718,7 @@ vnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR><c-o>
 " }}}
 " Folding ------------------------------------------------------------------ {{{
 
-set foldmethod=marker
+set foldmethod=indent
 set foldlevelstart=99
 
 " Space to toggle folds.
@@ -737,7 +739,7 @@ function! MyFoldText() " {{{
     let onetab = strpart('          ', 0, &tabstop)
     let line = substitute(line, '\t', onetab, 'g')
 
-    let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
+    let line = strpart(line, 0, windowwidth - 3 -len(foldedlinecount))
     let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
     return line . ' ' . repeat(" ", fillcharcount) . foldedlinecount . ' '
 endfunction " }}}

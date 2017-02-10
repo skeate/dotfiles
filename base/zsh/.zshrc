@@ -1,7 +1,7 @@
 # .zshrc
 # Created by Jonathan Skeate
 
-# zgen ------------------------------------------------------------------ {{{
+# zgen --------------------------------------------------------------------- {{{
 
 [[ -z $XDG_DATA_HOME ]] && echo 'data home not set' && return
 
@@ -104,5 +104,15 @@ unalias run-help
 alias tmux='tmux -f $XDG_CONFIG_HOME/tmux/tmux.conf'
 alias help=run-help
 alias glr='git pull --rebase'
+
+# }}}
+# SSH Agent ---------------------------------------------------------------- {{{
+
+if ! pgrep -u $USER ssh-agent > /dev/null; then
+  ssh-agent > $XDG_CACHE_HOME/.ssh-agent-thing
+fi
+if [[ "$SSH_AGENT_PID" == ""  ]]; then
+  eval $(<$XDG_CACHE_HOME/.ssh-agent-thing)
+fi
 
 # }}}
