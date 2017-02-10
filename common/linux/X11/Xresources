@@ -69,7 +69,7 @@ Xft.rgba: rgb
 URxvt*font: xft:Inconsolata for Powerline:style=Medium:antialias=true:pixelsize=15,\
             xft:Font Awesome:pixelsize=19:antialias=true,\
             -*-unifont-*-*-*-*-*-*-*-*-*-*-*-*
-URxvt*boldfont: xft:Deja Vu Sans Mono:style=bold:size=10,\
+URxvt*boldfont: xft:Inconsolata for Powerline:style=bold:antialias=true:pixelsize=15,\
                 xft:Font Awesome:pixelsize=19:antialias=true,\
                 -*-unifont-*-*-*-*-*-*-*-*-*-*-*-*
 URxvt*letterSpace: -1
@@ -94,6 +94,9 @@ URxvt*pointerBlank: True
 URxvt*scrollBar: False
 URxvt*borderless: True
 ! Comma-separated list(s) of perl extension scripts (default: "default") to use in this terminal instance; option -pe.
+URxvt.keysym.Shift-Control-V: perl:clipboard:paste
+URxvt.iso14755: False
+URxvt.perl-ext-common: default,clipboard
 URxvt*perl-ext-common: default,matcher,clipboard
 ! Specifies the program to be started with a URL argument. Used by the "selection-popup" and "matcher" perl extensions.
 URxvt*url-launcher: /usr/bin/chromium
