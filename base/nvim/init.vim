@@ -171,6 +171,7 @@ Plug 'tpope/vim-commentary'
 Plug 'jiangmiao/auto-pairs'
 Plug 'colorizer'
 Plug 'osyo-manga/vim-over'
+Plug 'morhetz/gruvbox'
 
 " }}}
 " Javascript & co. {{{
@@ -405,8 +406,9 @@ let g:vimtex_latexmk_progname = 'nvr'
 " }}}
 " Color scheme ------------------------------------------------------------- {{{
 
+let g:gruvbox_italic=1
 set termguicolors
-colorscheme base16-solar-flare
+colorscheme gruvbox
 set background=dark
 
 " Highlight VCS conflict markers
