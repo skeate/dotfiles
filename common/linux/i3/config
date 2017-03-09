@@ -163,7 +163,7 @@ bar {
   position top
   output DP-0.8
   status_command i3blocks
-  tray_output primary
+  tray_output DP-0.8
   font pango:Inconsolata, Pomicons, FontAwesome, unifont 12
   colors{
     background #1a1224

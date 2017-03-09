@@ -172,6 +172,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'colorizer'
 Plug 'osyo-manga/vim-over'
 Plug 'morhetz/gruvbox'
+" Plug 'baabelfish/nvim-nim'
 
 " }}}
 " Javascript & co. {{{
@@ -349,6 +350,16 @@ let g:tern_show_signature_in_pum = 1
 " vim-autoformat {{{
 
 noremap <leader>} :Autoformat<cr><cr>
+
+" }}}
+" vim-javascript {{{
+
+let g:javascript_plugin_jsdoc = 1
+
+" }}}
+" vim-jsx {{{
+
+let g:jsx_ext_required = 0
 
 " }}}
 " vim-obsession {{{
