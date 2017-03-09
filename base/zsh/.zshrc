@@ -111,8 +111,6 @@ alias glr='git pull --rebase'
 if ! pgrep -u $USER ssh-agent > /dev/null; then
   ssh-agent > $XDG_CACHE_HOME/.ssh-agent-thing
 fi
-if [[ "$SSH_AGENT_PID" == ""  ]]; then
-  eval $(<$XDG_CACHE_HOME/.ssh-agent-thing)
-fi
+eval $(<$XDG_CACHE_HOME/.ssh-agent-thing)
 
 # }}}

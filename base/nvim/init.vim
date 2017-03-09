@@ -162,7 +162,7 @@ Plug 'ctrlpvim/ctrlp.vim'               " fuzzy file finder
 Plug 'jlanzarotta/bufexplorer'          " buffer list
 Plug 'airblade/vim-gitgutter'           " show git changes in gutter
 Plug 'editorconfig/editorconfig-vim'    " editor config reader
-Plug 'scrooloose/syntastic'             " syntax checking
+Plug 'w0rp/ale'                         " syntax checking
 Plug 'Shougo/deoplete.nvim'             " neovim-compatible neocomplete
 Plug 'Shougo/neosnippet.vim'            " snippets
 Plug 'Shougo/neosnippet-snippets'       " collection of snippets
@@ -181,7 +181,7 @@ Plug 'pangloss/vim-javascript',         { 'for': 'javascript' }
 Plug 'isRuslan/vim-es6',                { 'for': 'javascript' }
 Plug 'heavenshell/vim-jsdoc',           { 'for': 'javascript' }
 Plug 'dsawardekar/ember.vim',           { 'for': 'javascript' }
-Plug 'mxw/vim-jsx',                     { 'for': 'javascript' }
+Plug 'MaxMEllon/vim-jsx-pretty',        { 'for': 'javascript' }
 
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 
@@ -233,7 +233,6 @@ call plug#end()
 " Airline {{{
 
 let g:airline_powerline_fonts = 1
-let g:airline#extensions#syntastic#enabled = 1
 let g:airline_mode_map = {
       \ '__' : '-',
       \ 'n'  : 'N',
@@ -288,6 +287,7 @@ set wildignorecase
 
 " GR fucks up the text alignment when switching windows, so shift right on entry
 autocmd VimEnter * :autocmd WinEnter * :normal ze
+autocmd VimEnter * :autocmd WinEnter * :AirlineRefresh
 
 " }}}
 " Gundo {{{
@@ -326,18 +326,6 @@ if has('conceal')
 endif
 
 " }}}
-" Syntastic {{{
-
-""" only check HTML if :SyntasticCheck called explicitly
-""" otherwise syntastic reports errors on HTML templates (eg handlebars)
-let g:syntastic_mode_map = {'passive_filetypes': ['html']}
-let g:syntastic_aggregate_errors = 1
-let g:syntastic_javascript_checkers=['eslint']
-let g:syntastic_typescript_checkers=['tslint']
-let g:syntastic_scss_checkers=['stylelint']
-let g:syntastic_always_populate_loc_list = 1
-
-" }}}
 " Taboo {{{
 
 nnoremap <leader>tr <Esc>:TabooRename<space>
@@ -361,11 +349,6 @@ let g:tern_show_signature_in_pum = 1
 " vim-autoformat {{{
 
 noremap <leader>} :Autoformat<cr><cr>
-
-" }}}
-" vim-jsx {{{
-
-let g:jsx_ext_required = 0
 
 " }}}
 " vim-obsession {{{
