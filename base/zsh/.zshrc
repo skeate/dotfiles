@@ -81,6 +81,7 @@ setopt extendedglob
 sourceIfExists $NVM_DIR/nvm.sh
 sourceIfExists /usr/share/nvm/nvm.sh
 nvm use stable
+eval "$(npm completion)"
 
 # python virtualenvwrapper
 mkdir -p $XDG_DATA_HOME/virtualenvs

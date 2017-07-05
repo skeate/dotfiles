@@ -149,8 +149,7 @@ mode "resize" {
 }
 
 bindsym $mod+r mode "resize"
-bindsym Print exec scrot '%Y-%m-%d_%H:%M_$wx$h.png' -e 'mv $f ~/Pictures/screenshots/'
-bindsym $mod+Print exec scrot '%Y-%m-%d_%H:%M_$wx$h.png' -u -e 'mv $f ~/Pictures/screenshots/'
+bindsym Print exec teiler
 
 hide_edge_borders both
 for_window [class="Chromium"] border none
@@ -177,6 +176,8 @@ exec --no-startup-id compton -c --backend=glx -z
 
 assign [class="keepass2"] BG
 assign [class="Steam"] Steam
+assign [title="Hangouts"] 10
+assign [title="Franz"] 10
 
 #exec --no-startup-id i3-msg 'workspace 10:BG; exec keepass; sleep 1; workspace 1'
 

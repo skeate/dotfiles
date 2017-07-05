@@ -148,7 +148,7 @@ Plug 'gcmt/taboo.vim'                   " tab renaming
 Plug 'majutsushi/tagbar'                " tag browser
 Plug 'tpope/vim-obsession'              " session management
 Plug 'b4winckler/vim-angry'             " add function arg text object
-Plug 'camelcasemotion'                  " camelcase motion with (eg) ,w
+Plug 'vim-scripts/camelcasemotion'      " camelcase motion with (eg) ,w
 Plug 'Lokaltog/vim-easymotion'          " move around easier
 Plug 'nathanaelkane/vim-indent-guides'  " show indent guides
 Plug 'rking/ag.vim'                     " search in files
@@ -169,7 +169,7 @@ Plug 'Shougo/neosnippet-snippets'       " collection of snippets
 Plug 'Shougo/neco-syntax'               " syntax keywords in omnicmpl
 Plug 'tpope/vim-commentary'
 Plug 'jiangmiao/auto-pairs'
-Plug 'colorizer'
+Plug 'vim-scripts/colorizer'
 Plug 'osyo-manga/vim-over'
 Plug 'morhetz/gruvbox'
 " Plug 'baabelfish/nvim-nim'
@@ -190,6 +190,8 @@ Plug 'elzr/vim-json', { 'for': 'json' }
 
 Plug 'HerringtonDarkholme/yats.vim', { 'for': 'typescript' }
 Plug 'mhartington/deoplete-typescript', { 'for': 'typescript' }
+
+Plug 'elmcast/elm-vim', { 'for': 'elm' }
 
 " }}}
 " CSS & co. {{{
@@ -213,6 +215,11 @@ Plug 'tpope/vim-markdown', { 'for': 'markdown' }
 
 Plug 'zchee/deoplete-jedi', { 'for': 'python' }
 Plug 'hynek/vim-python-pep8-indent'     " fix python indenting
+
+" }}}
+" C/C++ {{{
+
+Plug 'zchee/deoplete-clang', { 'for': ['c', 'cpp'] }
 
 " }}}
 " Miscellaneous {{{
@@ -269,8 +276,14 @@ let g:delimitMate_expand_cr = 1
 " deoplete {{{
 
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#sources = {}
-let g:deoplete#sources._ = []
+let g:deoplete#enable_ignore_case = 1
+let g:deoplete#enable_smart_case = 1
+let g:deoplete#enable_camel_case = 1
+let g:deoplete#enable_refresh_always = 1
+let g:deoplete#sources = get(g:, 'deoplete#sources', {})
+let g:deoplete#omni#functions = get(g:, 'deoplete#omni#functions', {})
+let g:deoplete#omni#input_patterns = get(g:, 'deoplete#omni#input_patterns', {})
+let g:deoplete#sources._ = ['file', 'neosnippet']
 
 inoremap <silent><expr><Tab>
       \ pumvisible() ? "\<C-n>" :
@@ -282,6 +295,29 @@ inoremap <expr><BS>
       \ deoplete#smart_close_popup() . "\<C-h>"
 
 set wildignorecase
+
+" }}}
+" deoplete-ternjs {{{
+
+let g:tern_request_timeout = 1
+let g:tern_show_signature_in_pum = '0'
+let g:deoplete#sources.javascript = ['ternjs'] + g:deoplete#sources._
+let g:deoplete#omni#input_patterns.javascript = '[^ \t]+'
+
+" }}}
+" deoplete-clang {{{
+
+let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
+let g:deoplete#sources#clang#clang_header = '/usr/lib/clang'
+let g:deoplete#omni#input_patterns.cpp = '[^ \t]+'
+let g:deoplete#sources.cpp = ['clang'] + g:deoplete#sources._
+
+" }}}
+" elm-vim {{{
+
+let g:deoplete#omni#functions.elm = ['elm#Complete']
+let g:deoplete#omni#input_patterns.elm = '[^ \t]+'
+let g:deoplete#sources.elm = ['omni'] + g:deoplete#sources._
 
 " }}}
 " Golden Ratio {{{
@@ -340,11 +376,6 @@ set sessionoptions+=globals
 " Tagbar {{{
 
 nmap <leader>T :TagbarOpenAutoClose<cr>
-
-" }}}
-" deoplete-ternjs {{{
-
-let g:tern_show_signature_in_pum = 1
 
 " }}}
 " vim-autoformat {{{
