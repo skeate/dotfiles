@@ -262,7 +262,7 @@ let g:bufExplorerShowRelativePath=1
 " ctrlp {{{
 
 let g:ctrlp_custom_ignore = {
-      \ 'dir': '\.git$\|\.\?tmp$\|node_modules$\|bower_components$',
+      \ 'dir': '\.git$\|\.\?tmp$\|node_modules$\|bower_components$\|coverage$',
       \ 'file': '\.so$\|\.dat$\|\.DS_Store$'
       \ }
 
