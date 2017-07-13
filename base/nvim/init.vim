@@ -177,7 +177,8 @@ Plug 'morhetz/gruvbox'
 " }}}
 " Javascript & co. {{{
 
-Plug 'carlitux/deoplete-ternjs',        { 'for': 'javascript', 'do': 'npm install -g tern' }
+Plug 'ternjs/tern_for_vim',             { 'for': 'javascript', 'do': 'npm install' }
+Plug 'carlitux/deoplete-ternjs',        { 'for': 'javascript' }
 Plug 'pangloss/vim-javascript',         { 'for': 'javascript' }
 Plug 'isRuslan/vim-es6',                { 'for': 'javascript' }
 Plug 'heavenshell/vim-jsdoc',           { 'for': 'javascript' }
@@ -276,14 +277,6 @@ let g:delimitMate_expand_cr = 1
 " deoplete {{{
 
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_ignore_case = 1
-let g:deoplete#enable_smart_case = 1
-let g:deoplete#enable_camel_case = 1
-let g:deoplete#enable_refresh_always = 1
-let g:deoplete#sources = get(g:, 'deoplete#sources', {})
-let g:deoplete#omni#functions = get(g:, 'deoplete#omni#functions', {})
-let g:deoplete#omni#input_patterns = get(g:, 'deoplete#omni#input_patterns', {})
-let g:deoplete#sources._ = ['file', 'neosnippet']
 
 inoremap <silent><expr><Tab>
       \ pumvisible() ? "\<C-n>" :
@@ -299,25 +292,10 @@ set wildignorecase
 " }}}
 " deoplete-ternjs {{{
 
+let g:tern#command = ["tern"]
+let g:tern#arguments = ["--persistent"]
 let g:tern_request_timeout = 1
 let g:tern_show_signature_in_pum = '0'
-let g:deoplete#sources.javascript = ['ternjs'] + g:deoplete#sources._
-let g:deoplete#omni#input_patterns.javascript = '[^ \t]+'
-
-" }}}
-" deoplete-clang {{{
-
-let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
-let g:deoplete#sources#clang#clang_header = '/usr/lib/clang'
-let g:deoplete#omni#input_patterns.cpp = '[^ \t]+'
-let g:deoplete#sources.cpp = ['clang'] + g:deoplete#sources._
-
-" }}}
-" elm-vim {{{
-
-let g:deoplete#omni#functions.elm = ['elm#Complete']
-let g:deoplete#omni#input_patterns.elm = '[^ \t]+'
-let g:deoplete#sources.elm = ['omni'] + g:deoplete#sources._
 
 " }}}
 " Golden Ratio {{{
@@ -718,6 +696,9 @@ nnoremap Vit vitVkoj
 nnoremap Vat vatV
 nnoremap Vab vabV
 nnoremap VaB vaBV
+
+" Prevent large files from slowing things down
+autocmd BufWinEnter * if line2byte(line("$") + 1) > 100000 | syn sync clear | endif
 
 " Directional Keys {{{
 
