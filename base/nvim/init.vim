@@ -194,6 +194,9 @@ Plug 'mhartington/deoplete-typescript', { 'for': 'typescript' }
 
 Plug 'elmcast/elm-vim', { 'for': 'elm' }
 
+Plug 'raichoo/purescript-vim', { 'for': 'purescript' }
+Plug 'FrigoEU/psc-ide-vim', { 'for': 'purescript' }
+
 " }}}
 " CSS & co. {{{
 
