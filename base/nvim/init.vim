@@ -194,6 +194,8 @@ Plug 'mhartington/deoplete-typescript', { 'for': 'typescript' }
 
 Plug 'elmcast/elm-vim', { 'for': 'elm' }
 
+" only syntax checker supported right now
+Plug 'vim-syntastic/syntastic', { 'for': 'purescript' }
 Plug 'raichoo/purescript-vim', { 'for': 'purescript' }
 Plug 'FrigoEU/psc-ide-vim', { 'for': 'purescript' }
 
