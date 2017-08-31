@@ -211,7 +211,7 @@ Plug 'hynek/vim-python-pep8-indent'     " fix python indenting
 " }}}
 " C/C++ {{{
 
-Plug 'zchee/deoplete-clang', { 'for': ['c', 'cpp'] }
+Plug 'tweekmonster/deoplete-clang2', { 'for': ['c', 'cpp'] }
 
 " }}}
 " Miscellaneous {{{
@@ -243,6 +243,14 @@ let g:airline_mode_map = {
       \ 'V'  : 'V',
       \ 's'  : 'S',
       \ 'S'  : 'S',
+      \ }
+
+" }}}
+" ALE {{{
+
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_linters = {
+      \ 'cpp': ['cppcheck', 'cpplint', 'g++'],
       \ }
 
 " }}}
@@ -279,6 +287,12 @@ inoremap <expr><BS>
       \ deoplete#smart_close_popup() . "\<C-h>"
 
 set wildignorecase
+
+" }}}
+" deoplete-clang {{{
+
+" let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
+" let g:deoplete#sources#clang#clang_header = '/usr/include/clang/'
 
 " }}}
 " deoplete-ternjs {{{
