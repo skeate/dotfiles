@@ -29,5 +29,3 @@ export LESSHISTFILE="$XDG_CACHE_HOME/less_history"
 
 export NVM_DIR="$XDG_DATA_HOME/nvm"
 export PATH="$PATH:$NVM_DIR"
-
-export NVIM_TUI_ENABLE_TRUE_COLOR=1

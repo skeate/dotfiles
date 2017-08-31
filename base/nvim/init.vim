@@ -102,20 +102,6 @@ set colorcolumn=+1
 set backup
 set noswapfile
 
-set undodir=$XDG_CACHE_HOME/nvim/undo//     " undo files
-set backupdir=$XDG_CACHE_HOME/nvim/backup// " backups
-
-" Make those folders automatically if they don't already exist.
-if !isdirectory(expand(&undodir))
-    call mkdir(expand(&undodir), "p")
-endif
-if !isdirectory(expand(&backupdir))
-    call mkdir(expand(&backupdir), "p")
-endif
-if !isdirectory(expand(&directory))
-    call mkdir(expand(&directory), "p")
-endif
-
 " }}}
 
 " }}}
@@ -423,14 +409,6 @@ set background=dark
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 
 " }}}
-" Abbreviations ------------------------------------------------------------ {{{
-
-iabbrev ldis ಠ_ಠ
-iabbrev lsad ಥ_ಥ
-iabbrev lhap ಥ‿ಥ
-iabbrev lmis ಠ‿ಠ
-
-" }}}
 " Convenience mappings ----------------------------------------------------- {{{
 
 " <leader>Tab to change indentation
@@ -632,7 +610,6 @@ vnoremap / /\v
 
 set ignorecase
 set smartcase
-set hlsearch
 set gdefault
 
 set scrolloff=3
