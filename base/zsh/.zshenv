@@ -1,9 +1,9 @@
 export XDG_CONFIG_HOME="$HOME/.config"
 export  XDG_CACHE_HOME="$HOME/.cache"
 export   XDG_DATA_HOME="$HOME/.local/share"
+export GNUPGHOME="$XDG_CONFIG_HOME/gnupg"
 
 export EDITOR=nvim
-export TERMINAL=sakura
 export HISTFILE="$XDG_CACHE_HOME/zsh_history"
 export PAGER=less
 

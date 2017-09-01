@@ -67,7 +67,6 @@ export PATH="$PATH:$HOME/.local/lib/nodejs/bin"
 sourceIfExists() {
   [ -s $1 ] && . $1
 }
-sourceIfExists $NVM_DIR/bash_completion
 sourceIfExists /usr/share/nvm/bash_completion
 sourceIfExists ~/.local/lib/dots/contrib/bash_completion
 
@@ -76,10 +75,10 @@ sourceIfExists ~/.local/lib/dots/contrib/bash_completion
 
 setopt HIST_IGNORE_DUPS
 setopt extendedglob
+export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
 
-
-sourceIfExists $NVM_DIR/nvm.sh
-sourceIfExists /usr/share/nvm/nvm.sh
+source /usr/share/nvm/nvm.sh
+source /usr/share/nvm/install-nvm-exec
 nvm use stable
 eval "$(npm completion)"
 
@@ -90,6 +89,7 @@ export PROJECT_HOME=$HOME/Code
 sourceIfExists /usr/bin/virtualenvwrapper.sh
 
 eval "$(thefuck --alias)"
+[[ $(</proc/$PPID/cmdline) == *qterminal* ]] && export TERM="xterm-256color"
 
 # Help {{{
 
