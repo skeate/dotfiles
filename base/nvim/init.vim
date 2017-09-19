@@ -190,7 +190,7 @@ Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 Plug 'elzr/vim-json', { 'for': 'json' }
 
 Plug 'HerringtonDarkholme/yats.vim', { 'for': 'typescript' }
-Plug 'mhartington/deoplete-typescript', { 'for': 'typescript' }
+Plug 'mhartington/nvim-typescript', { 'for': 'typescript' }
 
 Plug 'elmcast/elm-vim', { 'for': 'elm' }
 
