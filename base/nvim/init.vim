@@ -258,6 +258,11 @@ let g:airline_mode_map = {
       \ 's'  : 'S',
       \ 'S'  : 'S',
       \ }
+let g:airline#extensions#obsession#enabled = 1
+let g:airline#extensions#obsession#indicator_text = '✔'
+let g:airline#extensions#taboo#enabled = 1
+let g:airline#extensions#ale#enabled = 1
+
 
 " }}}
 " ALE {{{
