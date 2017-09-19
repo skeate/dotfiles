@@ -130,8 +130,8 @@ if !filereadable($XDG_DATA_HOME.'/nvim/autoload/plug.vim')
         \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 endif
 
-set rtp+=$XDG_CONFIG_HOME/vim/
-set rtp+=$XDG_DATA_HOME/vim/
+set rtp+=$XDG_CONFIG_HOME/nvim/
+set rtp+=$XDG_DATA_HOME/nvim/
 call plug#begin(expand('$XDG_DATA_HOME/nvim/plugged/'))
 
 " }}}
