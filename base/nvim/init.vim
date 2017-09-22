@@ -19,6 +19,7 @@ set shortmess=atI
 set cursorline
 set number
 set nowrap
+set mouse=a
 
 " Spelling
 set dictionary=/usr/share/dict/words
