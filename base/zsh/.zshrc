@@ -67,6 +67,8 @@ export PATH="$PATH:$HOME/.local/lib/nodejs/bin"
 # }}}
 # Completions -------------------------------------------------------------- {{{
 
+autoload bashcompinit
+bashcompinit
 sourceIfExists() {
   [ -s $1 ] && . $1
 }
@@ -80,8 +82,8 @@ setopt HIST_IGNORE_DUPS
 setopt extendedglob
 export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
 
-source /usr/share/nvm/nvm.sh
-source /usr/share/nvm/install-nvm-exec
+sourceIfExists $XDG_DATA_HOME/nvm/nvm.sh
+sourceIfExists $XDG_DATA_HOME/nvm/bash_completion
 nvm use stable
 eval "$(npm completion)"
 
@@ -122,9 +124,9 @@ alias glr='git pull --rebase'
 # }}}
 # SSH Agent ---------------------------------------------------------------- {{{
 
-if ! pgrep -u $USER ssh-agent > /dev/null; then
-  ssh-agent > $XDG_CACHE_HOME/.ssh-agent-thing
+if [ -z "$SSH_AUTH_SOCK" ] ; then
+  eval `ssh-agent -s`
+  ssh-add
 fi
-eval $(<$XDG_CACHE_HOME/.ssh-agent-thing)
 
 # }}}
