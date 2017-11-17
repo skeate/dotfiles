@@ -32,7 +32,6 @@ if ! zgen saved; then
   zgen oh-my-zsh
 
   zgen oh-my-zsh plugins/git
-  zgen oh-my-zsh plugins/git
   zgen oh-my-zsh plugins/archlinux # pacman/yaourt shortcuts
   zgen oh-my-zsh plugins/bower # bower aliases/completion
   zgen oh-my-zsh plugins/git-extras
@@ -40,6 +39,7 @@ if ! zgen saved; then
   zgen oh-my-zsh plugins/meteor
   zgen oh-my-zsh plugins/node
   zgen oh-my-zsh plugins/npm
+  zgen oh-my-zsh plugins/ssh-agent
   zgen oh-my-zsh plugins/sudo
   zgen oh-my-zsh plugins/vagrant
   zgen oh-my-zsh plugins/dircycle
@@ -53,6 +53,9 @@ if ! zgen saved; then
 
   zgen save
 fi
+
+zstyle :omz:plugins:ssh-agent agent-forwarding on
+zstyle :omz:plugins:ssh-agent identities id_rsa id_router mosh_rsa github_id_rsa
 
 # }}}
 # Path Config -------------------------------------------------------------- {{{
