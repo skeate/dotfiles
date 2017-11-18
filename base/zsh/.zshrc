@@ -83,7 +83,9 @@ setopt extendedglob
 export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
 
 sourceIfExists $XDG_DATA_HOME/nvm/nvm.sh
+sourceIfExists /usr/share/nvm/nvm.sh
 sourceIfExists $XDG_DATA_HOME/nvm/bash_completion
+sourceIfExists /usr/share/nvm/bash_completion
 nvm use stable
 eval "$(npm completion)"
 
