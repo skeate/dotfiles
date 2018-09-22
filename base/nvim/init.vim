@@ -143,7 +143,6 @@ Plug 'tpope/vim-sensible'               " sensible defaults
 Plug 'tpope/vim-repeat'                 " fix . repeating for plugins
 Plug 'tpope/vim-surround'               " surround object with text/tags
 Plug 'tpope/vim-vinegar'                " make netrw nicer
-Plug 'chriskempson/base16-vim'          " Color pack
 Plug 'bling/vim-airline'                " nice statusbar
 Plug 'gcmt/taboo.vim'                   " tab renaming
 Plug 'majutsushi/tagbar'                " tag browser
@@ -164,7 +163,7 @@ Plug 'jlanzarotta/bufexplorer'          " buffer list
 Plug 'airblade/vim-gitgutter'           " show git changes in gutter
 Plug 'editorconfig/editorconfig-vim'    " editor config reader
 Plug 'w0rp/ale'                         " syntax checking
-Plug 'Shougo/deoplete.nvim'             " neovim-compatible neocomplete
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/neosnippet.vim'            " snippets
 Plug 'Shougo/neosnippet-snippets'       " collection of snippets
 Plug 'Shougo/neco-syntax'               " syntax keywords in omnicmpl
@@ -191,13 +190,13 @@ Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 Plug 'elzr/vim-json', { 'for': 'json' }
 
 Plug 'HerringtonDarkholme/yats.vim', { 'for': 'typescript' }
-Plug 'mhartington/nvim-typescript', { 'for': 'typescript' }
+Plug 'mhartington/nvim-typescript', { 'for': 'typescript', 'do': 'sh install.sh' }
 
 Plug 'elmcast/elm-vim', { 'for': 'elm' }
 
 " only syntax checker supported right now
 Plug 'vim-syntastic/syntastic', { 'for': 'purescript' }
-Plug 'raichoo/purescript-vim', { 'for': 'purescript' }
+Plug 'purescript-contrib/purescript-vim', { 'for': 'purescript' }
 Plug 'FrigoEU/psc-ide-vim', { 'for': 'purescript' }
 
 " }}}
@@ -342,6 +341,7 @@ let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_auto_colors = 0
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=gray15 ctermbg=235
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=gray10 ctermbg=236
+unmap <leader>ig
 
 " }}}
 " jsdoc {{{
@@ -393,6 +393,7 @@ let g:javascript_plugin_jsdoc = 1
 " }}}
 " vim-jsx {{{
 
+let g:vim_jsx_pretty_colorful_config = 1
 let g:jsx_ext_required = 0
 
 " }}}
@@ -601,9 +602,6 @@ command! -bang WQ wq<bang>
 " doesn't change) while :set paste! does, so I use that instead.
 " set pastetoggle=<F6>
 nnoremap <F6> :set paste!<cr>
-
-" Toggle [i]nvisible characters
-nnoremap <leader>i :set list!<cr>
 
 " Unfuck my screen
 nnoremap U :syntax sync fromstart<cr>:redraw!<cr>
@@ -1203,6 +1201,10 @@ function! TextEnableCodeSnip(filetype, start, end, textSnipHl) abort
   \ ' start="' . a:start . '" end="' . a:end . '"' .
   \ ' contains=@' . group
 endfunction
+
+map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+      \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+      \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
 " }}}
 

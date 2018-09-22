@@ -1,0 +1,18 @@
+#!/bin/zsh
+
+alias tmux='tmux -f $XDG_CONFIG_HOME/tmux/tmux.conf'
+alias help=run-help
+alias glr='git pull --rebase'
+alias pinit='psc-package init'
+
+map()
+{
+  program=$1
+  shift
+  for arg in $@
+  do
+    eval $program $arg
+  done
+}
+
+alias pi='map "psc-package install"'

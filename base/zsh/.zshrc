@@ -32,16 +32,12 @@ if ! zgen saved; then
   zgen oh-my-zsh
 
   zgen oh-my-zsh plugins/git
-  zgen oh-my-zsh plugins/archlinux # pacman/yaourt shortcuts
-  zgen oh-my-zsh plugins/bower # bower aliases/completion
   zgen oh-my-zsh plugins/git-extras
   zgen oh-my-zsh plugins/gitfast
-  zgen oh-my-zsh plugins/meteor
   zgen oh-my-zsh plugins/node
   zgen oh-my-zsh plugins/npm
   zgen oh-my-zsh plugins/ssh-agent
   zgen oh-my-zsh plugins/sudo
-  zgen oh-my-zsh plugins/vagrant
   zgen oh-my-zsh plugins/dircycle
   zgen oh-my-zsh plugins/systemd
 
@@ -119,9 +115,7 @@ unalias run-help
 # }}}
 # Aliases ------------------------------------------------------------------ {{{
 
-alias tmux='tmux -f $XDG_CONFIG_HOME/tmux/tmux.conf'
-alias help=run-help
-alias glr='git pull --rebase'
+sourceIfExists $XDG_CONFIG_HOME/zsh/aliases
 
 # }}}
 # SSH Agent ---------------------------------------------------------------- {{{
