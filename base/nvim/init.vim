@@ -172,6 +172,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'vim-scripts/colorizer'
 Plug 'osyo-manga/vim-over'
 Plug 'morhetz/gruvbox'
+Plug 'Shougo/echodoc.vim'
 " Plug 'baabelfish/nvim-nim'
 
 " }}}
@@ -189,7 +190,7 @@ Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 
 Plug 'elzr/vim-json', { 'for': 'json' }
 
-Plug 'HerringtonDarkholme/yats.vim', { 'for': 'typescript' }
+Plug 'HerringtonDarkholme/yats.vim', { 'for': ['typescript', 'typescriptreact'] }
 Plug 'mhartington/nvim-typescript', { 'for': 'typescript', 'do': 'sh install.sh' }
 
 Plug 'elmcast/elm-vim', { 'for': 'elm' }
@@ -270,6 +271,9 @@ let g:airline#extensions#ale#enabled = 1
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_linters = {
       \ 'cpp': ['cppcheck', 'cpplint', 'g++'],
+      \ }
+let g:ale_linter_aliases = {
+      \ 'typescriptreact': 'typescript',
       \ }
 
 " }}}
@@ -364,6 +368,11 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 if has('conceal')
   set conceallevel=2 concealcursor=i
 endif
+
+" }}}
+" nvim-typescript {{{
+
+let g:nvim_typescript#diagnosticsEnable = 0
 
 " }}}
 " Taboo {{{
@@ -872,6 +881,15 @@ augroup vim
   au BufRead init.vim setlocal fdm=marker
 
 augroup END
+
+" }}}
+" Typescript {{{
+
+" augroup typescript
+"   au!
+
+"   au BufRead *.tsx setlocal ft=typescript
+" augroup END
 
 " }}}
 
