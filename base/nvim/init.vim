@@ -186,8 +186,7 @@ Plug 'carlitux/deoplete-ternjs',        { 'for': 'javascript' }
 Plug 'pangloss/vim-javascript',         { 'for': 'javascript' }
 Plug 'isRuslan/vim-es6',                { 'for': 'javascript' }
 Plug 'heavenshell/vim-jsdoc',           { 'for': 'javascript' }
-Plug 'dsawardekar/ember.vim',           { 'for': 'javascript' }
-Plug 'MaxMEllon/vim-jsx-pretty',        { 'for': 'javascript' }
+Plug 'MaxMEllon/vim-jsx-pretty',        { 'for': ['javascript', 'typescript', 'typescript.tsx'] }
 
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 
@@ -348,7 +347,7 @@ let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_auto_colors = 0
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=gray15 ctermbg=235
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=gray10 ctermbg=236
-unmap <leader>ig
+" unmap <leader>ig
 
 " }}}
 " jsdoc {{{
