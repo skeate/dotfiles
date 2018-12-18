@@ -101,8 +101,9 @@ set colorcolumn=+1
 " Backups {{{
 
 set backup
-set noswapfile
+set swapfile
 
+set directory=$XDG_CACHE_HOME/nvim/swap//   " swap files
 set undodir=$XDG_CACHE_HOME/nvim/undo//     " undo files
 set backupdir=$XDG_CACHE_HOME/nvim/backup// " backups
 
@@ -187,13 +188,17 @@ Plug 'pangloss/vim-javascript',         { 'for': 'javascript' }
 Plug 'isRuslan/vim-es6',                { 'for': 'javascript' }
 Plug 'heavenshell/vim-jsdoc',           { 'for': 'javascript' }
 Plug 'MaxMEllon/vim-jsx-pretty',        { 'for': ['javascript', 'typescript', 'typescript.tsx'] }
+Plug 'prettier/vim-prettier', {
+      \ 'do': 'npm install',
+      \ 'for': ['javascript', 'typescript', 'typescript.tsx', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue']
+      \ }
 
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 
 Plug 'elzr/vim-json', { 'for': 'json' }
 
 Plug 'HerringtonDarkholme/yats.vim', { 'for': ['typescript', 'typescriptreact'] }
-Plug 'mhartington/nvim-typescript', { 'for': 'typescript', 'do': 'sh install.sh' }
+Plug 'mhartington/nvim-typescript', { 'for': ['typescript', 'javascript'], 'do': 'sh install.sh' }
 
 Plug 'elmcast/elm-vim', { 'for': 'elm' }
 
@@ -347,7 +352,6 @@ let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_auto_colors = 0
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=gray15 ctermbg=235
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=gray10 ctermbg=236
-" unmap <leader>ig
 
 " }}}
 " jsdoc {{{
@@ -375,6 +379,7 @@ endif
 " nvim-typescript {{{
 
 let g:nvim_typescript#diagnosticsEnable = 0
+let g:nvim_typescript#type_info_on_hold = 1
 
 " }}}
 " Taboo {{{
@@ -426,6 +431,12 @@ endfunction
 
 nnoremap <Leader>fr :call VisualFindAndReplace()<CR>
 xnoremap <Leader>fr :call VisualFindAndReplaceWithSelection()<CR>
+
+" }}}
+" vim-prettier {{{
+
+let g:prettier#autoformat = 0
+autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue PrettierAsync
 
 " }}}
 " vim-vinegar {{{
