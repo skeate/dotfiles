@@ -174,6 +174,7 @@ Plug 'osyo-manga/vim-over'
 Plug 'morhetz/gruvbox'
 Plug 'Shougo/echodoc.vim'
 Plug 'joshdick/onedark.vim'
+Plug 'metakirby5/codi.vim'
 " Plug 'baabelfish/nvim-nim'
 Plug 'sheerun/vim-polyglot'
 
