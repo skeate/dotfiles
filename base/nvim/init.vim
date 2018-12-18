@@ -173,7 +173,9 @@ Plug 'vim-scripts/colorizer'
 Plug 'osyo-manga/vim-over'
 Plug 'morhetz/gruvbox'
 Plug 'Shougo/echodoc.vim'
+Plug 'joshdick/onedark.vim'
 " Plug 'baabelfish/nvim-nim'
+Plug 'sheerun/vim-polyglot'
 
 " }}}
 " Javascript & co. {{{
@@ -444,9 +446,9 @@ let g:vimtex_latexmk_progname = 'nvr'
 " }}}
 " Color scheme ------------------------------------------------------------- {{{
 
-let g:gruvbox_italic=1
+" let g:gruvbox_italic=1
 set termguicolors
-colorscheme gruvbox
+colorscheme onedark
 set background=dark
 
 " Highlight VCS conflict markers
