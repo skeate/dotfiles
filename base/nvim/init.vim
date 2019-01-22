@@ -4,14 +4,14 @@
 " Basics ------------------------------------------------------------------- {{{
 
 set showmode " shows, e.g., -- INSERT -- in command line area
-set hidden
+set hidden " hide buffers instead of closing
 set visualbell
 set undofile
 set nolist
-set lazyredraw
+set lazyredraw " don't redraw in the middle of macros
 set splitbelow
 set splitright
-set autowrite
+set autowrite " write when switching buffers
 set shiftround
 set title
 set linebreak
@@ -26,8 +26,8 @@ set dictionary=/usr/share/dict/words
 set spellfile=$XDG_DATA_HOME/vim/custom-dictionary.utf-8.add
 nnoremap zG 2zg
 
-" Don't try to highlight lines longer than 800 characters.
-set synmaxcol=800
+" Don't try to highlight lines longer than...
+set synmaxcol=200
 
 " Time out on key codes but not mappings.
 " Basically this makes terminal Vim work sanely.
@@ -99,7 +99,7 @@ set colorcolumn=+1
 " Backups {{{
 
 set backup
-set swapfile
+set noswapfile
 
 set directory=$XDG_CACHE_HOME/nvim/swap//   " swap files
 set undodir=$XDG_CACHE_HOME/nvim/undo//     " undo files
