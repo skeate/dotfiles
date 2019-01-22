@@ -162,10 +162,6 @@ Plug 'jlanzarotta/bufexplorer'          " buffer list
 Plug 'airblade/vim-gitgutter'           " show git changes in gutter
 Plug 'editorconfig/editorconfig-vim'    " editor config reader
 Plug 'w0rp/ale'                         " syntax checking
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'Shougo/neosnippet.vim'            " snippets
-Plug 'Shougo/neosnippet-snippets'       " collection of snippets
-Plug 'Shougo/neco-syntax'               " syntax keywords in omnicmpl
 Plug 'tpope/vim-commentary'
 Plug 'jiangmiao/auto-pairs'
 Plug 'vim-scripts/colorizer'
@@ -176,6 +172,14 @@ Plug 'joshdick/onedark.vim'
 Plug 'metakirby5/codi.vim'
 " Plug 'baabelfish/nvim-nim'
 Plug 'sheerun/vim-polyglot'
+Plug 'ncm2/ncm2'
+Plug 'roxma/nvim-yarp'
+" Plug 'ncm2/ncm2-ultisnips'
+" Plug 'SirVer/ultisnips'
+Plug 'autozimu/LanguageClient-neovim', {
+      \ 'branch': 'next',
+      \ 'do': 'bash install.sh',
+      \ }
 
 " }}}
 " Javascript & co. {{{
@@ -301,36 +305,6 @@ let g:delimitMate_expand_space = 1
 let g:delimitMate_expand_cr = 1
 
 " }}}
-" deoplete {{{
-
-let g:deoplete#enable_at_startup = 1
-
-inoremap <silent><expr><Tab>
-      \ pumvisible() ? "\<C-n>" :
-      \ deoplete#manual_complete()
-inoremap <silent><expr><S-Tab>
-      \ pumvisible() ? "\<C-p>" :
-      \ deoplete#manual_complete()
-inoremap <expr><BS>
-      \ deoplete#smart_close_popup() . "\<C-h>"
-
-set wildignorecase
-
-" }}}
-" deoplete-clang {{{
-
-" let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
-" let g:deoplete#sources#clang#clang_header = '/usr/include/clang/'
-
-" }}}
-" deoplete-ternjs {{{
-
-let g:tern#command = ["tern"]
-let g:tern#arguments = ["--persistent"]
-let g:tern_request_timeout = 1
-let g:tern_show_signature_in_pum = '0'
-
-" }}}
 " Golden Ratio {{{
 
 " GR fucks up the text alignment when switching windows, so shift right on entry
@@ -358,20 +332,31 @@ let g:jsdoc_enable_es6 = 1
 nmap <silent> <C-l> ?function<cr>:noh<cr><Plug>(jsdoc)
 
 " }}}
-" neosnippet {{{
+" LanguageClient-neovim {{{
 
-" SuperTab like snippets behavior.
-imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-      \ "\<Plug>(neosnippet_expand_or_jump)"
-      \ : pumvisible() ? "\<C-n>" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-      \ "\<Plug>(neosnippet_expand_or_jump)"
-      \ : "\<TAB>"
+let g:LanguageClient_serverCommands = {
+      \ 'python': ['pyls'],
+      \ 'javascript': ['javascript-typescript-stdio'],
+      \ }
 
-" For snippet_complete marker.
-if has('conceal')
-  set conceallevel=2 concealcursor=i
-endif
+" }}}
+" ncm2 {{{
+
+autocmd BufEnter * call ncm2#enable_for_buffer()
+set completeopt=noinsert,menuone,noselect
+
+" CTRL-C doesn't trigger the InsertLeave autocmd . map to <ESC> instead.
+inoremap <c-c> <ESC>
+
+" When the <Enter> key is pressed while the popup menu is visible, it only
+" hides the menu. Use this mapping to close the menu and also start a new
+" line.
+inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
+
+" Use <TAB> to select the popup menu:
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
 
 " }}}
 " nvim-typescript {{{
