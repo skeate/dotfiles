@@ -69,8 +69,35 @@ bashcompinit
 sourceIfExists() {
   [ -s $1 ] && . $1
 }
+sourceIfExists $XDG_DATA_HOME/nvm/bash_completion
 sourceIfExists /usr/share/nvm/bash_completion
 sourceIfExists ~/.local/lib/dots/contrib/bash_completion
+eval "$(npm completion)"
+
+# }}}
+# NVM {{{
+
+sourceIfExists $XDG_DATA_HOME/nvm/nvm.sh
+sourceIfExists /usr/share/nvm/nvm.sh
+nvm use stable
+autoload -U add-zsh-hook
+load-nvmrc() {
+  local node_version="$(nvm version)"
+  local nvmrc_path="$(nvm_find_nvmrc)"
+
+  if [ -n "$nvmrc_path" ]; then
+    local nvm_rc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
+
+    if [ "$nvmrc_node_version" != "N/A" ] && [ "$nvmrc_node_version" != "$node_version" ]; then
+      nvm use
+    fi
+  elif [ "$node_version" != "$(nvm version default)" ]; then
+    echo "Reverting to nvm default version"
+    nvm use default
+  fi
+}
+add-zsh-hook chpwd load-nvmrc
+load-nvmrc
 
 # }}}
 # Misc Settings ------------------------------------------------------------ {{{
@@ -78,13 +105,6 @@ sourceIfExists ~/.local/lib/dots/contrib/bash_completion
 setopt HIST_IGNORE_DUPS
 setopt extendedglob
 export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
-
-sourceIfExists $XDG_DATA_HOME/nvm/nvm.sh
-sourceIfExists /usr/share/nvm/nvm.sh
-sourceIfExists $XDG_DATA_HOME/nvm/bash_completion
-sourceIfExists /usr/share/nvm/bash_completion
-nvm use stable
-eval "$(npm completion)"
 
 # python virtualenvwrapper
 mkdir -p $XDG_DATA_HOME/virtualenvs
