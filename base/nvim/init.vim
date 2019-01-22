@@ -469,6 +469,14 @@ function! ToggleIndent()
 endfunction
 nnoremap <leader><Tab> :call ToggleIndent()<CR>
 
+function! ReloadConfig()
+  execute "!dots install"
+  source /home/skeate/.config/nvim/init.vim
+  PlugInstall
+  PlugUpdate
+endfunction
+nnoremap <leader><leader>v :call ReloadConfig()<CR>
+
 " Edit new file in directory of active window's file
 map <leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 
