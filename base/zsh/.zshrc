@@ -121,7 +121,7 @@ function nvim() {
   elif test -f Session.vim; then
     env nvim -S
   else
-    env nvim -c Obsession
+    env nvim
   fi
 }
 

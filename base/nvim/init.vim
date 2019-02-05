@@ -3,7 +3,8 @@
 
 " Basics ------------------------------------------------------------------- {{{
 
-set showmode " shows, e.g., -- INSERT -- in command line area
+set cmdheight=1
+set noshowmode
 set hidden " hide buffers instead of closing
 set visualbell
 set undofile
@@ -132,75 +133,237 @@ endif
 
 set rtp+=$XDG_CONFIG_HOME/nvim/
 set rtp+=$XDG_DATA_HOME/nvim/
-call plug#begin(expand('$XDG_DATA_HOME/nvim/plugged/'))
 
 " }}}
+
+call plug#begin(expand('$XDG_DATA_HOME/nvim/plugged/'))
 
 " general {{{
 
+" Misc
 Plug 'tpope/vim-sensible'               " sensible defaults
 Plug 'tpope/vim-repeat'                 " fix . repeating for plugins
+" Plug 'tpope/vim-obsession'              " session management
+Plug 'tpope/vim-unimpaired'             " add pairwise operators with [x ]x
+Plug 'tpope/vim-commentary'             " gc comment command
+Plug 'terryma/vim-multiple-cursors'     " multiple cursors with <c-n>
+" Plug 'jiangmiao/auto-pairs'
+Plug 'sheerun/vim-polyglot'
+Plug 'metakirby5/codi.vim'
+Plug 'thaerkh/vim-indentguides'
+Plug 'gcmt/taboo.vim' " {{{
+
+  nnoremap <leader>tr <Esc>:TabooRename<space>
+  nnoremap <leader>to <Esc>:TabooOpen<space>
+  let g:taboo_tab_format = " [%N %f]%m "
+  let g:taboo_renamed_tab_format = " [%N %l]%m "
+  set sessionoptions+=tabpages
+  set sessionoptions+=globals
+
+" }}}
+Plug 'bling/vim-airline' " {{{
+
+  let g:airline_powerline_fonts = 1
+  let g:airline_mode_map = {
+        \ '__' : '-',
+        \ 'n'  : 'N',
+        \ 'i'  : 'I',
+        \ 'R'  : 'R',
+        \ 'c'  : 'C',
+        \ 'v'  : 'V',
+        \ 'V'  : 'V',
+        \ 's'  : 'S',
+        \ 'S'  : 'S',
+        \ }
+  " let g:airline#extensions#obsession#enabled = 1
+  " let g:airline#extensions#obsession#indicator_text = '✔'
+  let g:airline#extensions#taboo#enabled = 1
+  let g:airline#extensions#ale#enabled = 1
+
+" }}}
+Plug 'majutsushi/tagbar' " {{{
+
+  nmap <leader>T :TagbarOpenAutoClose<cr>
+
+" }}}
+Plug 'roman/golden-ratio' " {{{
+
+" GR fucks up the text alignment when switching windows, so shift right on entry
+autocmd VimEnter * :autocmd WinEnter * :normal ze
+autocmd VimEnter * :autocmd WinEnter * :AirlineRefresh
+
+" }}}
+Plug 'sjl/gundo.vim' " {{{
+
+map <leader>g :GundoToggle<CR>
+
+" }}}
+Plug 'osyo-manga/vim-over' " {{{
+
+  function! VisualFindAndReplace()
+      :OverCommandLine%s/
+      :w
+  endfunction
+  function! VisualFindAndReplaceWithSelection() range
+      :'<,'>OverCommandLine s/
+      :w
+  endfunction
+
+  nnoremap <Leader>fr :call VisualFindAndReplace()<CR>
+  xnoremap <Leader>fr :call VisualFindAndReplaceWithSelection()<CR>
+
+" }}}
+Plug 'Shougo/echodoc.vim' " {{{
+
+  let g:echodoc#enable_at_startup = 1
+  " let g:echodoc#type = "virtual"
+
+" }}}
+
+" Git
+Plug 'airblade/vim-gitgutter'           " show git changes in gutter
+Plug 'tpope/vim-fugitive' " {{{
+
+  Plug 'tommcdo/vim-fugitive-blame-ext'
+
+  " Highlight VCS conflict markers
+  match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
+
+" }}}
+
+" File nav
+Plug 'junegunn/fzf', { 'dir': '$XDG_DATA_HOME/fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim' " {{{
+
+  noremap <C-P> <esc>:GFiles<cr>
+
+" }}}
+Plug 'tpope/vim-vinegar' " {{{
+
+  " not really vinegar's fault, but netrw takes over last buffer, which is awkward
+  " behaviour; this fixes it
+  let g:netrw_altfile = 1
+
+" }}}
+Plug 'jlanzarotta/bufexplorer' " {{{
+
+  let g:bufExplorerShowRelativePath=1
+
+" }}}
+
+" Text objects
 Plug 'tpope/vim-surround'               " surround object with text/tags
-Plug 'tpope/vim-vinegar'                " make netrw nicer
-Plug 'bling/vim-airline'                " nice statusbar
-Plug 'gcmt/taboo.vim'                   " tab renaming
-Plug 'majutsushi/tagbar'                " tag browser
-Plug 'tpope/vim-obsession'              " session management
 Plug 'b4winckler/vim-angry'             " add function arg text object
 Plug 'vim-scripts/camelcasemotion'      " camelcase motion with (eg) ,w
 Plug 'Lokaltog/vim-easymotion'          " move around easier
-Plug 'nathanaelkane/vim-indent-guides'  " show indent guides
-Plug 'rking/ag.vim'                     " search in files
-Plug 'terryma/vim-multiple-cursors'     " multiple cursors with <c-n>
-Plug 'roman/golden-ratio'               " resize windows automatically
-Plug 'sjl/gundo.vim'                    " show undo tree
 Plug 'tommcdo/vim-lion'                 " align to character
-Plug 'tpope/vim-fugitive'               " git support
-Plug 'tpope/vim-unimpaired'             " add pairwise operators with [x ]x
-Plug 'ctrlpvim/ctrlp.vim'               " fuzzy file finder
-Plug 'jlanzarotta/bufexplorer'          " buffer list
-Plug 'airblade/vim-gitgutter'           " show git changes in gutter
+
+" Formatting/Linting
 Plug 'editorconfig/editorconfig-vim'    " editor config reader
-Plug 'w0rp/ale'                         " syntax checking
-Plug 'tpope/vim-commentary'
-Plug 'jiangmiao/auto-pairs'
-Plug 'vim-scripts/colorizer'
-Plug 'osyo-manga/vim-over'
-Plug 'morhetz/gruvbox'
-Plug 'Shougo/echodoc.vim'
-Plug 'joshdick/onedark.vim'
-Plug 'metakirby5/codi.vim'
-" Plug 'baabelfish/nvim-nim'
-Plug 'sheerun/vim-polyglot'
-Plug 'ncm2/ncm2'
-Plug 'roxma/nvim-yarp'
-" Plug 'ncm2/ncm2-ultisnips'
-" Plug 'SirVer/ultisnips'
-Plug 'autozimu/LanguageClient-neovim', {
-      \ 'branch': 'next',
-      \ 'do': 'bash install.sh',
-      \ }
-
-" }}}
-" Javascript & co. {{{
-
-Plug 'ternjs/tern_for_vim',             { 'for': 'javascript', 'do': 'npm install' }
-Plug 'carlitux/deoplete-ternjs',        { 'for': 'javascript' }
-Plug 'pangloss/vim-javascript',         { 'for': 'javascript' }
-Plug 'isRuslan/vim-es6',                { 'for': 'javascript' }
-Plug 'heavenshell/vim-jsdoc',           { 'for': 'javascript' }
-Plug 'MaxMEllon/vim-jsx-pretty',        { 'for': ['javascript', 'typescript', 'typescript.tsx'] }
 Plug 'prettier/vim-prettier', {
       \ 'do': 'npm install',
       \ 'for': ['javascript', 'typescript', 'typescript.tsx', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue']
       \ }
+" {{{
+
+  let g:prettier#autoformat = 0
+  autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue PrettierAsync
+
+" }}}
+Plug 'w0rp/ale' " {{{
+
+  let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+  let g:ale_linters = {
+        \ 'cpp': ['cppcheck', 'cpplint', 'g++'],
+        \ }
+  let g:ale_linter_aliases = {
+        \ 'typescriptreact': 'typescript',
+        \ }
+
+" }}}
+
+" Colorscheme
+" Plug 'morhetz/gruvbox'
+Plug 'joshdick/onedark.vim'
+
+" Completion
+Plug 'ncm2/ncm2' " {{{
+
+  " Deps:
+  Plug 'roxma/nvim-yarp'
+  " Plug 'SirVer/ultisnips' " for ncm2-ultisnips
+
+  " General Plugins:
+  " Plug 'ncm2/ncm2-ultisnips'
+  Plug 'prabirshrestha/async.vim'
+  Plug 'prabirshrestha/vim-lsp' " {{{
+
+    if executable('pyls')
+      au User lsp_setup call lsp#register_server({
+            \ 'name': 'pyls',
+            \ 'cmd': {server_info->['pyls']},
+            \ 'whitelist': ['python'],
+            \ })
+    endif
+    " if executable('typescript-language-server')
+    "   au User lsp_setup call lsp#register_server({
+    "         \ 'name': 'tls',
+    "         \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+    "         \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
+    "         \ 'whitelist': ['typescript', 'javascript', 'typescript.tsx'],
+    "         \ })
+    " endif
+
+  " }}}
+  Plug 'ncm2/ncm2-vim-lsp'
+  Plug 'ncm2/ncm2-bufword'
+  Plug 'filipekiss/ncm2-look.vim' " dictionary completion
+  Plug 'Shougo/neco-syntax' | Plug 'ncm2/ncm2-syntax'
+
+  autocmd BufEnter * call ncm2#enable_for_buffer()
+  set completeopt=noinsert,menuone,noselect,preview
+
+  " CTRL-C doesn't trigger the InsertLeave autocmd . map to <ESC> instead.
+  inoremap <c-c> <ESC>
+
+  " When the <Enter> key is pressed while the popup menu is visible, it only
+  " hides the menu. Use this mapping to close the menu and also start a new
+  " line.
+  inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
+
+  " Use <TAB> to select the popup menu:
+  inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+  inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" }}}
+
+" }}}
+" Javascript & co. {{{
+
+Plug 'pangloss/vim-javascript',  { 'for': 'javascript' } " {{{
+
+  let g:javascript_plugin_jsdoc = 1
+
+" }}}
+Plug 'isRuslan/vim-es6',         { 'for': 'javascript' }
+Plug 'heavenshell/vim-jsdoc',    { 'for': 'javascript' }
+Plug 'MaxMEllon/vim-jsx-pretty', { 'for': ['javascript', 'typescript', 'typescript.tsx'] } " {{{
+
+  let g:vim_jsx_pretty_colorful_config = 1
+  let g:jsx_ext_required = 0
+
+" }}}
 
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 
 Plug 'elzr/vim-json', { 'for': 'json' }
 
 Plug 'HerringtonDarkholme/yats.vim', { 'for': ['typescript', 'typescriptreact'] }
-Plug 'mhartington/nvim-typescript', { 'for': ['typescript', 'javascript'], 'do': 'sh install.sh' }
+Plug 'mhartington/nvim-typescript', { 'do': 'sh install.sh' } " {{{
+
+  let g:nvim_typescript#diagnosticsEnable = 0
+
+" }}}
 
 Plug 'elmcast/elm-vim', { 'for': 'elm' }
 
@@ -213,7 +376,6 @@ Plug 'FrigoEU/psc-ide-vim', { 'for': 'purescript' }
 " CSS & co. {{{
 
 Plug 'hail2u/vim-css3-syntax', { 'for': ['css', 'scss'] }
-
 Plug 'groenewege/vim-less', { 'for': 'less' }
 
 " }}}
@@ -221,232 +383,39 @@ Plug 'groenewege/vim-less', { 'for': 'less' }
 
 Plug 'othree/html5.vim', { 'for': ['html', 'handlebars'] }
 Plug 'mattn/emmet-vim', { 'for': ['html', 'handlebars'] }
-
 Plug 'mustache/vim-mustache-handlebars', { 'for': 'handlebars' }
-
 Plug 'tpope/vim-markdown', { 'for': 'markdown' }
 
 " }}}
 " Python {{{
 
-Plug 'zchee/deoplete-jedi', { 'for': 'python' }
 Plug 'hynek/vim-python-pep8-indent'     " fix python indenting
-
-" }}}
-" C/C++ {{{
-
-Plug 'tweekmonster/deoplete-clang2', { 'for': ['c', 'cpp'] }
 
 " }}}
 " Miscellaneous {{{
 
 Plug 'wizicer/vim-jison', { 'for': 'yacc' }
-Plug 'lervag/vimtex', { 'for': 'tex' }
 Plug 'tmux-plugins/vim-tmux', { 'for': 'tmux' }
+Plug 'baabelfish/nvim-nim', { 'for': 'nim' }
+Plug 'vim-scripts/groovyindent-unix'
+Plug 'lervag/vimtex', { 'for': 'tex' } " {{{
+
+  let g:tex_flavor = 'latex'
+  let g:vimtex_view_method = 'zathura'
+  let g:vimtex_latexmk_progname = 'nvr'
 
 " }}}
-" End vim-plug {{{
+
+" }}}
 
 call plug#end()
 
 " }}}
+" Colorscheme -------------------------------------------------------------- {{{
 
-" }}}
-" Plugin Configuration ----------------------------------------------------- {{{
-
-" Airline {{{
-
-let g:airline_powerline_fonts = 1
-let g:airline_mode_map = {
-      \ '__' : '-',
-      \ 'n'  : 'N',
-      \ 'i'  : 'I',
-      \ 'R'  : 'R',
-      \ 'c'  : 'C',
-      \ 'v'  : 'V',
-      \ 'V'  : 'V',
-      \ 's'  : 'S',
-      \ 'S'  : 'S',
-      \ }
-let g:airline#extensions#obsession#enabled = 1
-let g:airline#extensions#obsession#indicator_text = '✔'
-let g:airline#extensions#taboo#enabled = 1
-let g:airline#extensions#ale#enabled = 1
-
-
-" }}}
-" ALE {{{
-
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-let g:ale_linters = {
-      \ 'cpp': ['cppcheck', 'cpplint', 'g++'],
-      \ }
-let g:ale_linter_aliases = {
-      \ 'typescriptreact': 'typescript',
-      \ }
-
-" }}}
-" bufexplorer {{{
-
-let g:bufExplorerShowRelativePath=1
-
-" }}}
-" ctrlp {{{
-
-let g:ctrlp_custom_ignore = {
-      \ 'dir': '\.git$\|\.\?tmp$\|node_modules$\|bower_components$\|coverage$',
-      \ 'file': '\.so$\|\.dat$\|\.DS_Store$'
-      \ }
-
-" }}}
-" delimitMate {{{
-
-let g:delimitMate_expand_space = 1
-let g:delimitMate_expand_cr = 1
-
-" }}}
-" Golden Ratio {{{
-
-" GR fucks up the text alignment when switching windows, so shift right on entry
-autocmd VimEnter * :autocmd WinEnter * :normal ze
-autocmd VimEnter * :autocmd WinEnter * :AirlineRefresh
-
-" }}}
-" Gundo {{{
-
-map <leader>g :GundoToggle<CR>
-
-" }}}
-" indent guides {{{
-
-let g:indent_guides_guide_size = 1
-let g:indent_guides_enable_on_vim_startup = 1
-let g:indent_guides_auto_colors = 0
-autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=gray15 ctermbg=235
-autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=gray10 ctermbg=236
-
-" }}}
-" jsdoc {{{
-
-let g:jsdoc_enable_es6 = 1
-nmap <silent> <C-l> ?function<cr>:noh<cr><Plug>(jsdoc)
-
-" }}}
-" LanguageClient-neovim {{{
-
-let g:LanguageClient_serverCommands = {
-      \ 'python': ['pyls'],
-      \ 'javascript': ['javascript-typescript-stdio'],
-      \ }
-
-" }}}
-" ncm2 {{{
-
-autocmd BufEnter * call ncm2#enable_for_buffer()
-set completeopt=noinsert,menuone,noselect
-
-" CTRL-C doesn't trigger the InsertLeave autocmd . map to <ESC> instead.
-inoremap <c-c> <ESC>
-
-" When the <Enter> key is pressed while the popup menu is visible, it only
-" hides the menu. Use this mapping to close the menu and also start a new
-" line.
-inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
-
-" Use <TAB> to select the popup menu:
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-
-" }}}
-" nvim-typescript {{{
-
-let g:nvim_typescript#diagnosticsEnable = 0
-let g:nvim_typescript#type_info_on_hold = 1
-
-" }}}
-" Taboo {{{
-
-nnoremap <leader>tr <Esc>:TabooRename<space>
-nnoremap <leader>to <Esc>:TabooOpen<space>
-let g:taboo_tab_format = " [%N %f]%m "
-let g:taboo_renamed_tab_format = " [%N %l]%m "
-set sessionoptions+=tabpages
-set sessionoptions+=globals
-
-" }}}
-" Tagbar {{{
-
-nmap <leader>T :TagbarOpenAutoClose<cr>
-
-" }}}
-" vim-autoformat {{{
-
-noremap <leader>} :Autoformat<cr><cr>
-
-" }}}
-" vim-javascript {{{
-
-let g:javascript_plugin_jsdoc = 1
-
-" }}}
-" vim-jsx {{{
-
-let g:vim_jsx_pretty_colorful_config = 1
-let g:jsx_ext_required = 0
-
-" }}}
-" vim-obsession {{{
-
-let g:airline_section_z = airline#section#create(['%{ObsessionStatus(''$'', '''')}', 'windowswap', '%3p%% ', 'linenr', ':%3v '])
-
-" }}}
-" vim-over {{{
-
-function! VisualFindAndReplace()
-    :OverCommandLine%s/
-    :w
-endfunction
-function! VisualFindAndReplaceWithSelection() range
-    :'<,'>OverCommandLine s/
-    :w
-endfunction
-
-nnoremap <Leader>fr :call VisualFindAndReplace()<CR>
-xnoremap <Leader>fr :call VisualFindAndReplaceWithSelection()<CR>
-
-" }}}
-" vim-prettier {{{
-
-let g:prettier#autoformat = 0
-autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue PrettierAsync
-
-" }}}
-" vim-vinegar {{{
-
-" not really vinegar's fault, but netrw takes over last buffer, which is awkward
-" behaviour; this fixes it
-let g:netrw_altfile = 1
-
-" }}}
-" vimtex {{{
-
-let g:tex_flavor = 'latex'
-let g:vimtex_view_method = 'zathura'
-let g:vimtex_latexmk_progname = 'nvr'
-
-" }}}
-
-" }}}
-" Color scheme ------------------------------------------------------------- {{{
-
-" let g:gruvbox_italic=1
 set termguicolors
 colorscheme onedark
 set background=dark
-
-" Highlight VCS conflict markers
-match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 
 " }}}
 " Convenience mappings ----------------------------------------------------- {{{
@@ -470,10 +439,11 @@ endfunction
 nnoremap <leader><Tab> :call ToggleIndent()<CR>
 
 function! ReloadConfig()
-  execute "!dots install"
-  source /home/skeate/.config/nvim/init.vim
+  silent !dots install
+  source $XDG_CONFIG_HOME/nvim/init.vim
   PlugInstall
   PlugUpdate
+  UpdateRemotePlugins
 endfunction
 nnoremap <leader><leader>v :call ReloadConfig()<CR>
 
@@ -609,6 +579,7 @@ command! -bang Wa wa<bang>
 command! -bang WA wa<bang>
 command! -bang Wq wq<bang>
 command! -bang WQ wq<bang>
+command! -bang Vsp vsp<bang>
 
 " Toggle paste
 " For some reason pastetoggle doesn't redraw the screen (thus the status bar
