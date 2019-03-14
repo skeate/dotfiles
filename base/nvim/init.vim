@@ -216,7 +216,7 @@ Plug 'osyo-manga/vim-over' " {{{
 Plug 'Shougo/echodoc.vim' " {{{
 
   let g:echodoc#enable_at_startup = 1
-  " let g:echodoc#type = "virtual"
+  let g:echodoc#type = "virtual"
 
 " }}}
 
@@ -279,6 +279,7 @@ Plug 'w0rp/ale' " {{{
   let g:ale_linter_aliases = {
         \ 'typescriptreact': 'typescript',
         \ }
+  let g:ale_virtualtext_cursor = 1
 
 " }}}
 
@@ -305,6 +306,15 @@ Plug 'ncm2/ncm2' " {{{
             \ 'whitelist': ['python'],
             \ })
     endif
+    if executable('cquery')
+      au User lsp_setup call lsp#register_server({
+          \ 'name': 'cquery',
+          \ 'cmd': {server_info->['cquery']},
+          \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
+          \ 'initialization_options': { 'cacheDirectory': '/tmp/cquery/cache' },
+          \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
+          \ })
+    endif
     " if executable('typescript-language-server')
     "   au User lsp_setup call lsp#register_server({
     "         \ 'name': 'tls',
@@ -317,6 +327,7 @@ Plug 'ncm2/ncm2' " {{{
   " }}}
   Plug 'ncm2/ncm2-vim-lsp'
   Plug 'ncm2/ncm2-bufword'
+  Plug 'ncm2/ncm2-path'
   Plug 'filipekiss/ncm2-look.vim' " dictionary completion
   Plug 'Shougo/neco-syntax' | Plug 'ncm2/ncm2-syntax'
 
@@ -398,11 +409,17 @@ Plug 'wizicer/vim-jison', { 'for': 'yacc' }
 Plug 'tmux-plugins/vim-tmux', { 'for': 'tmux' }
 Plug 'baabelfish/nvim-nim', { 'for': 'nim' }
 Plug 'vim-scripts/groovyindent-unix'
+Plug 'ncm2/ncm2-pyclang' " {{{
+
+  let g:ncm2_pyclang#library_path = '/usr/lib/libclang.so'
+
+" }}}
 Plug 'lervag/vimtex', { 'for': 'tex' } " {{{
 
   let g:tex_flavor = 'latex'
-  let g:vimtex_view_method = 'zathura'
-  let g:vimtex_latexmk_progname = 'nvr'
+  let g:vimtex_view_method = 'mupdf'
+  let g:vimtex_compiler_progname = 'nvr'
+  let g:vimtex_compiler_method = 'latexmk'
 
 " }}}
 
