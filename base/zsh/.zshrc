@@ -16,33 +16,23 @@ fi
 source $XDG_DATA_HOME/zsh/zgen/zgen.zsh
 
 # }}}
-# Z ------------------------------------------------------------------------ {{{
-
-if [[ ! -f $XDG_DATA_HOME/zsh/z.sh ]]; then
-  echo " ** z not found **"
-  echo "Downloading z..."
-  curl -L https://raw.githubusercontent.com/rupa/z/master/z.sh \
-    > $XDG_DATA_HOME/zsh/z.sh
-fi
-#source $XDG_DATA_HOME/zsh/z.sh
-
-# }}}
 # Plugins ------------------------------------------------------------------ {{{
+
+zstyle :omz:plugins:ssh-agent agent-forwarding on
+zstyle :omz:plugins:ssh-agent identities id_rsa id_router mosh_rsa github_id_rsa
 
 if ! zgen saved; then
   zgen oh-my-zsh
 
   zgen oh-my-zsh plugins/git
-  zgen oh-my-zsh plugins/git-extras
   zgen oh-my-zsh plugins/gitfast
-  zgen oh-my-zsh plugins/node
+  zgen oh-my-zsh plugins/git-extras
   zgen oh-my-zsh plugins/npm
   zgen oh-my-zsh plugins/ssh-agent
   zgen oh-my-zsh plugins/sudo
-  zgen oh-my-zsh plugins/dircycle
   zgen oh-my-zsh plugins/systemd
+  zgen oh-my-zsh plugins/tmux
 
-  zgen load sharat87/autoenv # auto-execs .env files when CDing into dir
   zgen load zsh-users/zsh-syntax-highlighting
   zgen load zsh-users/zsh-completions src
 
@@ -50,9 +40,6 @@ if ! zgen saved; then
 
   zgen save
 fi
-
-zstyle :omz:plugins:ssh-agent agent-forwarding on
-zstyle :omz:plugins:ssh-agent identities id_rsa id_router mosh_rsa github_id_rsa
 
 # }}}
 # Path Config -------------------------------------------------------------- {{{
@@ -77,27 +64,34 @@ eval "$(npm completion)"
 # }}}
 # NVM {{{
 
-sourceIfExists $XDG_DATA_HOME/nvm/nvm.sh
-sourceIfExists /usr/share/nvm/nvm.sh
-nvm use stable
-autoload -U add-zsh-hook
-load-nvmrc() {
-  local node_version="$(nvm version)"
-  local nvmrc_path="$(nvm_find_nvmrc)"
-
-  if [ -n "$nvmrc_path" ]; then
-    local nvm_rc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
-
-    if [ "$nvmrc_node_version" != "N/A" ] && [ "$nvmrc_node_version" != "$node_version" ]; then
-      nvm use
-    fi
-  elif [ "$node_version" != "$(nvm version default)" ]; then
-    echo "Reverting to nvm default version"
-    nvm use default
-  fi
+# https://medium.com/@dannysmith/little-thing-2-speeding-up-zsh-f1860390f92
+nvm() {
+  echo "🚨 NVM not loaded! Loading now..."
+  unset -f nvm
+  sourceIfExists $XDG_DATA_HOME/nvm/nvm.sh
+  sourceIfExists /usr/share/nvm/nvm.sh
+  nvm "$@"
 }
-add-zsh-hook chpwd load-nvmrc
-load-nvmrc
+
+# commented out because this makes cd incredibly slow
+# autoload -U add-zsh-hook
+# load-nvmrc() {
+#   local node_version="$(nvm version)"
+#   local nvmrc_path="$(nvm_find_nvmrc)"
+
+#   if [ -n "$nvmrc_path" ]; then
+#     local nvm_rc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
+
+#     if [ "$nvmrc_node_version" != "N/A" ] && [ "$nvmrc_node_version" != "$node_version" ]; then
+#       nvm use
+#     fi
+#   elif [ "$node_version" != "$(nvm version default)" ]; then
+#     echo "Reverting to nvm default version"
+#     nvm use default
+#   fi
+# }
+# add-zsh-hook chpwd load-nvmrc
+# load-nvmrc
 
 # }}}
 # Misc Settings ------------------------------------------------------------ {{{
@@ -154,13 +148,5 @@ codi() {
 # Aliases ------------------------------------------------------------------ {{{
 
 sourceIfExists $XDG_CONFIG_HOME/zsh/aliases
-
-# }}}
-# SSH Agent ---------------------------------------------------------------- {{{
-
-if [ -z "$SSH_AUTH_SOCK" ] ; then
-  eval `ssh-agent -s`
-  ssh-add
-fi
 
 # }}}
