@@ -143,11 +143,9 @@ call plug#begin(expand('$XDG_DATA_HOME/nvim/plugged/'))
 " Misc
 Plug 'tpope/vim-sensible'               " sensible defaults
 Plug 'tpope/vim-repeat'                 " fix . repeating for plugins
-" Plug 'tpope/vim-obsession'              " session management
 Plug 'tpope/vim-unimpaired'             " add pairwise operators with [x ]x
 Plug 'tpope/vim-commentary'             " gc comment command
 Plug 'terryma/vim-multiple-cursors'     " multiple cursors with <c-n>
-" Plug 'jiangmiao/auto-pairs'
 Plug 'sheerun/vim-polyglot'
 Plug 'metakirby5/codi.vim'
 Plug 'thaerkh/vim-indentguides'
@@ -175,8 +173,6 @@ Plug 'bling/vim-airline' " {{{
         \ 's'  : 'S',
         \ 'S'  : 'S',
         \ }
-  " let g:airline#extensions#obsession#enabled = 1
-  " let g:airline#extensions#obsession#indicator_text = '✔'
   let g:airline#extensions#taboo#enabled = 1
   let g:airline#extensions#ale#enabled = 1
 
@@ -283,67 +279,37 @@ Plug 'w0rp/ale' " {{{
 " }}}
 
 " Colorscheme
-" Plug 'morhetz/gruvbox'
 Plug 'joshdick/onedark.vim'
 
 " Completion
-Plug 'ncm2/ncm2' " {{{
+Plug 'neoclide/coc.nvim', {'branch': 'release'} " {{{
 
-  " Deps:
-  Plug 'roxma/nvim-yarp'
-  " Plug 'SirVer/ultisnips' " for ncm2-ultisnips
+  " use <tab> for trigger completion and navigate to the next complete item
+  function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+  endfunction
 
-  " General Plugins:
-  " Plug 'ncm2/ncm2-ultisnips'
-  Plug 'prabirshrestha/async.vim'
-  Plug 'prabirshrestha/vim-lsp' " {{{
-
-    if executable('pyls')
-      au User lsp_setup call lsp#register_server({
-            \ 'name': 'pyls',
-            \ 'cmd': {server_info->['pyls']},
-            \ 'whitelist': ['python'],
-            \ })
-    endif
-    if executable('cquery')
-      au User lsp_setup call lsp#register_server({
-          \ 'name': 'cquery',
-          \ 'cmd': {server_info->['cquery']},
-          \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
-          \ 'initialization_options': { 'cacheDirectory': '/tmp/cquery/cache' },
-          \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
-          \ })
-    endif
-    " if executable('typescript-language-server')
-    "   au User lsp_setup call lsp#register_server({
-    "         \ 'name': 'tls',
-    "         \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
-    "         \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
-    "         \ 'whitelist': ['typescript', 'javascript', 'typescript.tsx'],
-    "         \ })
-    " endif
-
-  " }}}
-  Plug 'ncm2/ncm2-vim-lsp'
-  Plug 'ncm2/ncm2-bufword'
-  Plug 'ncm2/ncm2-path'
-  Plug 'filipekiss/ncm2-look.vim' " dictionary completion
-  Plug 'Shougo/neco-syntax' | Plug 'ncm2/ncm2-syntax'
-
-  autocmd BufEnter * call ncm2#enable_for_buffer()
-  set completeopt=noinsert,menuone,noselect,preview
-
-  " CTRL-C doesn't trigger the InsertLeave autocmd . map to <ESC> instead.
-  inoremap <c-c> <ESC>
-
-  " When the <Enter> key is pressed while the popup menu is visible, it only
-  " hides the menu. Use this mapping to close the menu and also start a new
-  " line.
-  inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
-
-  " Use <TAB> to select the popup menu:
-  inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+  inoremap <silent><expr> <Tab>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<Tab>" :
+      \ coc#refresh()
   inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+  inoremap <expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
+
+  let g:coc_global_extensions = [
+        \ 'coc-snippets',
+        \ 'coc-json',
+        \ 'coc-tsserver',
+        \ 'coc-css',
+        \ 'coc-yaml',
+        \ 'coc-python',
+        \ 'coc-highlight',
+        \ 'coc-git',
+        \ 'coc-svg',
+        \ 'coc-vimlsp',
+        \ 'coc-jest',
+        \ ]
 
 " }}}
 
@@ -369,13 +335,6 @@ Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 Plug 'elzr/vim-json', { 'for': 'json' }
 
 Plug 'HerringtonDarkholme/yats.vim', { 'for': ['typescript', 'typescriptreact'] }
-Plug 'mhartington/nvim-typescript', { 'do': 'sh install.sh' } " {{{
-
-  let g:nvim_typescript#diagnosticsEnable = 0
-
-" }}}
-
-Plug 'elmcast/elm-vim', { 'for': 'elm' }
 
 " only syntax checker supported right now
 Plug 'vim-syntastic/syntastic', { 'for': 'purescript' }
@@ -408,11 +367,6 @@ Plug 'wizicer/vim-jison', { 'for': 'yacc' }
 Plug 'tmux-plugins/vim-tmux', { 'for': 'tmux' }
 Plug 'baabelfish/nvim-nim', { 'for': 'nim' }
 Plug 'vim-scripts/groovyindent-unix'
-Plug 'ncm2/ncm2-pyclang' " {{{
-
-  let g:ncm2_pyclang#library_path = '/usr/lib/libclang.so'
-
-" }}}
 Plug 'lervag/vimtex', { 'for': 'tex' } " {{{
 
   let g:tex_flavor = 'latex'
@@ -429,7 +383,28 @@ call plug#end()
 " }}}
 " Colorscheme -------------------------------------------------------------- {{{
 
+let g:onedark_terminal_italics=1
 set termguicolors
+
+let colors = onedark#GetColors()
+
+if (has("autocmd"))
+  augroup colorextend
+    autocmd!
+
+    autocmd ColorScheme * call onedark#set_highlight("jsxAttrib", {
+          \ "fg": colors.yellow,
+          \ "cterm": "italic",
+          \ "gui": "italic"
+          \ })
+    autocmd ColorScheme * call onedark#set_highlight("typescriptIdentifier", {
+          \ "fg": colors.red,
+          \ "cterm": "italic",
+          \ "gui": "italic"
+          \ })
+  augroup END
+endif
+
 colorscheme onedark
 set background=dark
 
@@ -481,6 +456,9 @@ nnoremap M K
 
 " Toggle line numbers
 nnoremap <leader>n :setlocal number!<cr>
+
+" Format
+nnoremap <leader>p :Prettier<cr>
 
 " Sort lines
 nnoremap <leader>s vip:!sort<cr>
@@ -624,6 +602,23 @@ nnoremap U :syntax sync fromstart<cr>:redraw!<cr>
 nnoremap zl :let @z=@"<cr>x$p:let @"=@z<cr>
 
 nmap <leader>a gLi{:
+
+nmap <localleader>r <Plug>(coc-references)
+nmap <localleader>d <Plug>(coc-definition)
+nmap <localleader>t <Plug>(coc-type-definition)
+nmap <localleader>R <Plug>(coc-rename)
+nmap <localleader>f :call CocAction('quickfixes')<CR>
+nmap <localleader>a :call CocAction('codeActions')<CR>
+nmap <localleader>l :call CocAction('codeLensAction')<CR>
+nmap <localleader>i :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim', 'help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocActionAsync('doHover')
+  endif
+endfunction
 
 " }}}
 " Quick editing ------------------------------------------------------------ {{{
@@ -778,16 +773,7 @@ augroup ft_c
 augroup END
 
 " }}}
-" Coffeescript {{{
-
-" Include :Coffee commands in litcoffee files
-autocmd FileType litcoffee runtime ftplugin/coffee.vim
-" Use indent folding
-autocmd BufNewFile,BufReadPost *.coffee setl foldmethod=indent
-autocmd BufNewFile,BufReadPost *.litcoffee setl foldmethod=indent
-
-" }}}
-" CSS and Sass {{{
+" CSS, Sass, and LESS {{{
 
 augroup ft_css
     au!
@@ -817,6 +803,8 @@ augroup ft_css
     "     }
     au BufNewFile,BufRead *.scss,*.sass,*.css nnoremap <buffer>
           \ <localleader>S ?{<CR>jV/\v^\s*\}?$<CR>k:sort<CR>:noh<CR>
+
+    au BufNewFile,BufRead *.variables,*.overrides set ft=less
 augroup END
 
 " }}}
@@ -846,7 +834,6 @@ augroup ft_javascript
   au!
 
   au BufNewFile,BufReadPost *.js setl foldmethod=indent
-  "au BufEnter *.js call TextEnableCodeSnip('html', 'html`', '`;', 'Keyword')
 augroup END
 
 " }}}
@@ -870,17 +857,7 @@ augroup vim
 
   au BufRead init.vim setlocal foldlevel=0
   au BufRead init.vim setlocal fdm=marker
-
 augroup END
-
-" }}}
-" Typescript {{{
-
-" augroup typescript
-"   au!
-
-"   au BufRead *.tsx setlocal ft=typescript
-" augroup END
 
 " }}}
 
@@ -1211,21 +1188,9 @@ function! TextEnableCodeSnip(filetype, start, end, textSnipHl) abort
   \ ' contains=@' . group
 endfunction
 
-map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-      \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-      \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
-
 " }}}
 
 " }}}
-" GUI/Terminal settings ---------------------------------------------------- {{{
-
-if(has('gui_running'))
-  set guioptions= " disable all guioptions
-  set guifont=Inconsolata\ for\ Powerline:h11
-endif
-
-"}}}
 " OS-specific settings ----------------------------------------------------- {{{
 
 if has("win32")
@@ -1235,8 +1200,6 @@ else
     let s:uname = system("uname")
     if s:uname == "Darwin\n"
       " Mac options here
-      " Inconsolata is a bit small on osx
-      set guifont=Inconsolata\ for\ Powerline:h13
       let g:python_host_prog = '/usr/local/bin/python2'
       let g:python3_host_prog = '/usr/local/bin/python3'
     else
