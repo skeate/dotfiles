@@ -36,7 +36,7 @@ if ! zgen saved; then
   zgen load zsh-users/zsh-syntax-highlighting
   zgen load zsh-users/zsh-completions src
 
-  zgen oh-my-zsh themes/ys
+  zgen load romkatv/powerlevel10k powerlevel10k
 
   zgen save
 fi
@@ -83,7 +83,6 @@ export PROJECT_HOME=$HOME/Code
 sourceIfExists /usr/bin/virtualenvwrapper.sh
 
 eval "$(thefuck --alias)"
-[[ $(</proc/$PPID/cmdline) == *qterminal* ]] && export TERM="xterm-256color"
 
 function nvim() {
   if test $# -gt 0; then
