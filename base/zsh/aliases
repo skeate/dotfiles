@@ -20,3 +20,11 @@ map()
 }
 
 alias pi='map "psc-package install"'
+
+alias please='sudo'
+
+alias psrepl='pushd $(mktemp -d)\
+  && tmux new-session \; \
+      split-window -h -l 80 \; \
+      select-pane -t 0 \; \
+      send-keys "spago init && spago install psci-support && spago repl && tmux kill-session && popd" C-m \;'
