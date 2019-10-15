@@ -64,34 +64,10 @@ eval "$(npm completion)"
 # }}}
 # NVM {{{
 
-# https://medium.com/@dannysmith/little-thing-2-speeding-up-zsh-f1860390f92
-nvm() {
-  echo "🚨 NVM not loaded! Loading now..."
-  unset -f nvm
-  sourceIfExists $XDG_DATA_HOME/nvm/nvm.sh
-  sourceIfExists /usr/share/nvm/nvm.sh
-  nvm "$@"
-}
+sourceIfExists $XDG_DATA_HOME/nvm/nvm.sh
+sourceIfExists /usr/share/nvm/nvm.sh
 
-# commented out because this makes cd incredibly slow
-# autoload -U add-zsh-hook
-# load-nvmrc() {
-#   local node_version="$(nvm version)"
-#   local nvmrc_path="$(nvm_find_nvmrc)"
-
-#   if [ -n "$nvmrc_path" ]; then
-#     local nvm_rc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
-
-#     if [ "$nvmrc_node_version" != "N/A" ] && [ "$nvmrc_node_version" != "$node_version" ]; then
-#       nvm use
-#     fi
-#   elif [ "$node_version" != "$(nvm version default)" ]; then
-#     echo "Reverting to nvm default version"
-#     nvm use default
-#   fi
-# }
-# add-zsh-hook chpwd load-nvmrc
-# load-nvmrc
+nvm use stable
 
 # }}}
 # Misc Settings ------------------------------------------------------------ {{{
