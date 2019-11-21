@@ -1,1 +1,1 @@
-export VAGRANT_HOME=/media/.vagrant.d
+export VAGRANT_HOME=/home/skeate/media/.vagrant.d

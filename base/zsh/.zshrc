@@ -49,17 +49,11 @@ export PATH="$PATH:$GEM_HOME/bin"
 export PATH="$PATH:$HOME/.local/lib/nodejs/bin"
 
 # }}}
-# Completions -------------------------------------------------------------- {{{
+# misc {{{
 
-autoload bashcompinit
-bashcompinit
 sourceIfExists() {
   [ -s $1 ] && . $1
 }
-sourceIfExists $XDG_DATA_HOME/nvm/bash_completion
-sourceIfExists /usr/share/nvm/bash_completion
-sourceIfExists ~/.local/lib/dots/contrib/bash_completion
-eval "$(npm completion)"
 
 # }}}
 # NVM {{{
@@ -68,6 +62,16 @@ sourceIfExists $XDG_DATA_HOME/nvm/nvm.sh
 sourceIfExists /usr/share/nvm/nvm.sh
 
 nvm use stable
+
+# }}}
+# Completions -------------------------------------------------------------- {{{
+
+autoload bashcompinit
+bashcompinit
+sourceIfExists $XDG_DATA_HOME/nvm/bash_completion
+sourceIfExists /usr/share/nvm/bash_completion
+sourceIfExists ~/.local/lib/dots/contrib/bash_completion
+eval "$(npm completion)"
 
 # }}}
 # Misc Settings ------------------------------------------------------------ {{{
@@ -81,8 +85,6 @@ mkdir -p $XDG_DATA_HOME/virtualenvs
 export WORKON_HOME=$XDG_DATA_HOME/virtualenvs
 export PROJECT_HOME=$HOME/Code
 sourceIfExists /usr/bin/virtualenvwrapper.sh
-
-eval "$(thefuck --alias)"
 
 function nvim() {
   if test $# -gt 0; then
