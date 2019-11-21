@@ -36,7 +36,7 @@ if ! zgen saved; then
   zgen load zsh-users/zsh-syntax-highlighting
   zgen load zsh-users/zsh-completions src
 
-  zgen load romkatv/powerlevel10k powerlevel10k
+  zgen oh-my-zsh themes/ys
 
   zgen save
 fi
