@@ -146,7 +146,11 @@ Plug 'tpope/vim-repeat'                 " fix . repeating for plugins
 Plug 'tpope/vim-unimpaired'             " add pairwise operators with [x ]x
 Plug 'tpope/vim-commentary'             " gc comment command
 Plug 'terryma/vim-multiple-cursors'     " multiple cursors with <c-n>
-Plug 'sheerun/vim-polyglot'
+Plug 'sheerun/vim-polyglot' " {{{
+
+  let g:polyglot_disabled = ['latex']
+
+" }}}
 Plug 'metakirby5/codi.vim'
 Plug 'thaerkh/vim-indentguides'
 Plug 'gcmt/taboo.vim' " {{{
