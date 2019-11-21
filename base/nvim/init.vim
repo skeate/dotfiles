@@ -278,7 +278,10 @@ Plug 'w0rp/ale' " {{{
   let g:ale_linter_aliases = {
         \ 'typescriptreact': 'typescript',
         \ }
-  let g:ale_virtualtext_cursor = 1
+  let g:ale_virtualtext_cursor = 0
+  let g:ale_fixers = {
+        \ 'python': ['black'],
+        \ }
 
 " }}}
 
