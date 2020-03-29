@@ -28,6 +28,7 @@ if ! zgen saved; then
   zgen oh-my-zsh plugins/gitfast
   zgen oh-my-zsh plugins/git-extras
   zgen oh-my-zsh plugins/npm
+  zgen oh-my-zsh plugins/rbenv
   zgen oh-my-zsh plugins/ssh-agent
   zgen oh-my-zsh plugins/sudo
   zgen oh-my-zsh plugins/systemd
@@ -127,3 +128,7 @@ codi() {
 sourceIfExists $XDG_CONFIG_HOME/zsh/aliases
 
 # }}}
+
+# tabtab source for pnpm package
+# uninstall by removing these lines
+[[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true

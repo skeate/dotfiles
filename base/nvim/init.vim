@@ -260,30 +260,6 @@ Plug 'tommcdo/vim-lion'                 " align to character
 
 " Formatting/Linting
 Plug 'editorconfig/editorconfig-vim'    " editor config reader
-Plug 'prettier/vim-prettier', {
-      \ 'do': 'npm install',
-      \ 'for': ['javascript', 'typescript', 'typescript.tsx', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue']
-      \ }
-" {{{
-
-  let g:prettier#autoformat = 0
-
-" }}}
-Plug 'w0rp/ale' " {{{
-
-  let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-  let g:ale_linters = {
-        \ 'cpp': ['cppcheck', 'cpplint', 'g++'],
-        \ }
-  let g:ale_linter_aliases = {
-        \ 'typescriptreact': 'typescript',
-        \ }
-  let g:ale_virtualtext_cursor = 0
-  let g:ale_fixers = {
-        \ 'python': ['black'],
-        \ }
-
-" }}}
 
 " Colorscheme
 Plug 'joshdick/onedark.vim'
@@ -297,6 +273,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'} " {{{
     return !col || getline('.')[col - 1]  =~ '\s'
   endfunction
 
+  inoremap <silent><expr> <c-space> coc#refresh()
   inoremap <silent><expr> <Tab>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<Tab>" :
@@ -305,6 +282,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'} " {{{
   inoremap <expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
 
   let g:coc_global_extensions = [
+        \ 'coc-actions',
         \ 'coc-snippets',
         \ 'coc-json',
         \ 'coc-tsserver',
@@ -312,11 +290,54 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'} " {{{
         \ 'coc-yaml',
         \ 'coc-python',
         \ 'coc-highlight',
+        \ 'coc-marketplace',
         \ 'coc-git',
         \ 'coc-svg',
         \ 'coc-vimlsp',
         \ 'coc-jest',
+        \ 'coc-prettier',
         \ ]
+
+  nmap <silent> [g <Plug>(coc-diagnostic-prev)
+  nmap <silent> ]g <Plug>(coc-diagnostic-next)
+  nmap <silent> <localleader>r <Plug>(coc-references)
+  nmap <silent> <localleader>d <Plug>(coc-definition)
+  nmap <silent> <localleader>t <Plug>(coc-type-definition)
+  nmap <silent> <localleader>i <Plug>(coc-implementation)
+  nmap <silent> <localleader>R <Plug>(coc-rename)
+  nmap <silent> <localleader>f :call CocAction('quickfixes')<CR>
+  nmap <silent> <localleader>l :call CocAction('codeLensAction')<CR>
+
+  nmap <silent> K :call <SID>show_documentation()<CR>
+
+  function! s:show_documentation()
+    if (index(['vim', 'help'], &filetype) >= 0)
+      execute 'h '.expand('<cword>')
+    else
+      call CocActionAsync('doHover')
+    endif
+  endfunction
+
+  autocmd CursorHold * silent call CocActionAsync('highlight')
+
+  xmap if <Plug>(coc-funcobj-i)
+  xmap af <Plug>(coc-funcobj-a)
+  omap if <Plug>(coc-funcobj-i)
+  omap af <Plug>(coc-funcobj-a)
+
+  nmap <silent> <TAB> <Plug>(coc-range-select)
+  xmap <silent> <TAB> <Plug>(coc-range-select)
+
+  " Remap for do codeAction of selected region
+  function! s:cocActionsOpenFromSelected(type) abort
+    execute 'CocCommand actions.open ' . a:type
+  endfunction
+  xmap <silent> <localleader>a :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
+  nmap <silent> <localleader>a :<C-u>set operatorfunc=<SID>cocActionsOpenFromSelected<CR>g@
+
+  command! -nargs=0 Prettier :CocCommand prettier.formatFile
+  vmap <leader>f  <Plug>(coc-format-selected)
+  nmap <leader>f  <Plug>(coc-format-selected)
 
 " }}}
 
@@ -454,12 +475,6 @@ noremap Y y$
 " Fuck you, help key.
 noremap  <F1> :checktime<cr>
 inoremap <F1> <esc>:checktime<cr>
-
-" Kill window
-nnoremap K :q<cr>
-
-" Man
-nnoremap M K
 
 " Toggle line numbers
 nnoremap <leader>n :setlocal number!<cr>
@@ -609,23 +624,6 @@ nnoremap U :syntax sync fromstart<cr>:redraw!<cr>
 nnoremap zl :let @z=@"<cr>x$p:let @"=@z<cr>
 
 nmap <leader>a gLi{:
-
-nmap <localleader>r <Plug>(coc-references)
-nmap <localleader>d <Plug>(coc-definition)
-nmap <localleader>t <Plug>(coc-type-definition)
-nmap <localleader>R <Plug>(coc-rename)
-nmap <localleader>f :call CocAction('quickfixes')<CR>
-nmap <localleader>a :call CocAction('codeActions')<CR>
-nmap <localleader>l :call CocAction('codeLensAction')<CR>
-nmap <localleader>i :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if (index(['vim', 'help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocActionAsync('doHover')
-  endif
-endfunction
 
 " }}}
 " Quick editing ------------------------------------------------------------ {{{
