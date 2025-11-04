@@ -11,7 +11,7 @@ if [[ ! -f $XDG_DATA_HOME/zsh/zgen/zgen.zsh ]]; then
   echo "Making $XDG_DATA_HOME/zsh if it doesn't exist..."
   mkdir -p $XDG_DATA_HOME/zsh
   echo "Downloading zgen..."
-  git clone https://github.com/tarjoilija/zgen.git $XDG_DATA_HOME/zsh/zgen
+  git clone https://github.com/jandamm/zgenom.git $XDG_DATA_HOME/zsh/zgen
 fi
 source $XDG_DATA_HOME/zsh/zgen/zgen.zsh
 
@@ -19,7 +19,7 @@ source $XDG_DATA_HOME/zsh/zgen/zgen.zsh
 # Plugins ------------------------------------------------------------------ {{{
 
 zstyle :omz:plugins:ssh-agent agent-forwarding on
-zstyle :omz:plugins:ssh-agent identities id_rsa id_router mosh_rsa github_id_rsa
+zstyle :omz:plugins:ssh-agent identities id_rsa mosh_rsa
 
 if ! zgen saved; then
   zgen oh-my-zsh
@@ -28,7 +28,10 @@ if ! zgen saved; then
   zgen oh-my-zsh plugins/gitfast
   zgen oh-my-zsh plugins/git-extras
   zgen oh-my-zsh plugins/npm
-  zgen oh-my-zsh plugins/rbenv
+  zgen oh-my-zsh plugins/asdf
+  zgen oh-my-zsh plugins/kubectl
+  zgen load mafredri/zsh-async . main
+  zgen load jscutlery/nx-completion . main
   zgen oh-my-zsh plugins/ssh-agent
   zgen oh-my-zsh plugins/sudo
   zgen oh-my-zsh plugins/systemd
@@ -46,7 +49,6 @@ fi
 # Path Config -------------------------------------------------------------- {{{
 
 export PATH="$HOME/.local/bin:$PATH"
-export PATH="$PATH:$GEM_HOME/bin"
 export PATH="$PATH:$HOME/.local/lib/nodejs/bin"
 
 # }}}
@@ -57,22 +59,11 @@ sourceIfExists() {
 }
 
 # }}}
-# NVM {{{
-
-sourceIfExists $XDG_DATA_HOME/nvm/nvm.sh
-sourceIfExists /usr/share/nvm/nvm.sh
-
-nvm use stable
-
-# }}}
 # Completions -------------------------------------------------------------- {{{
 
 autoload bashcompinit
 bashcompinit
-sourceIfExists $XDG_DATA_HOME/nvm/bash_completion
-sourceIfExists /usr/share/nvm/bash_completion
 sourceIfExists ~/.local/lib/dots/contrib/bash_completion
-eval "$(npm completion)"
 
 # }}}
 # Misc Settings ------------------------------------------------------------ {{{

@@ -102,9 +102,10 @@ set colorcolumn=+1
 set backup
 set noswapfile
 
-set directory=$XDG_CACHE_HOME/nvim/swap//   " swap files
-set undodir=$XDG_CACHE_HOME/nvim/undo//     " undo files
-set backupdir=$XDG_CACHE_HOME/nvim/backup// " backups
+let cache = system("echo -n ${XDG_CACHE_HOME:-$HOME/.cache}")
+let &directory = cache . "/nvim/swap//"   " swap files
+let &undodir = cache . "/nvim/undo//"     " undo files
+let &backupdir = cache . "/nvim/backup//" " backups
 
 " Make those folders automatically if they don't already exist.
 if !isdirectory(expand(&undodir))

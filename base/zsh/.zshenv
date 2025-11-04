@@ -13,19 +13,8 @@ then
   export ACK_PAGER_COLOR="less -x4SRFX"
 fi
 
-if hash gem 2> /dev/null
-then
-  export GEMRC="$XDG_CONFIG_HOME/gemrc/config"
-  export GEM_HOME="$HOME/.local/lib/ruby/gems/$(ruby -e 'puts RbConfig::CONFIG["ruby_version"]')"
-  export GEM_SPEC_CACHE="$XDG_CACHE_HOME/gem/specs"
-fi
-
-if hash npm 2> /dev/null
-then
-  export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
-fi
-
 export LESSHISTFILE="$XDG_CACHE_HOME/less_history"
 
 export NVM_DIR="$XDG_DATA_HOME/nvm"
-export PATH="$PATH:$NVM_DIR"
+export CARGO_DIR="$HOME/.cargo/bin"
+export PATH="$PATH:$NVM_DIR:$CARGO_DIR"
